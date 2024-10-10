@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# quackingllama
+# quackingllama <img src="man/figures/logo.png" align="right" height="240" alt="quackingllama logo - A llama with a duck mask in a hexagon" />
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -27,7 +27,7 @@ Coming soon.
 
 ## Installation
 
-You can install the development version of quackingllama from [GitHub](https://github.com/) with:
+You can install the development version of `quackingllama` from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
@@ -39,6 +39,9 @@ pak::pak("giocomai/quackingllama")
 
 ```{r example}
 library(quackingllama)
-## basic example code
 ```
 
+
+### About the hex logo
+
+In the logo you may or may not recognise a quacking llama, or mayb, just a llama wearing a duck mask. Generated on my machine with `stablediffusion`.

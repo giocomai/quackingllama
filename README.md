@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# quackingllama
+# quackingllama <img src="man/figures/logo.png" align="right" height="240" alt="quackingllama logo - A llama with a duck mask in a hexagon" />
 
 <!-- badges: start -->
 
@@ -20,7 +20,7 @@ Coming soon.
 
 ## Installation
 
-You can install the development version of quackingllama from
+You can install the development version of `quackingllama` from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -32,5 +32,10 @@ pak::pak("giocomai/quackingllama")
 
 ``` r
 library(quackingllama)
-## basic example code
 ```
+
+### About the hex logo
+
+In the logo you may or may not recognise a quacking llama, or mayb, just
+a llama wearing a duck mask. Generated on my machine with
+`stablediffusion`.
