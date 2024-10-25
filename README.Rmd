@@ -38,10 +38,10 @@ pak::pak("giocomai/quackingllama")
 
 
 ```{r example}
-library(quackingllama)
+library("quackingllama")
 ```
 
 
 ### About the hex logo
 
-In the logo you may or may not recognise a quacking llama, or mayb, just a llama wearing a duck mask. Generated on my machine with `stablediffusion`.
+In the logo you may or may not recognise a quacking llama, or maybe, just a llama wearing a duck mask. The reference is obviously to two of the main tools used by this package: [`ollama`](https://ollama.com/) and [`DuckDB`](https://duckdb.org/docs/api/r.html). Image generated on my machine with `stablediffusion`.
