@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-qt_generate <- function(prompt,
+ql_generate <- function(prompt,
                         system = "You are a helpful assistant.",
                         host = "http://localhost:11434",
                         model = "llama3.2",
