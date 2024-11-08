@@ -1,8 +1,8 @@
 #' Generate a response and return the result in a data frame
 #'
 #' @param prompt
-#' @param system
-#' @param host
+#' @param system Defaults to the generic: "You are a helpful assistant."
+#' @param host Defaults to "http://localhost:11434", where locally deployed Ollama usually responds.
 #' @param model
 #' @param endpoint
 #' @param temperature

@@ -15,6 +15,10 @@ ql_generate(
 )
 }
 \arguments{
+\item{system}{Defaults to the generic: "You are a helpful assistant."}
+
+\item{host}{Defaults to "http://localhost:11434", where locally deployed Ollama usually responds.}
+
 \item{seed}{}
 }
 \description{
