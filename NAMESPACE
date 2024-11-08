@@ -3,4 +3,5 @@
 export(ql_disable_db)
 export(ql_enable_db)
 export(ql_generate)
+export(ql_get_models)
 export(ql_set_db_options)
