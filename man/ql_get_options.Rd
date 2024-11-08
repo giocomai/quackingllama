@@ -4,13 +4,20 @@
 \alias{ql_get_options}
 \title{Get options}
 \usage{
-ql_get_options(options = c("model", "host", "system", "temperature", "seed"))
+ql_get_options(
+  options = c("model", "host", "system", "temperature", "seed"),
+  system = NULL,
+  host = NULL,
+  model = NULL,
+  temperature = NULL,
+  seed = NULL
+)
 }
 \arguments{
 \item{options}{A character vector with all available options}
 }
 \value{
-A list with all available options (or those selections with
+A list with all available options (or those selected with
 \code{options})
 }
 \description{

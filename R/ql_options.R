@@ -122,7 +122,7 @@ ql_set_options <- function(model = NULL,
 #'
 #' @param options A character vector with all available options
 #'
-#' @return A list with all available options (or those selections with
+#' @return A list with all available options (or those selected with
 #'   `options`)
 #' @export
 #'
@@ -134,13 +134,18 @@ ql_get_options <- function(options = c(
                              "system",
                              "temperature",
                              "seed"
-                           )) {
+                           ),
+                           system = NULL,
+                           host = NULL,
+                           model = NULL,
+                           temperature = NULL,
+                           seed = NULL) {
   ql_options_list <- list(
-    model = as.logical(Sys.getenv("quackingllama_model", unset = "llama3.2")),
-    host = as.character(Sys.getenv("quackingllama_host", unset = "http://localhost:11434")),
-    system = as.character(Sys.getenv("quackingllama_system", unset = "You are a helpful assistant.")),
-    temperature = as.integer(Sys.getenv("quackingllama_temperature", unset = 0)),
-    seed = as.integer(Sys.getenv("quackingllama_db_name", unset = sample.int(n = .Machine$integer.max, size = 1)))
+    model = as.character(model %||% Sys.getenv("quackingllama_model", unset = "llama3.2")),
+    host = as.character(host %||% Sys.getenv("quackingllama_host", unset = "http://localhost:11434")),
+    system = as.character(system %||% Sys.getenv("quackingllama_system", unset = "You are a helpful assistant.")),
+    temperature = as.integer(temperature %||% Sys.getenv("quackingllama_temperature", unset = 0)),
+    seed = as.integer(seed %||% Sys.getenv("quackingllama_db_name", unset = sample.int(n = .Machine$integer.max, size = 1)))
   )
 
   ql_options_list[options]
