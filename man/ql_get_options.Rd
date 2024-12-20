@@ -14,7 +14,7 @@ ql_get_options(
 )
 }
 \arguments{
-\item{options}{A character vector with all available options}
+\item{options}{A character vector with all available options.}
 }
 \value{
 A list with all available options (or those selected with
@@ -24,5 +24,15 @@ A list with all available options (or those selected with
 Get options
 }
 \examples{
+
+
+ql_set_options(
+  model = "llama3.2",
+  host = "http://localhost:11434",
+  system = "You are a helpful assistant.",
+  temperature = 0,
+  seed = 42
+)
+
 ql_get_options()
 }

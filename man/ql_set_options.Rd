@@ -13,8 +13,32 @@ ql_set_options(
 )
 }
 \arguments{
-\item{seed}{}
+\item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run \verb{ollama list} from the command line to see a list of locally available models.}
+
+\item{host}{The address where the Ollama API can be reached, e.g. \verb{http://localhost:11434} for locally deployed Ollama.}
+
+\item{system}{System message to pass to the model. See official documentation for details. For example: "You are a helpful assistant."}
+
+\item{temperature}{Numeric value comprised between 0 and 1 passed to the model. When set to 0 and with the same seed, the response to the same prompt is always exactly the same. When closer to one, the response is more variable and creative. Use 0 for consistent responses. Setting this to 0.7 is a common choice for creative or interactive tasks.}
+
+\item{seed}{An integer. When temperature is set to 0 and the seed is constant, the model consistently returns the same response to the same prompt.}
+}
+\value{
+Nothing, used for its side effects. Options can be retrieved with \code{ql_get_db_options()}
 }
 \description{
 Set basic options for the current session.
+}
+\examples{
+
+ql_set_options(
+  model = "llama3.2",
+  host = "http://localhost:11434",
+  system = "You are a helpful assistant.",
+  temperature = 0,
+  seed = 42
+)
+
+ql_get_options()
+
 }

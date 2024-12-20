@@ -8,7 +8,7 @@
 #'
 #' @family database
 #'
-#' @return Nothing, used for its side effects..
+#' @return Nothing, used for its side effects.
 #' @export
 #'
 #' @examples
@@ -82,16 +82,27 @@ ql_disable_db <- function() {
 
 #' Set basic options for the current session.
 #'
-#' @param model
-#' @param host
-#' @param system
-#' @param temperature
-#' @param seed
+#' @param model The name of the model, e.g. `llama3.2` or `phi3.5:3.8b`. Run `ollama list` from the command line to see a list of locally available models.
+#' @param host The address where the Ollama API can be reached, e.g. `http://localhost:11434` for locally deployed Ollama.
+#' @param system System message to pass to the model. See official documentation for details. For example: "You are a helpful assistant."
+#' @param temperature Numeric value comprised between 0 and 1 passed to the model. When set to 0 and with the same seed, the response to the same prompt is always exactly the same. When closer to one, the response is more variable and creative. Use 0 for consistent responses. Setting this to 0.7 is a common choice for creative or interactive tasks.
+#' @param seed An integer. When temperature is set to 0 and the seed is constant, the model consistently returns the same response to the same prompt.
 #'
-#' @return
+#' @return Nothing, used for its side effects. Options can be retrieved with `ql_get_db_options()`
 #' @export
 #'
 #' @examples
+#'
+#' ql_set_options(
+#'   model = "llama3.2",
+#'   host = "http://localhost:11434",
+#'   system = "You are a helpful assistant.",
+#'   temperature = 0,
+#'   seed = 42
+#' )
+#'
+#' ql_get_options()
+#'
 ql_set_options <- function(model = NULL,
                            host = NULL,
                            system = NULL,
@@ -120,13 +131,23 @@ ql_set_options <- function(model = NULL,
 
 #' Get options
 #'
-#' @param options A character vector with all available options
+#' @param options A character vector with all available options.
 #'
 #' @return A list with all available options (or those selected with
 #'   `options`)
 #' @export
 #'
 #' @examples
+#'
+#'
+#' ql_set_options(
+#'   model = "llama3.2",
+#'   host = "http://localhost:11434",
+#'   system = "You are a helpful assistant.",
+#'   temperature = 0,
+#'   seed = 42
+#' )
+#'
 #' ql_get_options()
 ql_get_options <- function(options = c(
                              "model",

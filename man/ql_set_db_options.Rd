@@ -20,7 +20,7 @@ when storing multiple database files in the same folder.}
 \item{db_folder}{Defaults to \code{.}, i.e., to the current working directory.}
 }
 \value{
-Nothing, used for its side effects..
+Nothing, used for its side effects.
 }
 \description{
 Set options for the local database
