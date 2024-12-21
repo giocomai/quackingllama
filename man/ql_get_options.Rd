@@ -5,16 +5,18 @@
 \title{Get options}
 \usage{
 ql_get_options(
-  options = c("model", "host", "system", "temperature", "seed"),
+  options = c("system", "model", "host", "temperature", "seed", "keep_alive"),
   system = NULL,
-  host = NULL,
   model = NULL,
+  host = NULL,
   temperature = NULL,
-  seed = NULL
+  seed = NULL,
+  keep_alive = NULL
 )
 }
 \arguments{
-\item{options}{A character vector with all available options.}
+\item{options}{A character vector used to filter which options should
+effectively be returned. Defaults to all available.}
 }
 \value{
 A list with all available options (or those selected with
@@ -31,7 +33,8 @@ ql_set_options(
   host = "http://localhost:11434",
   system = "You are a helpful assistant.",
   temperature = 0,
-  seed = 42
+  seed = 42,
+  keep_alive = "5m"
 )
 
 ql_get_options()

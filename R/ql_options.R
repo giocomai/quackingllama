@@ -82,13 +82,26 @@ ql_disable_db <- function() {
 
 #' Set basic options for the current session.
 #'
-#' @param model The name of the model, e.g. `llama3.2` or `phi3.5:3.8b`. Run `ollama list` from the command line to see a list of locally available models.
-#' @param host The address where the Ollama API can be reached, e.g. `http://localhost:11434` for locally deployed Ollama.
-#' @param system System message to pass to the model. See official documentation for details. For example: "You are a helpful assistant."
-#' @param temperature Numeric value comprised between 0 and 1 passed to the model. When set to 0 and with the same seed, the response to the same prompt is always exactly the same. When closer to one, the response is more variable and creative. Use 0 for consistent responses. Setting this to 0.7 is a common choice for creative or interactive tasks.
-#' @param seed An integer. When temperature is set to 0 and the seed is constant, the model consistently returns the same response to the same prompt.
+#' @param model The name of the model, e.g. `llama3.2` or `phi3.5:3.8b`. Run
+#'   `ollama list` from the command line to see a list of locally available
+#'   models.
+#' @param host The address where the Ollama API can be reached, e.g.
+#'   `http://localhost:11434` for locally deployed Ollama.
+#' @param system System message to pass to the model. See official documentation
+#'   for details. For example: "You are a helpful assistant."
+#' @param temperature Numeric value comprised between 0 and 1 passed to the
+#'   model. When set to 0 and with the same seed, the response to the same
+#'   prompt is always exactly the same. When closer to one, the response is more
+#'   variable and creative. Use 0 for consistent responses. Setting this to 0.7
+#'   is a common choice for creative or interactive tasks.
+#' @param seed An integer. When temperature is set to 0 and the seed is
+#'   constant, the model consistently returns the same response to the same
+#'   prompt.
+#' @param keep_alive Defaults to "5m". Controls controls how long the model will
+#'   stay loaded into memory following the request.
 #'
-#' @return Nothing, used for its side effects. Options can be retrieved with `ql_get_db_options()`
+#' @return Nothing, used for its side effects. Options can be retrieved with
+#'   `ql_get_db_options()`
 #' @export
 #'
 #' @examples
@@ -103,21 +116,22 @@ ql_disable_db <- function() {
 #'
 #' ql_get_options()
 #'
-ql_set_options <- function(model = NULL,
+ql_set_options <- function(system = NULL,
+                           model = NULL,
                            host = NULL,
-                           system = NULL,
                            temperature = NULL,
-                           seed = NULL) {
+                           seed = NULL,
+                           keep_alive = NULL) {
+  if (!is.null(system)) {
+    Sys.setenv(quackingllama_system = system)
+  }
+
   if (!is.null(model)) {
     Sys.setenv(quackingllama_model = model)
   }
 
   if (!is.null(host)) {
     Sys.setenv(quackingllama_host = host)
-  }
-
-  if (!is.null(system)) {
-    Sys.setenv(quackingllama_system = system)
   }
 
   if (!is.null(temperature)) {
@@ -127,11 +141,16 @@ ql_set_options <- function(model = NULL,
   if (!is.null(seed)) {
     Sys.setenv(quackingllama_seed = seed)
   }
+
+  if (!is.null(keep_alive)) {
+    Sys.setenv(quackingllama_keep_alive = keep_alive)
+  }
 }
 
 #' Get options
 #'
-#' @param options A character vector with all available options.
+#' @param options A character vector used to filter which options should
+#'   effectively be returned. Defaults to all available.
 #'
 #' @return A list with all available options (or those selected with
 #'   `options`)
@@ -145,28 +164,32 @@ ql_set_options <- function(model = NULL,
 #'   host = "http://localhost:11434",
 #'   system = "You are a helpful assistant.",
 #'   temperature = 0,
-#'   seed = 42
+#'   seed = 42,
+#'   keep_alive = "5m"
 #' )
 #'
 #' ql_get_options()
 ql_get_options <- function(options = c(
+                             "system",
                              "model",
                              "host",
-                             "system",
                              "temperature",
-                             "seed"
+                             "seed",
+                             "keep_alive"
                            ),
                            system = NULL,
-                           host = NULL,
                            model = NULL,
+                           host = NULL,
                            temperature = NULL,
-                           seed = NULL) {
+                           seed = NULL,
+                           keep_alive = NULL) {
   ql_options_list <- list(
+    system = as.character(system %||% Sys.getenv("quackingllama_system", unset = "You are a helpful assistant.")),
     model = as.character(model %||% Sys.getenv("quackingllama_model", unset = "llama3.2")),
     host = as.character(host %||% Sys.getenv("quackingllama_host", unset = "http://localhost:11434")),
-    system = as.character(system %||% Sys.getenv("quackingllama_system", unset = "You are a helpful assistant.")),
     temperature = as.integer(temperature %||% Sys.getenv("quackingllama_temperature", unset = 0)),
-    seed = as.integer(seed %||% Sys.getenv("quackingllama_db_name", unset = sample.int(n = .Machine$integer.max, size = 1)))
+    seed = as.integer(seed %||% Sys.getenv("quackingllama_db_name", unset = sample.int(n = .Machine$integer.max, size = 1))),
+    keep_alive = as.character(host %||% Sys.getenv("quackingllama_keep_alive", unset = "5m"))
   )
 
   ql_options_list[options]

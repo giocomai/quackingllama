@@ -14,33 +14,16 @@ ql_generate <- function(prompt,
                         host = NULL,
                         model = NULL,
                         temperature = NULL,
-                        seed = NULL,
-                        endpoint = "api/generate") {
-  options_l <- ql_get_options(
+                        seed = NULL) {
+  req <- ql_request(
+    prompt = prompt,
     system = system,
     host = host,
     model = model,
     temperature = temperature,
-    seed = seed
+    seed = seed,
+    endpoint = "generate"
   )
-
-  req <- httr2::request(options_l[["host"]]) |>
-    httr2::req_url_path(endpoint) |>
-    httr2::req_headers("Content-Type" = "application/json") |>
-    httr2::req_body_json(
-      list(
-        model = options_l[["model"]],
-        prompt = prompt,
-        stream = FALSE,
-        raw = FALSE,
-        options = list(
-          seed = options_l[["seed"]],
-          temperature = options_l[["temperature"]]
-        ),
-        system = options_l[["system"]]
-      )
-    ) |>
-    httr2::req_error(is_error = \(resp) FALSE)
 
   resp <- req |>
     httr2::req_perform()
