@@ -55,21 +55,37 @@ ql_request <- function(prompt = NULL,
     httr2::req_headers("Content-Type" = "application/json")
 
   if (endpoint == "api/generate") {
-    req_02 <- req_01 |>
-      httr2::req_body_json(
-        list(
-          model = options_l[["model"]],
-          prompt = prompt,
-          format = format,
-          stream = FALSE,
-          raw = FALSE,
-          options = list(
-            seed = options_l[["seed"]],
-            temperature = options_l[["temperature"]]
-          ),
-          system = options_l[["system"]]
+    if (is.null(format)) {
+      req_02 <- req_01 |>
+        httr2::req_body_json(
+          list(
+            model = options_l[["model"]],
+            prompt = prompt,
+            stream = FALSE,
+            raw = FALSE,
+            options = list(
+              seed = options_l[["seed"]],
+              temperature = options_l[["temperature"]]
+            ),
+            system = options_l[["system"]]
+          )
         )
-      )
+    } else {
+      req_02 <- req_01 |>
+        httr2::req_body_json(
+          list(
+            model = options_l[["model"]],
+            prompt = prompt,
+            format = format,
+            stream = FALSE,
+            raw = FALSE,
+            options = list(
+              seed = options_l[["seed"]],
+              temperature = options_l[["temperature"]]
+            )
+          )
+        )
+    }
   } else if (endpoint == "api/chat") {
     req_02 <- req_01 |>
       httr2::req_body_json(

@@ -5,26 +5,41 @@
 \title{Set basic options for the current session.}
 \usage{
 ql_set_options(
+  system = NULL,
   model = NULL,
   host = NULL,
-  system = NULL,
   temperature = NULL,
-  seed = NULL
+  seed = NULL,
+  keep_alive = NULL
 )
 }
 \arguments{
-\item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run \verb{ollama list} from the command line to see a list of locally available models.}
+\item{system}{System message to pass to the model. See official documentation
+for details. For example: "You are a helpful assistant."}
 
-\item{host}{The address where the Ollama API can be reached, e.g. \verb{http://localhost:11434} for locally deployed Ollama.}
+\item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
+\verb{ollama list} from the command line to see a list of locally available
+models.}
 
-\item{system}{System message to pass to the model. See official documentation for details. For example: "You are a helpful assistant."}
+\item{host}{The address where the Ollama API can be reached, e.g.
+\verb{http://localhost:11434} for locally deployed Ollama.}
 
-\item{temperature}{Numeric value comprised between 0 and 1 passed to the model. When set to 0 and with the same seed, the response to the same prompt is always exactly the same. When closer to one, the response is more variable and creative. Use 0 for consistent responses. Setting this to 0.7 is a common choice for creative or interactive tasks.}
+\item{temperature}{Numeric value comprised between 0 and 1 passed to the
+model. When set to 0 and with the same seed, the response to the same
+prompt is always exactly the same. When closer to one, the response is more
+variable and creative. Use 0 for consistent responses. Setting this to 0.7
+is a common choice for creative or interactive tasks.}
 
-\item{seed}{An integer. When temperature is set to 0 and the seed is constant, the model consistently returns the same response to the same prompt.}
+\item{seed}{An integer. When temperature is set to 0 and the seed is
+constant, the model consistently returns the same response to the same
+prompt.}
+
+\item{keep_alive}{Defaults to "5m". Controls controls how long the model will
+stay loaded into memory following the request.}
 }
 \value{
-Nothing, used for its side effects. Options can be retrieved with \code{ql_get_db_options()}
+Nothing, used for its side effects. Options can be retrieved with
+\code{ql_get_db_options()}
 }
 \description{
 Set basic options for the current session.

@@ -8,16 +8,26 @@
 #'
 #' @examples
 #'
-#' ql_generate("a haiku", seed = 1)
+#' ql_generate("a haiku")
 ql_generate <- function(prompt,
                         system = NULL,
+                        format = NULL,
                         host = NULL,
                         model = NULL,
                         temperature = NULL,
                         seed = NULL) {
+  options_l <- ql_get_options(
+    system = system,
+    host = host,
+    model = model,
+    temperature = temperature,
+    seed = seed
+  )
+
   req <- ql_request(
     prompt = prompt,
     system = system,
+    format = format,
     host = host,
     model = model,
     temperature = temperature,

@@ -19,11 +19,13 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of `quackingllama` is to facilitate processing text with Ollama, and store results in DuckDB.
+The goal of `quackingllama` is to facilitate efficient interactions with LLMs; its current target use-case is text classification (e.g. categorise or tag contents, or extract information from text). Key features include:
 
-For example: you need to categorise or tag contents, but don't want to take care of the caching... `quackingllama` is there to make things easier. 
+- facilitate consistently formatted responses (through [Ollama's structured ouputs](https://ollama.com/blog/structured-outputs))
+- facilitate local caching (by storing results in a local `DuckDB` database)
+- facilitate initiating text classification tasks (through examples and convenience functions)
+- facilitate keeping a record with details about how each response has been received
 
-Coming soon.
 
 ## Installation
 
@@ -34,14 +36,161 @@ You can install the development version of `quackingllama` from [GitHub](https:/
 pak::pak("giocomai/quackingllama")
 ```
 
-## Example
+## Default options and outputs
+
+In order to facilitate consistent results, by default `quackingllama` sets the temperature of the model to 0: this means that it will always return the same response when given the same prompt. When caching is enabled, responses can then consistently be retrieved from the local cache without querying again the LLMs. 
+
+All functions consistently return results in a data frame (a tibble).
+
+Key functionalities will be demonstrated through a series of examples.
+
+As the package is developed further, some of the less intuitive tasks (e.g. defining a schema) will be facilitated through dedicated convenience functions.
+
+
+## Basic examples
+
+### Text generation
 
 
 ```{r example}
 library("quackingllama")
 ```
 
+Let's generate a short piece of text. Results are returned in a data frame, with the `response` in the first column and all relevant metadata about the query stored along with it. 
 
-### About the hex logo
+```{r pol_df}
+pol_df <- ql_generate(prompt = "Describe an imaginary political leader in less than 100 words.")
+
+str(pol_df)
+```
+
+```{r pol_df response}
+pol_df$response
+```
+
+If we are interested in variations of this text, we can easily create them:
+
+```{r pol3_df}
+# TODO accept multiple prompts by default
+
+pol3_df <- purrr::map(
+  .x = c("progressive", "conservative", "centrist"),
+  .f = \(x) {
+    ql_generate(prompt = glue::glue("Describe an imaginary {x} politician in less than 100 words."))
+  }
+) |>
+  purrr::list_rbind()
+
+pol3_df$response
+```
+
+These are, as it is the customary default behaviour of LLMs, free form texts. Depending on the task at hand, we may want to have text in a more structured format. To do so, we must provide the LLM with a [schema](https://json-schema.org/) of how we want it to to return data. 
+
+Schema can be very simple, e.g., if we want our response to feature only a "name" and "description" field, and both should be character strings, we'd use the following schema:
+
+
+```{r basic_schema}
+# TODO convenience function to facilitate creation of common schemas
+
+schema <- list(
+  type = "object",
+  properties = list(
+    `name` = list(type = "string"),
+    `description` = list(type = "string")
+  ),
+  required = c("name", "description")
+)
+```
+
+
+```{r pol_schema_df basic}
+pol_schema_df <- ql_generate(
+  prompt = "Describe an imaginary political leader.",
+  format = schema
+)
+
+pol_schema_df$response |>
+  yyjsonr::read_json_str()
+```
+
+
+or slightly more complex, for example making clear that we expect a field to be numeric, and another one to pick between one of a set of options:
+
+
+
+```{r medium_schema}
+schema <- list(
+  type = "object",
+  properties = list(
+    `name` = list(type = "string"),
+    `age` = list(type = "number"),
+    `gender` = list(
+      type = "string",
+      enum = c("female", "male", "non-binary")
+    ),
+    `motto` = list(type = "string"),
+    `description` = list(type = "string")
+  ),
+  required = c(
+    "name",
+    "age",
+    "gender",
+    "motto",
+    "description"
+  )
+)
+```
+
+And the returned is formatted as expected:
+
+```{r pol_schema_df medium}
+pol_schema_df <- ql_generate(
+  prompt = "Describe an imaginary political leader.",
+  format = schema
+)
+
+pol_schema_df$response |>
+  yyjsonr::read_json_str()
+```
+
+
+Having the response in a structured format allows for easily storing results in a data frame and processing them further. 
+
+
+```{r pol3_schema_df}
+pol3_schema_df <- purrr::map(
+  .x = c("progressive", "conservative", "centrist"),
+  .f = \(x) {
+    ql_generate(
+      prompt = glue::glue("Describe an imaginary {x} politician."),
+      format = schema
+    )
+  }
+) |>
+  purrr::list_rbind()
+
+pol3_schema_responses_df <- purrr::map(
+  .x = pol3_schema_df$response,
+  .f = \(x) {
+    yyjsonr::read_json_str(x) |>
+      tibble::as_tibble()
+  }
+) |>
+  purrr::list_rbind()
+
+pol3_schema_responses_df
+```
+
+This has obvious advantages for many data processing tasks, and, as will be seen, can effectively be used to enhance the consistency of text classification tasks. But first, let's discuss caching and some of the options that determine output. 
+
+### Caching and options
+
+TODO
+
+### Text classification
+
+TODO
+
+## About the hex logo
 
 In the logo you may or may not recognise a quacking llama, or maybe, just a llama wearing a duck mask. The reference is obviously to two of the main tools used by this package: [`ollama`](https://ollama.com/) and [`DuckDB`](https://duckdb.org/docs/api/r.html). Image generated on my machine with `stablediffusion`.
