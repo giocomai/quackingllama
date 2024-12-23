@@ -65,28 +65,39 @@ about the query stored along with it.
 pol_df <- ql_generate(prompt = "Describe an imaginary political leader in less than 100 words.")
 
 str(pol_df)
-#> tibble [1 × 15] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 16] (S3: tbl_df/tbl/data.frame)
 #>  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__
 #>  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."
 #>  $ model               : chr "llama3.2"
-#>  $ created_at          : chr "2024-12-22T22:47:49.804294268Z"
+#>  $ created_at          : chr "2024-12-23T22:03:57.89954051Z"
 #>  $ done                : logi TRUE
 #>  $ done_reason         : chr "stop"
-#>  $ total_duration      : num 5.51e+09
-#>  $ load_duration       : int 1960027309
-#>  $ prompt_eval_count   : int 43
-#>  $ prompt_eval_duration: int 264000000
-#>  $ eval_count          : int 118
-#>  $ eval_duration       : num 3.29e+09
+#>  $ total_duration      : num 3.81e+09
+#>  $ load_duration       : num 19063527
+#>  $ prompt_eval_count   : num 43
+#>  $ prompt_eval_duration: num 7.6e+07
+#>  $ eval_count          : num 118
+#>  $ eval_duration       : num 3.71e+09
 #>  $ system              : chr "You are a helpful assistant."
-#>  $ seed                : int 1616140768
-#>  $ temperature         : int 0
+#>  $ seed                : int 1312976429
+#>  $ temperature         : num 0
+#>  $ format              : chr ""
 ```
 
 ``` r
-pol_df$response
-#> [1] "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former environmental activist turned politician, Rory is known for her unwavering commitment to sustainability and social justice. With a warm smile and infectious laugh, she has won over the hearts of her constituents with her inclusive policies and bold vision for a greener future. As President of Azura, Rory has made it her mission to protect the planet while promoting economic growth and equality for all citizens. Her leadership style is collaborative, empathetic, and unapologetically forward-thinking."
+cat(">", pol_df$response)
 ```
+
+> Meet Aurora “Rory” Thompson, the charismatic and progressive leader of
+> the coastal nation of Azura. A former environmental activist turned
+> politician, Rory is known for her unwavering commitment to
+> sustainability and social justice. With a warm smile and infectious
+> laugh, she has won over the hearts of her constituents with her
+> inclusive policies and bold vision for a greener future. As President
+> of Azura, Rory has made it her mission to protect the planet while
+> promoting economic growth and equality for all citizens. Her
+> leadership style is collaborative, empathetic, and unapologetically
+> forward-thinking.
 
 If we are interested in variations of this text, we can easily create
 them:
@@ -238,7 +249,235 @@ options that determine output.
 
 ### Caching and options
 
-TODO
+So far, local caching has not been enabled: this means that even when
+the exacts same response is expected, this will still be requested to
+the LLM, which can be exceedingly time-consuming especially for
+repetitive tasks, or for data processing pipelines that may recurrently
+encounter the same data.
+
+Caching is the obvious answer to this process, but when do we expect
+exactly the same response from the LLM, considering that LLMs do not
+necessarily return the same response even when given the same prompt?
+
+Two parameters are particularly relevant for understanding this,
+`temperature` and `seed`.
+
+What is “temperature”? [Ollama’s
+documentation](https://github.com/ollama/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values)
+concisely clarifies the effect of this parameter by suggesting that
+“Increasing the temperature will make the model answer more creatively.”
+LLMs often have the default temperature set to 0.7 or 0.8. In brief,
+when temperature is set to its maximum value of 1, the LLMs will provide
+more varied responses. When temperature is set to 0, the LLMs are at
+their more consistent: they always provide the same response to the same
+prompt.
+
+What does it mean in practices? For example, that if I set the
+temperature to 0 and ask the same LLM to generate a haiku, I will always
+get the very same haiku, no matter how many times I run this command.
+
+``` r
+ql_generate(prompt = "A funny haiku", temperature = 0)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Tacos on my face\nS… A fun… llam… 2024-12-2… TRUE  stop             788379516
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A funny haiku", temperature = 0)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Tacos on my face\nS… A fun… llam… 2024-12-2… TRUE  stop             788379516
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A funny haiku", temperature = 0)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Tacos on my face\nS… A fun… llam… 2024-12-2… TRUE  stop             788379516
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+```
+
+If I set the temperature to 1, I get every time a different haiku (ok,
+not very different, really, but still different).
+
+``` r
+ql_generate(prompt = "A funny haiku", temperature = 1)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Here's one:\n\nPizz… A fun… llam… 2024-12-2… TRUE  stop             813279017
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A funny haiku", temperature = 1)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Pants that fall at … A fun… llam… 2024-12-2… TRUE  stop             647547383
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A funny haiku", temperature = 1)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Taco Tuesday fails\… A fun… llam… 2024-12-2… TRUE  stop             485106215
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+```
+
+But then, replicability of results is possible even when the temperature
+is set to a value higher than 0. We just need to set the same seed, and
+we’ll consistently get the same result.
+
+``` r
+ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Fart in crowded pla… A fun… llam… 2024-12-2… TRUE  stop             578921598
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Fart in crowded pla… A fun… llam… 2024-12-2… TRUE  stop             578921598
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Fart in crowded pla… A fun… llam… 2024-12-2… TRUE  stop             578921598
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+```
+
+Two additional components determine if the response is exactly the same
+in different instances: `system` and `format`. The `system` parameter is
+passed along with the prompt to the LLM, and by default is set to the
+generic “You are a helpful assistant.”. This is a reasonable generic
+option, but there may be good reasons to be more specific depending on
+the task at hand.
+
+For example, if we set as the system message “You are an 18th century
+poet.”, the style of the response will change (somewhat) accordingly.
+
+``` r
+ql_generate(
+  prompt = "A funny haiku",
+  temperature = 0,
+  system = "You are an 18th century poet."
+)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Fart doth echo loud… A fun… llam… 2024-12-2… TRUE  stop             806179886
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+```
+
+As discussed above, `format` is relevant only for instances when a
+structured output is requested to the LLM by providing a schema. For
+example, if we provided a different schema, the output would also have
+been different.
+
+``` r
+schema <- list(
+  type = "object",
+  properties = list(
+    `haiku` = list(type = "string"),
+    `why_funny` = list(type = "string")
+  ),
+  required = c(
+    "haiku",
+    "why_funny"
+  )
+)
+
+haiku_str_df <- ql_generate(
+  prompt = "Write a funny haiku, and explain why it is supposed to be funny.",
+  format = schema
+)
+
+haiku_str_df |>
+  dplyr::pull(response) |>
+  yyjsonr::read_json_str()
+#> $haiku
+#> [1] "I fart in space"
+#> 
+#> $why_funny
+#> [1] "This haiku is meant to be humorous because it takes a common bodily function (farting) and combines it with an unexpected setting (space). The juxtaposition of the mundane and the extraordinary creates a comedic effect. Additionally, the simplicity and brevity of the haiku make the punchline more impactful."
+```
+
+In brief, when should we expect to receive exactly the same response
+from the LLM, hence, making it possible to retrieve it from cache if
+already parsed? The following conditions must apply:
+
+- same model
+- same `system` parameter
+- same `format`, i.e., same schema (if given).
+- same prompt
+- and
+  - either the same seed and any value for `temperature` OR
+  - any seed and `temperature` set to zero
+
+If the above conditions are met, and caching is enabled, the response
+will be retrieved from the local cache, rather than from the LLM.
+
+It’s easy to enable caching for the current session with
+`ql_enable_db()`. By default, the database is stored in the current
+working directory, but this can be changed with `ql_set_db_options()`.
+
+``` r
+ql_enable_db()
+ql_set_db_options(db_folder = fs::path_home_r("R"))
+```
+
+Now even prompts that would take the LLM many seconds to process can be
+returned efficiently from cache:
+
+``` r
+invisible(
+  ql_generate(
+    prompt = "A long story",
+    temperature = 1,
+    system = "You are an 18th century poet.",
+    seed = 42
+  )
+)
+
+before <- Sys.time()
+ql_generate(
+  prompt = "A long story",
+  temperature = 1,
+  system = "You are an 18th century poet.",
+  seed = 42
+)
+#> # A tibble: 1 × 16
+#>   response              prompt model created_at done  done_reason total_duration
+#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
+#> 1 "Fair reader, thou s… A lon… llam… 2024-12-2… TRUE  stop           17586201634
+#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
+#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
+#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+after <- Sys.time()
+
+after - before
+#> Time difference of 0.3070652 secs
+```
 
 ### Text classification
 

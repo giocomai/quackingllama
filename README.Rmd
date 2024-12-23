@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -64,8 +64,8 @@ pol_df <- ql_generate(prompt = "Describe an imaginary political leader in less t
 str(pol_df)
 ```
 
-```{r pol_df response}
-pol_df$response
+```{r pol_df response, results='asis'}
+cat(">", pol_df$response)
 ```
 
 If we are interested in variations of this text, we can easily create them:
@@ -185,7 +185,120 @@ This has obvious advantages for many data processing tasks, and, as will be seen
 
 ### Caching and options
 
-TODO
+So far, local caching has not been enabled: this means that even when the exacts same response is expected, this will still be requested to the LLM, which can be exceedingly time-consuming especially for repetitive tasks, or for data processing pipelines that may recurrently encounter the same data.
+
+Caching is the obvious answer to this process, but when do we expect exactly the same response from the LLM, considering that LLMs do not necessarily return the same response even when given the same prompt?
+
+Two parameters are particularly relevant for understanding this, `temperature` and `seed`.
+
+What is "temperature"? [Ollama's documentation](https://github.com/ollama/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values) concisely clarifies the effect of this parameter by suggesting that "Increasing the temperature will make the model answer more creatively." LLMs often have the default temperature set to 0.7 or 0.8. In brief, when temperature is set to its maximum value of 1, the LLMs will provide more varied responses. When temperature is set to 0, the LLMs are at their more consistent: they always provide the same response to the same prompt.
+
+What does it mean in practices? For example, that if I set the temperature to 0 and ask the same LLM to generate a haiku, I will always get the very same haiku, no matter how many times I run this command.
+
+```{r funny_haiku_temp0}
+ql_generate(prompt = "A funny haiku", temperature = 0)
+ql_generate(prompt = "A funny haiku", temperature = 0)
+ql_generate(prompt = "A funny haiku", temperature = 0)
+```
+
+If I set the temperature to 1, I get every time a different haiku (ok, not very different, really, but still different).
+
+```{r funny_haiku_temp1}
+ql_generate(prompt = "A funny haiku", temperature = 1)
+ql_generate(prompt = "A funny haiku", temperature = 1)
+ql_generate(prompt = "A funny haiku", temperature = 1)
+```
+
+But then, replicability of results is possible even when the temperature is set to a value higher than 0. We just need to set the same seed, and we'll consistently get the same result.
+
+```{r funny_haiku_temp1_seed2024}
+ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
+ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
+ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
+```
+
+Two additional components determine if the response is exactly the same in different instances: `system` and `format`. The `system` parameter is passed along with the prompt to the LLM, and by default is set to the generic "You are a helpful assistant.". This is a reasonable generic option, but there may be good reasons to be more specific depending on the task at hand. 
+
+For example, if we set as the system message "You are an 18th century poet.", the style of the response will change (somewhat) accordingly. 
+
+```{r funny_haiku_temp0_18th_century}
+ql_generate(
+  prompt = "A funny haiku",
+  temperature = 0,
+  system = "You are an 18th century poet."
+)
+```
+
+As discussed above, `format` is relevant only for instances when a structured output is requested to the LLM by providing a schema. For example, if we provided a different schema, the output would also have been different.
+
+```{r different schema}
+schema <- list(
+  type = "object",
+  properties = list(
+    `haiku` = list(type = "string"),
+    `why_funny` = list(type = "string")
+  ),
+  required = c(
+    "haiku",
+    "why_funny"
+  )
+)
+
+haiku_str_df <- ql_generate(
+  prompt = "Write a funny haiku, and explain why it is supposed to be funny.",
+  format = schema
+)
+
+haiku_str_df |>
+  dplyr::pull(response) |>
+  yyjsonr::read_json_str()
+```
+
+
+In brief, when should we expect to receive exactly the same response from the LLM, hence, making it possible to retrieve it from cache if already parsed? The following conditions must apply:
+
+- same model
+- same `system` parameter
+- same `format`, i.e., same schema (if given).
+- same prompt
+- and
+  - either the same seed and any value for `temperature` OR
+  - any seed and `temperature` set to zero
+
+If the above conditions are met, and caching is enabled, the response will be retrieved from the local cache, rather than from the LLM. 
+
+It's easy to enable caching for the current session with `ql_enable_db()`. By default, the database is stored in the current working directory, but this can be changed with `ql_set_db_options()`.
+
+
+```{r enable db}
+ql_enable_db()
+ql_set_db_options(db_folder = fs::path_home_r("R"))
+```
+
+Now even prompts that would take the LLM many seconds to process can be returned efficiently from cache:
+
+```{r long story from cache}
+invisible(
+  ql_generate(
+    prompt = "A long story",
+    temperature = 1,
+    system = "You are an 18th century poet.",
+    seed = 42
+  )
+)
+
+before <- Sys.time()
+ql_generate(
+  prompt = "A long story",
+  temperature = 1,
+  system = "You are an 18th century poet.",
+  seed = 42
+)
+after <- Sys.time()
+
+after - before
+```
+
 
 ### Text classification
 
