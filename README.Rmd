@@ -196,37 +196,38 @@ What is "temperature"? [Ollama's documentation](https://github.com/ollama/ollama
 What does it mean in practices? For example, that if I set the temperature to 0 and ask the same LLM to generate a haiku, I will always get the very same haiku, no matter how many times I run this command.
 
 ```{r funny_haiku_temp0}
-ql_generate(prompt = "A funny haiku", temperature = 0)
-ql_generate(prompt = "A funny haiku", temperature = 0)
-ql_generate(prompt = "A funny haiku", temperature = 0)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
 ```
 
 If I set the temperature to 1, I get every time a different haiku (ok, not very different, really, but still different).
 
 ```{r funny_haiku_temp1}
-ql_generate(prompt = "A funny haiku", temperature = 1)
-ql_generate(prompt = "A funny haiku", temperature = 1)
-ql_generate(prompt = "A funny haiku", temperature = 1)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
 ```
 
 But then, replicability of results is possible even when the temperature is set to a value higher than 0. We just need to set the same seed, and we'll consistently get the same result.
 
 ```{r funny_haiku_temp1_seed2024}
-ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
-ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
-ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
 ```
 
 Two additional components determine if the response is exactly the same in different instances: `system` and `format`. The `system` parameter is passed along with the prompt to the LLM, and by default is set to the generic "You are a helpful assistant.". This is a reasonable generic option, but there may be good reasons to be more specific depending on the task at hand. 
 
-For example, if we set as the system message "You are an 18th century poet.", the style of the response will change (somewhat) accordingly. 
+For example, if we set as the system message "You are a 19th century romantic poet.", the style of the response will change (somewhat) accordingly. 
 
-```{r funny_haiku_temp0_18th_century}
+```{r funny_haiku_temp0_19th_century}
 ql_generate(
-  prompt = "A funny haiku",
+  prompt = "A reasonably funny haiku",
   temperature = 0,
-  system = "You are an 18th century poet."
-)
+  system = "You are a 19th century romantic writer."
+) |>
+  dplyr::pull(response)
 ```
 
 As discussed above, `format` is relevant only for instances when a structured output is requested to the LLM by providing a schema. For example, if we provided a different schema, the output would also have been different.
@@ -282,7 +283,7 @@ invisible(
   ql_generate(
     prompt = "A long story",
     temperature = 1,
-    system = "You are an 18th century poet.",
+    system = "You are a 19th century romantic poet.",
     seed = 42
   )
 )
@@ -291,7 +292,7 @@ before <- Sys.time()
 ql_generate(
   prompt = "A long story",
   temperature = 1,
-  system = "You are an 18th century poet.",
+  system = "You are a 19th century romantic poet.",
   seed = 42
 )
 after <- Sys.time()
@@ -302,7 +303,123 @@ after - before
 
 ### Text classification
 
-TODO
+First, let's create some texts that we will then try to classify:
+
+```{r parties_responses_df}
+ql_enable_db()
+ql_set_db_options(db_folder = fs::path_home_r("R"))
+
+schema <- list(
+  type = "object",
+  properties = list(
+    `party name` = list(type = "string"),
+    `political leaning` = list(
+      type = "string",
+      enum = c("progressive", "conservative")
+    ),
+    `political statement` = list(type = "string")
+  ),
+  required = c(
+    "party name",
+    "political leaning",
+    "political statement"
+  )
+)
+
+parties_df <- purrr::map2(
+  .x = rep(c("progressive", "conservative"), 5),
+  .y = 1:10,
+  .f = \(x, y) {
+    ql_generate(
+      prompt = glue::glue("Describe an imaginary {x} political party, inventing their party name and a characteristic political statement."),
+      format = schema,
+      temperature = 1,
+      seed = y
+    )
+  }
+) |>
+  purrr::list_rbind()
+
+parties_responses_df <- purrr::map(
+  .x = parties_df$response,
+  .f = \(x) {
+    yyjsonr::read_json_str(x) |>
+      tibble::as_tibble()
+  }
+) |>
+  purrr::list_rbind()
+
+parties_responses_df
+```
+
+Then we ask a different model to categorise results (in this example, text generation with `llama3.2`, text categorisation with `mistral`). Trimming explanations in the following table for clarity.
+
+```{r categories_df mistral}
+
+category_schema <- list(
+  type = "object",
+  properties = list(
+    `political leaning` = list(
+      type = "string",
+      enum = c("progressive", "conservative")
+    ),
+    `explanation` = list(type = "string")
+  ),
+  required = c(
+    "political leaning",
+    "explanation"
+  )
+)
+
+categories_df <- purrr::map(
+  .x = parties_responses_df[["political statement"]],
+  .f = \(current_statement) {
+    ql_generate(
+      prompt = current_statement,
+      system = "You identify the political leaning of political parties based on their statements.",
+      format = category_schema,
+      temperature = 0,
+      model = "mistral"
+    )
+  }
+) |>
+  purrr::list_rbind()
+
+categories_responses_df <- purrr::map(
+  .x = categories_df$response,
+  .f = \(x) {
+    yyjsonr::read_json_str(x) |>
+      tibble::as_tibble()
+  }
+) |>
+  purrr::list_rbind()
+
+
+
+responses_combo_df <- dplyr::bind_cols(
+  parties_responses_df |>
+    dplyr::rename(`given political leaning` = `political leaning`) |>
+    dplyr::select(`political statement`, `given political leaning`),
+  categories_responses_df |>
+    dplyr::rename(`identified political leaning` = `political leaning`)
+)
+
+responses_combo_df |> 
+  dplyr::mutate(explanation = stringr::str_trunc(explanation, width = 256)) |> 
+  knitr::kable()
+```
+
+
+In this stereotyped case, the LLM categorises all statements as expected and provide a broadly meaningful explanation for the choice (if you try with shorter sentences, e.g., just a political motto, the correct response rate decreases substantially). Fundamentally:
+
+- responses are returned in a predictable and user-defined format, consistently responding with user-defined categories
+- responses are cached locally:
+  - re-running a categorisation task is efficient
+  - the categorisation of a large set of texts can be interrupted at will, and already processed contents will not be categorised again.
+
+
+Querying with different models can have a substantial impact on the quality of results. 
+
 
 ## About the hex logo
 

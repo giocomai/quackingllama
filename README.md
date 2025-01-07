@@ -69,17 +69,17 @@ str(pol_df)
 #>  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__
 #>  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."
 #>  $ model               : chr "llama3.2"
-#>  $ created_at          : chr "2024-12-23T22:03:57.89954051Z"
+#>  $ created_at          : chr "2025-01-06T23:29:36.399741213Z"
 #>  $ done                : logi TRUE
 #>  $ done_reason         : chr "stop"
-#>  $ total_duration      : num 3.81e+09
-#>  $ load_duration       : num 19063527
+#>  $ total_duration      : num 1.01e+10
+#>  $ load_duration       : num 5.78e+09
 #>  $ prompt_eval_count   : num 43
-#>  $ prompt_eval_duration: num 7.6e+07
+#>  $ prompt_eval_duration: num 4.63e+08
 #>  $ eval_count          : num 118
-#>  $ eval_duration       : num 3.71e+09
+#>  $ eval_duration       : num 3.87e+09
 #>  $ system              : chr "You are a helpful assistant."
-#>  $ seed                : int 1312976429
+#>  $ seed                : int 1258069048
 #>  $ temperature         : num 0
 #>  $ format              : chr ""
 ```
@@ -277,60 +277,24 @@ temperature to 0 and ask the same LLM to generate a haiku, I will always
 get the very same haiku, no matter how many times I run this command.
 
 ``` r
-ql_generate(prompt = "A funny haiku", temperature = 0)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Tacos on my face\nS… A fun… llam… 2024-12-2… TRUE  stop             788379516
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
-ql_generate(prompt = "A funny haiku", temperature = 0)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Tacos on my face\nS… A fun… llam… 2024-12-2… TRUE  stop             788379516
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
-ql_generate(prompt = "A funny haiku", temperature = 0)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Tacos on my face\nS… A fun… llam… 2024-12-2… TRUE  stop             788379516
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
+#> [1] "Tacos on my face\nSalsa drips from happy lips\nMidlife crisis born"
+ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
+#> [1] "Tacos on my face\nSalsa drips from happy lips\nMidlife crisis born"
+ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
+#> [1] "Tacos on my face\nSalsa drips from happy lips\nMidlife crisis born"
 ```
 
 If I set the temperature to 1, I get every time a different haiku (ok,
 not very different, really, but still different).
 
 ``` r
-ql_generate(prompt = "A funny haiku", temperature = 1)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Here's one:\n\nPizz… A fun… llam… 2024-12-2… TRUE  stop             813279017
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
-ql_generate(prompt = "A funny haiku", temperature = 1)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Pants that fall at … A fun… llam… 2024-12-2… TRUE  stop             647547383
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
-ql_generate(prompt = "A funny haiku", temperature = 1)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Taco Tuesday fails\… A fun… llam… 2024-12-2… TRUE  stop             485106215
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
+#> [1] "Coffee in my cup\nDance floor beckons, my feet hurt\nMonday's cruel joke"
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
+#> [1] "Tacos on my face\nSalsa drips from happy tears\nLife's silly delight"
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
+#> [1] "Pants on my head now\nCoffee fuels my morning rage\nMonday's bitter joke"
 ```
 
 But then, replicability of results is possible even when the temperature
@@ -338,30 +302,12 @@ is set to a value higher than 0. We just need to set the same seed, and
 we’ll consistently get the same result.
 
 ``` r
-ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Fart in crowded pla… A fun… llam… 2024-12-2… TRUE  stop             578921598
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
-ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Fart in crowded pla… A fun… llam… 2024-12-2… TRUE  stop             578921598
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
-ql_generate(prompt = "A funny haiku", temperature = 1, seed = 2024)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Fart in crowded pla… A fun… llam… 2024-12-2… TRUE  stop             578921598
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
+#> [1] "Socks lost in the fray\nDirty laundry's bitter fate\n Solo dance begins"
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
+#> [1] "Socks lost in the fray\nDirty laundry's bitter fate\n Solo dance begins"
+ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
+#> [1] "Socks lost in the fray\nDirty laundry's bitter fate\n Solo dance begins"
 ```
 
 Two additional components determine if the response is exactly the same
@@ -371,22 +317,18 @@ generic “You are a helpful assistant.”. This is a reasonable generic
 option, but there may be good reasons to be more specific depending on
 the task at hand.
 
-For example, if we set as the system message “You are an 18th century
-poet.”, the style of the response will change (somewhat) accordingly.
+For example, if we set as the system message “You are a 19th century
+romantic poet.”, the style of the response will change (somewhat)
+accordingly.
 
 ``` r
 ql_generate(
-  prompt = "A funny haiku",
+  prompt = "A reasonably funny haiku",
   temperature = 0,
-  system = "You are an 18th century poet."
-)
-#> # A tibble: 1 × 16
-#>   response              prompt model created_at done  done_reason total_duration
-#>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Fart doth echo loud… A fun… llam… 2024-12-2… TRUE  stop             806179886
-#> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
-#> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
-#> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
+  system = "You are a 19th century romantic writer."
+) |>
+  dplyr::pull(response)
+#> [1] "Fop's ridiculous hat\nTops his lumpy, love-struck face\nSighs of wretched bliss"
 ```
 
 As discussed above, `format` is relevant only for instances when a
@@ -454,7 +396,7 @@ invisible(
   ql_generate(
     prompt = "A long story",
     temperature = 1,
-    system = "You are an 18th century poet.",
+    system = "You are a 19th century romantic poet.",
     seed = 42
   )
 )
@@ -463,25 +405,172 @@ before <- Sys.time()
 ql_generate(
   prompt = "A long story",
   temperature = 1,
-  system = "You are an 18th century poet.",
+  system = "You are a 19th century romantic poet.",
   seed = 42
 )
 #> # A tibble: 1 × 16
 #>   response              prompt model created_at done  done_reason total_duration
 #>   <chr>                 <chr>  <chr> <chr>      <lgl> <chr>                <dbl>
-#> 1 "Fair reader, thou s… A lon… llam… 2024-12-2… TRUE  stop           17586201634
+#> 1 "(sighing wistfully)… A lon… llam… 2025-01-0… TRUE  stop           15810502971
 #> # ℹ 9 more variables: load_duration <dbl>, prompt_eval_count <dbl>,
 #> #   prompt_eval_duration <dbl>, eval_count <dbl>, eval_duration <dbl>,
 #> #   system <chr>, seed <int>, temperature <dbl>, format <chr>
 after <- Sys.time()
 
 after - before
-#> Time difference of 0.3070652 secs
+#> Time difference of 0.3732982 secs
 ```
 
 ### Text classification
 
-TODO
+First, let’s create some texts that we will then try to classify:
+
+``` r
+ql_enable_db()
+ql_set_db_options(db_folder = fs::path_home_r("R"))
+
+schema <- list(
+  type = "object",
+  properties = list(
+    `party name` = list(type = "string"),
+    `political leaning` = list(
+      type = "string",
+      enum = c("progressive", "conservative")
+    ),
+    `political statement` = list(type = "string")
+  ),
+  required = c(
+    "party name",
+    "political leaning",
+    "political statement"
+  )
+)
+
+parties_df <- purrr::map2(
+  .x = rep(c("progressive", "conservative"), 5),
+  .y = 1:10,
+  .f = \(x, y) {
+    ql_generate(
+      prompt = glue::glue("Describe an imaginary {x} political party, inventing their party name and a characteristic political statement."),
+      format = schema,
+      temperature = 1,
+      seed = y
+    )
+  }
+) |>
+  purrr::list_rbind()
+
+parties_responses_df <- purrr::map(
+  .x = parties_df$response,
+  .f = \(x) {
+    yyjsonr::read_json_str(x) |>
+      tibble::as_tibble()
+  }
+) |>
+  purrr::list_rbind()
+
+parties_responses_df
+#> # A tibble: 10 × 3
+#>    `party name`                    `political leaning` `political statement`    
+#>    <chr>                           <chr>               <chr>                    
+#>  1 The Luminari Party              progressive         "Embracing a global citi…
+#>  2 The Liberty Rebirth Party (LRP) conservative        " 'Restoring the Foundin…
+#>  3 Eunoia Party                    progressive         "We believe that 'eudaim…
+#>  4 Libertarian Progressives        conservative        "Balancing Tradition wit…
+#>  5 The Luminari                    progressive         " 'We are the torchbeare…
+#>  6 Libertas Novi                   conservative        "We believe that the Uni…
+#>  7 Eudaimonia                      progressive         "We believe that the gre…
+#>  8 The Terra Vita Party            conservative        "Emphasizing the importa…
+#>  9 The Luminari Party              progressive         "We believe that technol…
+#> 10 The New Order Party (NOP)       conservative        "Protecting Traditional …
+```
+
+Then we ask a different model to categorise results (in this example,
+text generation with `llama3.2`, text categorisation with `mistral`).
+Trimming explanations in the following table for clarity.
+
+``` r
+
+category_schema <- list(
+  type = "object",
+  properties = list(
+    `political leaning` = list(
+      type = "string",
+      enum = c("progressive", "conservative")
+    ),
+    `explanation` = list(type = "string")
+  ),
+  required = c(
+    "political leaning",
+    "explanation"
+  )
+)
+
+categories_df <- purrr::map(
+  .x = parties_responses_df[["political statement"]],
+  .f = \(current_statement) {
+    ql_generate(
+      prompt = current_statement,
+      system = "You identify the political leaning of political parties based on their statements.",
+      format = category_schema,
+      temperature = 0,
+      model = "mistral"
+    )
+  }
+) |>
+  purrr::list_rbind()
+
+categories_responses_df <- purrr::map(
+  .x = categories_df$response,
+  .f = \(x) {
+    yyjsonr::read_json_str(x) |>
+      tibble::as_tibble()
+  }
+) |>
+  purrr::list_rbind()
+
+
+
+responses_combo_df <- dplyr::bind_cols(
+  parties_responses_df |>
+    dplyr::rename(`given political leaning` = `political leaning`) |>
+    dplyr::select(`political statement`, `given political leaning`),
+  categories_responses_df |>
+    dplyr::rename(`identified political leaning` = `political leaning`)
+)
+
+responses_combo_df |> 
+  dplyr::mutate(explanation = stringr::str_trunc(explanation, width = 256)) |> 
+  knitr::kable()
+```
+
+| political statement | given political leaning | identified political leaning | explanation |
+|:---|:---|:---|:---|
+| Embracing a global citizenry through the universal basic income, sustainable development and intergenerational justice. | progressive | progressive | This statement suggests a progressive political leaning, as it advocates for policies that prioritize the well-being of all people worldwide (universal basic income), promote sustainable development, and ensure fairness across generations (intergenerati… |
+| ‘Restoring the Founding Principles: Limited Government, Personal Responsibility, and Traditional Values’ | conservative | conservative | This title suggests a focus on restoring principles that are traditionally associated with conservative politics. The three key areas mentioned are: Limited Government, Personal Responsibility, and Traditional Values. Here’s a brief explanation of each:… |
+| We believe that ‘eudaimonia’ – the ancient Greek concept of living a fulfilling life – is the guiding principle for our society, where everyone has access to quality education, healthcare, and economic opportunities, and can live in harmony with themselves and the planet. | progressive | progressive | The belief that ‘Eudaimonia’ – the ancient Greek concept of living a fulfilling life – should be the guiding principle for society, emphasizes the importance of providing quality education, healthcare, and economic opportunities to all individuals. This… |
+| Balancing Tradition with Innovation | conservative | progressive | Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach all… |
+| ‘We are the torchbearers of a brighter future: A future where technology serves humanity, not the other way around; where economic growth is equitable and sustainable; where justice and equality are the guiding principles that shape our society.’ | progressive | progressive | This statement expresses a progressive political viewpoint. The speaker advocates for a future in which technology benefits humanity, economic growth is equitable and sustainable, and justice and equality are prioritized in society. This perspective emp… |
+| We believe that the United States is at its strongest when it maintains a strong sense of self-reliance, limited government intervention, and unwavering commitment to traditional values. | conservative | conservative | The statement suggests a conservative political stance that emphasizes individualism, minimal government interference, and adherence to traditional values. This perspective is often associated with the belief that self-reliance and limited government in… |
+| We believe that the greatest wealth of any nation is not measured by its GDP or GDP per capita, but rather by the well-being and flourishing of all its citizens. | progressive | progressive | This statement reflects a progressive political leaning as it emphasizes the importance of social welfare and quality of life for all citizens, rather than focusing solely on economic indicators like GDP or GDP per capita. Progressives often prioritize … |
+| Emphasizing the importance of local autonomy, traditional values, and environmental stewardship. | conservative | progressive | The emphasis on local autonomy suggests a belief in decentralized decision-making and empowering communities to govern themselves. This is often associated with progressive politics as it promotes grassroots democracy, community engagement, and addressi… |
+| We believe that technology is a force for the betterment of humanity, but it must be guided by empathy and solidarity to truly serve the needs of all. | progressive | progressive | This statement reflects a progressive perspective on technology, emphasizing its potential for positive impact on humanity while acknowledging the importance of empathy and solidarity in shaping its development. This approach prioritizes the needs and w… |
+| Protecting Traditional Values, Preserving Freedom | conservative | conservative | This phrase suggests a political stance that values traditional customs and beliefs while also emphasizing the importance of individual freedom. It implies a desire to maintain cultural heritage while ensuring personal liberties are protected. |
+
+In this stereotyped case, the LLM categorises all statements as expected
+and provide a broadly meaningful explanation for the choice (if you try
+with shorter sentences, e.g., just a political motto, the correct
+response rate decreases substantially). Fundamentally:
+
+- responses are returned in a predictable and user-defined format,
+  consistently responding with user-defined categories
+- responses are cached locally:
+  - re-running a categorisation task is efficient
+  - the categorisation of a large set of texts can be interrupted at
+    will, and already processed contents will not be categorised again.
+
+Querying with different models can have a substantial impact on the
+quality of results.
 
 ## About the hex logo
 
