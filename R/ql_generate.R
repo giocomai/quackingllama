@@ -12,10 +12,10 @@
 ql_generate <- function(prompt,
                         system = NULL,
                         format = NULL,
-                        host = NULL,
                         model = NULL,
                         temperature = NULL,
-                        seed = NULL) {
+                        seed = NULL,
+                        host = NULL) {
   options_l <- ql_get_options(
     system = system,
     host = host,
@@ -35,6 +35,7 @@ ql_generate <- function(prompt,
     system = options_l[["system"]],
     seed = options_l[["seed"]],
     temperature = as.numeric(options_l[["temperature"]]),
+    model = as.character(options_l[["model"]]),
     format = as.character(format_string)
   )
 
@@ -69,12 +70,21 @@ ql_generate <- function(prompt,
             by = c(
               "prompt",
               "system",
-              "format"
+              "format",
+              "model"
             ),
             copy = TRUE
           )
 
-        if (options_l[["temperature"]] == 0) {
+        db_tbl_nrow <- db_tbl |>
+          dplyr::count() |>
+          dplyr::pull(n)
+
+        if (db_tbl_nrow == 0) {
+          tbl_row_number <- db_tbl_nrow
+
+          duckdb::dbDisconnect(conn = con)
+        } else if (options_l[["temperature"]] == 0) {
           db_tbl_temperature_filtered <- db_tbl |>
             dplyr::filter(temperature == 0)
 
@@ -84,7 +94,7 @@ ql_generate <- function(prompt,
 
           if (temperature_row_number >= length(prompt)) {
             output_df <- db_tbl_temperature_filtered |>
-              dplyr::distinct(prompt, system, format, .keep_all = TRUE) |>
+              dplyr::distinct(prompt, system, format, model, .keep_all = TRUE) |>
               dplyr::collect()
 
             duckdb::dbDisconnect(conn = con)
@@ -108,7 +118,7 @@ ql_generate <- function(prompt,
 
           if (tbl_row_number >= length(prompt)) {
             output_df <- db_tbl_filtered |>
-              dplyr::distinct(prompt, system, format, .keep_all = TRUE) |>
+              dplyr::distinct(prompt, system, format, model, .keep_all = TRUE) |>
               dplyr::collect()
 
             duckdb::dbDisconnect(conn = con)
@@ -143,8 +153,9 @@ ql_generate <- function(prompt,
 
   output_df <- resp_l |>
     tibble::as_tibble() |>
-    dplyr::mutate(dplyr::across(is.integer, as.numeric)) |>
-    dplyr::bind_cols(input_df) |>
+    dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
+    dplyr::bind_cols(input_df |>
+      dplyr::select(-model)) |>
     dplyr::relocate(response, prompt)
 
   if (ql_get_db_options(options = "db")[[1]]) {

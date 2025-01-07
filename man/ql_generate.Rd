@@ -8,10 +8,10 @@ ql_generate(
   prompt,
   system = NULL,
   format = NULL,
-  host = NULL,
   model = NULL,
   temperature = NULL,
-  seed = NULL
+  seed = NULL,
+  host = NULL
 )
 }
 \arguments{
@@ -19,9 +19,6 @@ ql_generate(
 
 \item{system}{System message to pass to the model. See official documentation
 for details. For example: "You are a helpful assistant."}
-
-\item{host}{The address where the Ollama API can be reached, e.g.
-\verb{http://localhost:11434} for locally deployed Ollama.}
 
 \item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
 \verb{ollama list} from the command line to see a list of locally available
@@ -36,6 +33,9 @@ is a common choice for creative or interactive tasks.}
 \item{seed}{An integer. When temperature is set to 0 and the seed is
 constant, the model consistently returns the same response to the same
 prompt.}
+
+\item{host}{The address where the Ollama API can be reached, e.g.
+\verb{http://localhost:11434} for locally deployed Ollama.}
 }
 \value{
 A data frame, including a response column, as well as other information returned by the model.
