@@ -2,7 +2,8 @@
 #'
 #' @inheritParams ql_hash
 #'
-#' @return A data frame, including a response column, as well as other information returned by the model.
+#' @return A data frame, including a response column, as well as other
+#'   information returned by the model.
 #' @export
 #'
 #' @examples
@@ -35,7 +36,7 @@ ql_generate <- function(prompt_df) {
         duckdb::dbDisconnect(conn = con)
       } else {
         cached_df <- dplyr::tbl(src = con, "generate") |>
-          dplyr::filter(current_hash %in% hash) |>
+          dplyr::filter(current_hash %in% .data[["hash"]]) |>
           dplyr::collect()
 
         duckdb::dbDisconnect(conn = con)
@@ -67,9 +68,11 @@ ql_generate <- function(prompt_df) {
   output_df <- resp_l |>
     tibble::as_tibble() |>
     dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
-    dplyr::bind_cols(prompt_df |>
-      dplyr::select(-model)) |>
-    dplyr::relocate(response, prompt) |>
+    dplyr::bind_cols(
+      prompt_df |>
+        dplyr::select(-"model")
+    ) |>
+    dplyr::relocate("response", "prompt") |>
     dplyr::mutate(hash = current_hash)
 
   if (ql_get_db_options(options = "db")[[1]]) {

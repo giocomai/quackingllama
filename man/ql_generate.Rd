@@ -7,10 +7,12 @@
 ql_generate(prompt_df)
 }
 \arguments{
-\item{prompt_df}{A data frame with all inputs passed to the LLM, typically created with {ql_prompt()}.}
+\item{prompt_df}{A data frame with all inputs passed to the LLM, typically
+created with {ql_prompt()}.}
 }
 \value{
-A data frame, including a response column, as well as other information returned by the model.
+A data frame, including a response column, as well as other
+information returned by the model.
 }
 \description{
 Generate a response and return the result in a data frame

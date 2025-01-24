@@ -2,12 +2,14 @@
 % Please edit documentation in R/ql_hash.R
 \name{ql_hash}
 \alias{ql_hash}
-\title{Hash all inputs relevant to the call to the LLM and create a hash to be used for caching.}
+\title{Hash all inputs relevant to the call to the LLM and create a hash to be used
+for caching.}
 \usage{
 ql_hash(prompt_df)
 }
 \arguments{
-\item{prompt_df}{A data frame with all inputs passed to the LLM, typically created with {ql_prompt()}.}
+\item{prompt_df}{A data frame with all inputs passed to the LLM, typically
+created with {ql_prompt()}.}
 }
 \description{
 Mostly used internally.
