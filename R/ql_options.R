@@ -35,21 +35,31 @@ ql_set_db_options <- function(db_name = "quackingllama",
 #'
 #' ## Retrieve only selected option
 #' ql_get_db_options("db_type")
-ql_get_db_options <- function(options = c(
-                                "db",
-                                "db_type",
-                                "db_folder",
-                                "db_name"
-                              )) {
-  ql_db_options_list <- list(
-    db = as.logical(Sys.getenv("quackingllama_db", unset = TRUE)),
-    db_type = as.character(Sys.getenv("quackingllama_db_type", unset = "DuckDB")),
-    db_folder = fs::path(Sys.getenv("quackingllama_db_folder", unset = ".")),
-    db_name = as.character(Sys.getenv("quackingllama_db_name", unset = "quackingllama"))
-  )
+ql_get_db_options <-
+  function(
+      options = c(
+        "db",
+        "db_type",
+        "db_folder",
+        "db_name"
+      )) {
+    ql_db_options_list <- list(
+      db = as.logical(Sys.getenv("quackingllama_db",
+        unset = TRUE
+      )),
+      db_type = as.character(Sys.getenv("quackingllama_db_type",
+        unset = "DuckDB"
+      )),
+      db_folder = fs::path(Sys.getenv("quackingllama_db_folder",
+        unset = "."
+      )),
+      db_name = as.character(Sys.getenv("quackingllama_db_name",
+        unset = "quackingllama"
+      ))
+    )
 
-  ql_db_options_list[options]
-}
+    ql_db_options_list[options]
+  }
 
 
 #' Enable storing data in a database for the current session
@@ -169,28 +179,60 @@ ql_set_options <- function(system = NULL,
 #' )
 #'
 #' ql_get_options()
-ql_get_options <- function(options = c(
-                             "system",
-                             "model",
-                             "host",
-                             "temperature",
-                             "seed",
-                             "keep_alive"
-                           ),
-                           system = NULL,
-                           model = NULL,
-                           host = NULL,
-                           temperature = NULL,
-                           seed = NULL,
-                           keep_alive = NULL) {
-  ql_options_list <- list(
-    system = as.character(system %||% Sys.getenv("quackingllama_system", unset = "You are a helpful assistant.")),
-    model = as.character(model %||% Sys.getenv("quackingllama_model", unset = "llama3.2")),
-    host = as.character(host %||% Sys.getenv("quackingllama_host", unset = "http://localhost:11434")),
-    temperature = as.integer(temperature %||% Sys.getenv("quackingllama_temperature", unset = 0)),
-    seed = as.integer(seed %||% Sys.getenv("quackingllama_db_name", unset = sample.int(n = .Machine$integer.max, size = 1))),
-    keep_alive = as.character(host %||% Sys.getenv("quackingllama_keep_alive", unset = "5m"))
-  )
+ql_get_options <- function(
+    options = c(
+      "system",
+      "model",
+      "host",
+      "temperature",
+      "seed",
+      "keep_alive"
+    ),
+    system = NULL,
+    model = NULL,
+    host = NULL,
+    temperature = NULL,
+    seed = NULL,
+    keep_alive = NULL) {
+  ql_options_list <-
+    list(
+      system = as.character(
+        system %||%
+          Sys.getenv("quackingllama_system",
+            unset = "You are a helpful assistant."
+          )
+      ),
+      model = as.character(
+        model %||%
+          Sys.getenv("quackingllama_model",
+            unset = "llama3.2"
+          )
+      ),
+      host = as.character(
+        host %||%
+          Sys.getenv("quackingllama_host",
+            unset = "http://localhost:11434"
+          )
+      ),
+      temperature = as.integer(
+        temperature %||%
+          Sys.getenv("quackingllama_temperature",
+            unset = 0
+          )
+      ),
+      seed = as.integer(
+        seed %||%
+          Sys.getenv("quackingllama_db_name",
+            unset = sample.int(n = .Machine$integer.max, size = 1)
+          )
+      ),
+      keep_alive = as.character(
+        host %||%
+          Sys.getenv("quackingllama_keep_alive",
+            unset = "5m"
+          )
+      )
+    )
 
   ql_options_list[options]
 }

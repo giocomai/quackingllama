@@ -98,7 +98,9 @@ ql_request <- function(prompt_df,
         )
       )
   } else {
-    cli::cli_abort(message = "The endpoint provided is not valid: {.val {endpoint}}")
+    cli::cli_abort(
+      message = "The endpoint provided is not valid: {.val {endpoint}}"
+    )
   }
 
   req <- req_02 |>

@@ -57,4 +57,6 @@ ql_categorise <- function(prompt,
     seed = seed,
     temperature = temperature
   )
+
+  output_df
 }

@@ -2,7 +2,8 @@
 #'
 #' Typically passed to {ql_generate()}.
 #'
-#' For more details and context about each parameter, see \url{https://github.com/ollama/ollama/blob/main/docs/api.md}.
+#' For more details and context about each parameter, see
+#' \url{https://github.com/ollama/ollama/blob/main/docs/api.md}.
 #'
 #' @param prompt A prompt for the LLM.
 #' @inheritParams ql_set_options
