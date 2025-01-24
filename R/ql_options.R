@@ -42,7 +42,7 @@ ql_get_db_options <- function(options = c(
                                 "db_name"
                               )) {
   ql_db_options_list <- list(
-    db = as.logical(Sys.getenv("quackingllama_db", unset = FALSE)),
+    db = as.logical(Sys.getenv("quackingllama_db", unset = TRUE)),
     db_type = as.character(Sys.getenv("quackingllama_db_type", unset = "DuckDB")),
     db_folder = fs::path(Sys.getenv("quackingllama_db_folder", unset = ".")),
     db_name = as.character(Sys.getenv("quackingllama_db_name", unset = "quackingllama"))

@@ -4,44 +4,13 @@
 \alias{ql_request}
 \title{Create \code{httr2} request for both generate and chat endpoints}
 \usage{
-ql_request(
-  prompt = NULL,
-  message = NULL,
-  format = NULL,
-  system = NULL,
-  host = NULL,
-  model = NULL,
-  temperature = NULL,
-  seed = NULL,
-  keep_alive = NULL,
-  endpoint = "generate"
-)
+ql_request(prompt_df, endpoint = "generate", host = NULL, message = NULL)
 }
 \arguments{
-\item{system}{System message to pass to the model. See official documentation
-for details. For example: "You are a helpful assistant."}
+\item{endpoint}{Defaults to "generate". Must be either "generate" or "chat".}
 
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}
-
-\item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
-\verb{ollama list} from the command line to see a list of locally available
-models.}
-
-\item{temperature}{Numeric value comprised between 0 and 1 passed to the
-model. When set to 0 and with the same seed, the response to the same
-prompt is always exactly the same. When closer to one, the response is more
-variable and creative. Use 0 for consistent responses. Setting this to 0.7
-is a common choice for creative or interactive tasks.}
-
-\item{seed}{An integer. When temperature is set to 0 and the seed is
-constant, the model consistently returns the same response to the same
-prompt.}
-
-\item{keep_alive}{Defaults to "5m". Controls controls how long the model will
-stay loaded into memory following the request.}
-
-\item{endpoint}{Defaults to "generate". Must be either "generate" or "chat".}
 }
 \value{
 An httr2 request object.

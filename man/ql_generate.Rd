@@ -4,38 +4,10 @@
 \alias{ql_generate}
 \title{Generate a response and return the result in a data frame}
 \usage{
-ql_generate(
-  prompt,
-  system = NULL,
-  format = NULL,
-  model = NULL,
-  temperature = NULL,
-  seed = NULL,
-  host = NULL
-)
+ql_generate(prompt_df)
 }
 \arguments{
-\item{prompt}{A prompt for the LLM.}
-
-\item{system}{System message to pass to the model. See official documentation
-for details. For example: "You are a helpful assistant."}
-
-\item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
-\verb{ollama list} from the command line to see a list of locally available
-models.}
-
-\item{temperature}{Numeric value comprised between 0 and 1 passed to the
-model. When set to 0 and with the same seed, the response to the same
-prompt is always exactly the same. When closer to one, the response is more
-variable and creative. Use 0 for consistent responses. Setting this to 0.7
-is a common choice for creative or interactive tasks.}
-
-\item{seed}{An integer. When temperature is set to 0 and the seed is
-constant, the model consistently returns the same response to the same
-prompt.}
-
-\item{host}{The address where the Ollama API can be reached, e.g.
-\verb{http://localhost:11434} for locally deployed Ollama.}
+\item{prompt_df}{A data frame with all inputs passed to the LLM, typically created with {ql_prompt()}.}
 }
 \value{
 A data frame, including a response column, as well as other information returned by the model.
@@ -44,6 +16,6 @@ A data frame, including a response column, as well as other information returned
 Generate a response and return the result in a data frame
 }
 \examples{
-
-ql_generate("a haiku")
+ql_prompt("a haiku") |>
+  ql_generate()
 }

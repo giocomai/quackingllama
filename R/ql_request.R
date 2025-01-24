@@ -12,16 +12,10 @@
 #'
 #' ql_request(prompt = "a haiku") |>
 #'   httr2::req_dry_run()
-ql_request <- function(prompt = NULL,
-                       message = NULL,
-                       format = NULL,
-                       system = NULL,
+ql_request <- function(prompt_df,
+                       endpoint = "generate",
                        host = NULL,
-                       model = NULL,
-                       temperature = NULL,
-                       seed = NULL,
-                       keep_alive = NULL,
-                       endpoint = "generate") {
+                       message = NULL) {
   rlang::arg_match(
     arg = endpoint,
     values = c(
@@ -42,46 +36,47 @@ ql_request <- function(prompt = NULL,
 
 
   options_l <- ql_get_options(
-    system = system,
-    host = host,
-    model = model,
-    temperature = temperature,
-    seed = seed
+    host = host
   )
 
+  if (prompt_df[["format"]] == "") {
+    format_schema <- NULL
+  } else {
+    format_schema <- prompt_df[["format"]]
+  }
 
   req_01 <- httr2::request(options_l[["host"]]) |>
     httr2::req_url_path(endpoint) |>
     httr2::req_headers("Content-Type" = "application/json")
 
   if (endpoint == "api/generate") {
-    if (is.null(format)) {
+    if (is.null(format_schema)) {
       req_02 <- req_01 |>
         httr2::req_body_json(
           list(
-            model = options_l[["model"]],
-            prompt = prompt,
+            model = prompt_df[["model"]],
+            prompt = prompt_df[["prompt"]],
             stream = FALSE,
             raw = FALSE,
             options = list(
-              seed = options_l[["seed"]],
-              temperature = options_l[["temperature"]]
+              seed = prompt_df[["seed"]],
+              temperature = prompt_df[["temperature"]]
             ),
-            system = options_l[["system"]]
+            system = prompt_df[["system"]]
           )
         )
     } else {
       req_02 <- req_01 |>
         httr2::req_body_json(
           list(
-            model = options_l[["model"]],
-            prompt = prompt,
-            format = format,
+            model = prompt_df[["model"]],
+            prompt = prompt_df[["prompt"]],
+            format = yyjsonr::read_json_str(format_schema),
             stream = FALSE,
             raw = FALSE,
             options = list(
-              seed = options_l[["seed"]],
-              temperature = options_l[["temperature"]]
+              seed = prompt_df[["seed"]],
+              temperature = prompt_df[["temperature"]]
             )
           )
         )
@@ -90,15 +85,15 @@ ql_request <- function(prompt = NULL,
     req_02 <- req_01 |>
       httr2::req_body_json(
         list(
-          model = options_l[["model"]],
-          prompt = prompt,
+          model = prompt_df[["model"]],
+          prompt = prompt_df[["prompt"]],
           messages = message,
-          format = fields,
+          format = yyjsonr::read_json_str(format_schema),
           stream = FALSE,
           raw = FALSE,
           options = list(
-            seed = options_l[["seed"]],
-            temperature = options_l[["temperature"]]
+            seed = prompt_df[["seed"]],
+            temperature = prompt_df[["temperature"]]
           )
         )
       )

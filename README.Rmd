@@ -59,7 +59,8 @@ library("quackingllama")
 Let's generate a short piece of text. Results are returned in a data frame, with the `response` in the first column and all relevant metadata about the query stored along with it. 
 
 ```{r pol_df}
-pol_df <- ql_generate(prompt = "Describe an imaginary political leader in less than 100 words.")
+pol_df <- ql_prompt(prompt = "Describe an imaginary political leader in less than 100 words.") |>
+  ql_generate()
 
 str(pol_df)
 ```
@@ -76,7 +77,8 @@ If we are interested in variations of this text, we can easily create them:
 pol3_df <- purrr::map(
   .x = c("progressive", "conservative", "centrist"),
   .f = \(x) {
-    ql_generate(prompt = glue::glue("Describe an imaginary {x} politician in less than 100 words."))
+    ql_prompt(prompt = glue::glue("Describe an imaginary {x} politician in less than 100 words.")) |>
+      ql_generate()
   }
 ) |>
   purrr::list_rbind()
@@ -104,10 +106,11 @@ schema <- list(
 
 
 ```{r pol_schema_df basic}
-pol_schema_df <- ql_generate(
+pol_schema_df <- ql_prompt(
   prompt = "Describe an imaginary political leader.",
   format = schema
-)
+) |>
+  ql_generate()
 
 pol_schema_df$response |>
   yyjsonr::read_json_str()
@@ -144,10 +147,11 @@ schema <- list(
 And the returned is formatted as expected:
 
 ```{r pol_schema_df medium}
-pol_schema_df <- ql_generate(
+pol_schema_df <- ql_prompt(
   prompt = "Describe an imaginary political leader.",
   format = schema
-)
+) |>
+  ql_generate()
 
 pol_schema_df$response |>
   yyjsonr::read_json_str()
@@ -161,10 +165,11 @@ Having the response in a structured format allows for easily storing results in 
 pol3_schema_df <- purrr::map(
   .x = c("progressive", "conservative", "centrist"),
   .f = \(x) {
-    ql_generate(
+    ql_prompt(
       prompt = glue::glue("Describe an imaginary {x} politician."),
       format = schema
-    )
+    ) |>
+      ql_generate()
   }
 ) |>
   purrr::list_rbind()
@@ -196,25 +201,43 @@ What is "temperature"? [Ollama's documentation](https://github.com/ollama/ollama
 What does it mean in practices? For example, that if I set the temperature to 0 and ask the same LLM to generate a haiku, I will always get the very same haiku, no matter how many times I run this command.
 
 ```{r funny_haiku_temp0}
-ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
-ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
-ql_generate(prompt = "A reasonably funny haiku", temperature = 0) |> dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 0) |>
+  ql_generate() |>
+  dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 0) |>
+  ql_generate() |>
+  dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 0) |>
+  ql_generate() |>
+  dplyr::pull(response)
 ```
 
 If I set the temperature to 1, I get every time a different haiku (ok, not very different, really, but still different).
 
 ```{r funny_haiku_temp1}
-ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
-ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
-ql_generate(prompt = "A reasonably funny haiku", temperature = 1) |> dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
+  ql_generate() |>
+  dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
+  ql_generate() |>
+  dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
+  ql_generate() |>
+  dplyr::pull(response)
 ```
 
 But then, replicability of results is possible even when the temperature is set to a value higher than 0. We just need to set the same seed, and we'll consistently get the same result.
 
 ```{r funny_haiku_temp1_seed2024}
-ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
-ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
-ql_generate(prompt = "A reasonably funny haiku", temperature = 1, seed = 2024) |> dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 1, seed = 2025) |>
+  ql_generate() |>
+  dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 1, seed = 2025) |>
+  ql_generate() |>
+  dplyr::pull(response)
+ql_prompt(prompt = "A reasonably funny haiku", temperature = 1, seed = 2025) |>
+  ql_generate() |>
+  dplyr::pull(response)
 ```
 
 Two additional components determine if the response is exactly the same in different instances: `system` and `format`. The `system` parameter is passed along with the prompt to the LLM, and by default is set to the generic "You are a helpful assistant.". This is a reasonable generic option, but there may be good reasons to be more specific depending on the task at hand. 
@@ -222,11 +245,12 @@ Two additional components determine if the response is exactly the same in diffe
 For example, if we set as the system message "You are a 19th century romantic poet.", the style of the response will change (somewhat) accordingly. 
 
 ```{r funny_haiku_temp0_19th_century}
-ql_generate(
+ql_prompt(
   prompt = "A reasonably funny haiku",
   temperature = 0,
   system = "You are a 19th century romantic writer."
 ) |>
+  ql_generate() |>
   dplyr::pull(response)
 ```
 
@@ -245,10 +269,10 @@ schema <- list(
   )
 )
 
-haiku_str_df <- ql_generate(
+haiku_str_df <- ql_prompt(
   prompt = "Write a funny haiku, and explain why it is supposed to be funny.",
   format = schema
-)
+) |> ql_generate()
 
 haiku_str_df |>
   dplyr::pull(response) |>
@@ -278,37 +302,12 @@ ql_set_db_options(db_folder = fs::path_home_r("R"))
 
 Now even prompts that would take the LLM many seconds to process can be returned efficiently from cache:
 
-```{r long story from cache}
-invisible(
-  ql_generate(
-    prompt = "A long story",
-    temperature = 1,
-    system = "You are a 19th century romantic poet.",
-    seed = 42
-  )
-)
-
-before <- Sys.time()
-ql_generate(
-  prompt = "A long story",
-  temperature = 1,
-  system = "You are a 19th century romantic poet.",
-  seed = 42
-)
-after <- Sys.time()
-
-after - before
-```
-
 
 ### Text classification
 
 First, let's create some texts that we will then try to classify:
 
 ```{r parties_responses_df}
-ql_enable_db()
-ql_set_db_options(db_folder = fs::path_home_r("R"))
-
 schema <- list(
   type = "object",
   properties = list(
@@ -330,12 +329,13 @@ parties_df <- purrr::map2(
   .x = rep(c("progressive", "conservative"), 5),
   .y = 1:10,
   .f = \(x, y) {
-    ql_generate(
+    ql_prompt(
       prompt = glue::glue("Describe an imaginary {x} political party, inventing their party name and a characteristic political statement."),
       format = schema,
       temperature = 1,
       seed = y
-    )
+    ) |>
+      ql_generate()
   }
 ) |>
   purrr::list_rbind()
@@ -355,7 +355,6 @@ parties_responses_df
 Then we ask a different model to categorise results (in this example, text generation with `llama3.2`, text categorisation with `mistral`). Trimming explanations in the following table for clarity.
 
 ```{r categories_df mistral}
-
 category_schema <- list(
   type = "object",
   properties = list(
@@ -374,13 +373,14 @@ category_schema <- list(
 categories_df <- purrr::map(
   .x = parties_responses_df[["political statement"]],
   .f = \(current_statement) {
-    ql_generate(
+    ql_prompt(
       prompt = current_statement,
       system = "You identify the political leaning of political parties based on their statements.",
       format = category_schema,
       temperature = 0,
       model = "mistral"
-    )
+    ) |>
+      ql_generate()
   }
 ) |>
   purrr::list_rbind()
@@ -404,8 +404,8 @@ responses_combo_df <- dplyr::bind_cols(
     dplyr::rename(`identified political leaning` = `political leaning`)
 )
 
-responses_combo_df |> 
-  dplyr::mutate(explanation = stringr::str_trunc(explanation, width = 256)) |> 
+responses_combo_df |>
+  dplyr::mutate(explanation = stringr::str_trunc(explanation, width = 256)) |>
   knitr::kable()
 ```
 
