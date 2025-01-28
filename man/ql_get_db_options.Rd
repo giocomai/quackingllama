@@ -4,7 +4,7 @@
 \alias{ql_get_db_options}
 \title{Retrieve}
 \usage{
-ql_get_db_options(options = c("db", "db_type", "db_folder", "db_name"))
+ql_get_db_options(options = c("db", "db_type", "db_folder", "db_filename"))
 }
 \arguments{
 \item{options}{Available options that}

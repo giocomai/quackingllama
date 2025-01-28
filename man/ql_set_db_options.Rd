@@ -2,18 +2,15 @@
 % Please edit documentation in R/ql_options.R
 \name{ql_set_db_options}
 \alias{ql_set_db_options}
-\title{Set options for the local database}
+\title{Set options for the local database and enables caching}
 \usage{
-ql_set_db_options(
-  db_name = "quackingllama",
-  db_type = "DuckDB",
-  db_folder = "."
-)
+ql_set_db_options(db_filename = NULL, db_type = "DuckDB", db_folder = ".")
 }
 \arguments{
-\item{db_name}{Defaults to \code{quackingllama}. Name given to the local database
-file. Useful for differentiating among different approaches or projects
-when storing multiple database files in the same folder.}
+\item{db_filename}{Defaults NULL. Internally, defaults to a combination of
+\code{quackingllama}, followed by the name of the model used. Name given to the
+local database file. Useful for differentiating among different approaches
+or projects when storing multiple database files in the same folder.}
 
 \item{db_type}{Defaults to \code{DuckDB}.}
 
@@ -23,10 +20,10 @@ when storing multiple database files in the same folder.}
 Nothing, used for its side effects.
 }
 \description{
-Set options for the local database
+Set options for the local database and enables caching
 }
 \examples{
-ql_set_db_options(db_name = "testing_ground")
+ql_set_db_options(db_filename = "testing_ground")
 }
 \seealso{
 Other database: 

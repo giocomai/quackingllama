@@ -10,13 +10,33 @@
 #' ql_prompt("a haiku") |>
 #'   ql_generate()
 ql_generate <- function(prompt_df) {
+  model <- unique(prompt_df[["model"]])
+
+  if (length(model) > 1) {
+    cli::cli_abort(
+      message = c(
+        x = "{.fun ql_generate} accepts only prompts with one model.",
+        i = "The current prompt includes the following models: {stringr::str_flatten_comma(model)}"
+      )
+    )
+  }
+
   current_hash <- ql_hash(prompt_df)
 
-  if (ql_get_db_options(options = "db")[[1]]) {
-    ## check for local database
+  db_options_l <- ql_get_db_options()
+
+  if (db_options_l[["db"]]) {
+    if (db_options_l[["db_filename"]] == "") {
+      db_filename <- stringr::str_c(c("quackingllama", model), collapse = "-") |>
+        stringr::str_replace_all(pattern = "[[:punct:]]", replacement = "_") |>
+        fs::path_sanitize()
+    } else {
+      db_filename <- db_options_l[["db_filename"]]
+    }
+
     duckdb_file <- fs::path(
-      ql_get_db_options(options = "db_folder")[[1]],
-      fs::path_ext_set(ql_get_db_options(options = "db_name")[[1]], "duckdb")
+      db_options_l[["db_folder"]],
+      fs::path_ext_set(db_filename, "duckdb")
     )
 
     if (!fs::file_exists(duckdb_file)) {
@@ -75,7 +95,7 @@ ql_generate <- function(prompt_df) {
     dplyr::relocate("response", "prompt") |>
     dplyr::mutate(hash = current_hash)
 
-  if (ql_get_db_options(options = "db")[[1]]) {
+  if (db_options_l[["db"]]) {
     con <- duckdb::dbConnect(duckdb::duckdb(),
       dbdir = duckdb_file,
       read_only = FALSE

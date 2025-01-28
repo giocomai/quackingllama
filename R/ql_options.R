@@ -1,8 +1,9 @@
-#' Set options for the local database
+#' Set options for the local database and enables caching
 #'
-#' @param db_name Defaults to `quackingllama`. Name given to the local database
-#'   file. Useful for differentiating among different approaches or projects
-#'   when storing multiple database files in the same folder.
+#' @param db_filename Defaults NULL. Internally, defaults to a combination of
+#'   `quackingllama`, followed by the name of the model used. Name given to the
+#'   local database file. Useful for differentiating among different approaches
+#'   or projects when storing multiple database files in the same folder.
 #' @param db_type Defaults to `DuckDB`.
 #' @param db_folder Defaults to `.`, i.e., to the current working directory.
 #'
@@ -12,12 +13,16 @@
 #' @export
 #'
 #' @examples
-#' ql_set_db_options(db_name = "testing_ground")
-ql_set_db_options <- function(db_name = "quackingllama",
+#' ql_set_db_options(db_filename = "testing_ground")
+ql_set_db_options <- function(db_filename = NULL,
                               db_type = "DuckDB",
                               db_folder = ".") {
   if (is.null(db_folder) == FALSE) {
     Sys.setenv(quackingllama_db_folder = db_folder)
+  }
+
+  if (is.null(db_filename) == FALSE) {
+    Sys.setenv(quackingllama_db_filename = db_filename)
   }
 
   ql_enable_db(db_type = db_type)
@@ -41,7 +46,7 @@ ql_get_db_options <-
         "db",
         "db_type",
         "db_folder",
-        "db_name"
+        "db_filename"
       )) {
     ql_db_options_list <- list(
       db = as.logical(Sys.getenv("quackingllama_db",
@@ -53,8 +58,8 @@ ql_get_db_options <-
       db_folder = fs::path(Sys.getenv("quackingllama_db_folder",
         unset = "."
       )),
-      db_name = as.character(Sys.getenv("quackingllama_db_name",
-        unset = "quackingllama"
+      db_filename = as.character(Sys.getenv("quackingllama_db_filename",
+        unset = ""
       ))
     )
 
@@ -222,7 +227,7 @@ ql_get_options <- function(
       ),
       seed = as.integer(
         seed %||%
-          Sys.getenv("quackingllama_db_name",
+          Sys.getenv("quackingllama_db_filename",
             unset = sample.int(n = .Machine$integer.max, size = 1)
           )
       ),
