@@ -24,7 +24,10 @@ ql_generate <- function(prompt_df,
     )
   }
 
-  prompt_to_process_df <- prompt_df <- ql_hash(prompt_df)
+  prompt_df <- ql_hash(prompt_df)
+
+  prompt_to_process_df <- prompt_df |>
+    dplyr::distinct()
 
   db_options_l <- ql_get_db_options()
 
@@ -83,7 +86,8 @@ ql_generate <- function(prompt_df,
           dplyr::anti_join(
             y = cached_df,
             by = "hash"
-          )
+          ) |>
+          dplyr::distinct()
       }
     }
   }
