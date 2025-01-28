@@ -11,6 +11,13 @@ ql_hash(prompt_df)
 \item{prompt_df}{A data frame with all inputs passed to the LLM, typically
 created with {ql_prompt()}.}
 }
+\value{
+A tibble, such as those returned by {ql_prompt()}, but always
+including a hash column.
+}
 \description{
 Mostly used internally.
+}
+\examples{
+ql_prompt("a haiku", hash = FALSE) |> ql_hash()
 }

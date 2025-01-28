@@ -41,13 +41,12 @@ ql_set_db_options <- function(db_filename = NULL,
 #' ## Retrieve only selected option
 #' ql_get_db_options("db_type")
 ql_get_db_options <-
-  function(
-      options = c(
-        "db",
-        "db_type",
-        "db_folder",
-        "db_filename"
-      )) {
+  function(options = c(
+             "db",
+             "db_type",
+             "db_folder",
+             "db_filename"
+           )) {
     ql_db_options_list <- list(
       db = as.logical(Sys.getenv("quackingllama_db",
         unset = TRUE

@@ -11,7 +11,8 @@ ql_prompt(
   model = NULL,
   temperature = NULL,
   seed = NULL,
-  host = NULL
+  host = NULL,
+  hash = TRUE
 )
 }
 \arguments{
@@ -36,6 +37,14 @@ prompt.}
 
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}
+
+\item{hash}{Defaults to TRUE. If TRUE, adds a column with the hash of all
+other components of the prompt. Used internally for caching. Can be added
+separately with {ql_hash()}.}
+}
+\value{
+A tibble with all main components of a query, to be passed to
+{ql_generate()}.
 }
 \description{
 Typically passed to {ql_generate()}.
@@ -43,4 +52,7 @@ Typically passed to {ql_generate()}.
 \details{
 For more details and context about each parameter, see
 \url{https://github.com/ollama/ollama/blob/main/docs/api.md}.
+}
+\examples{
+ql_prompt("a haiku")
 }

@@ -1,5 +1,7 @@
 #' Generate a response and return the result in a data frame
 #'
+#' @param only_cached Defaults to FALSE. If TRUE, only cached responses are
+#'   returned.
 #' @inheritParams ql_hash
 #'
 #' @return A data frame, including a response column, as well as other
@@ -9,7 +11,8 @@
 #' @examples
 #' ql_prompt("a haiku") |>
 #'   ql_generate()
-ql_generate <- function(prompt_df) {
+ql_generate <- function(prompt_df,
+                        only_cached = FALSE) {
   model <- unique(prompt_df[["model"]])
 
   if (length(model) > 1) {
@@ -21,7 +24,7 @@ ql_generate <- function(prompt_df) {
     )
   }
 
-  current_hash <- ql_hash(prompt_df)
+  prompt_to_process_df <- prompt_df <- ql_hash(prompt_df)
 
   db_options_l <- ql_get_db_options()
 
@@ -56,67 +59,121 @@ ql_generate <- function(prompt_df) {
         duckdb::dbDisconnect(conn = con)
       } else {
         cached_df <- dplyr::tbl(src = con, "generate") |>
-          dplyr::filter(current_hash %in% .data[["hash"]]) |>
+          dplyr::filter(hash %in% prompt_df$hash) |>
           dplyr::collect()
 
         duckdb::dbDisconnect(conn = con)
 
-        if (nrow(cached_df) > 0) {
+        cached_df <- prompt_df |>
+          dplyr::select(hash) |>
+          dplyr::left_join(
+            y = cached_df,
+            by = "hash"
+          ) |>
+          dplyr::relocate(hash,
+            .after = dplyr::last_col()
+          ) |>
+          dplyr::filter(!is.na(model))
+
+        if (only_cached) {
           return(cached_df)
         }
+
+        prompt_to_process_df <- prompt_df |>
+          dplyr::anti_join(
+            y = cached_df,
+            by = "hash"
+          )
       }
     }
   }
 
-  req <- ql_request(
-    prompt_df = prompt_df,
-    endpoint = "generate"
-  )
-
-  resp <- req |>
-    httr2::req_perform()
-
-  resp_l <- resp |>
-    httr2::resp_body_json()
-
-  if (!is.null(resp_l[["error"]])) {
-    rlang::abort(message = resp_l[["error"]])
+  if (nrow(prompt_to_process_df) == nrow(prompt_df)) {
+    cached_df <- NULL
   }
-
-  resp_l[["context"]] <- NULL
-
-  output_df <- resp_l |>
-    tibble::as_tibble() |>
-    dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
-    dplyr::bind_cols(
-      prompt_df |>
-        dplyr::select(-"model")
-    ) |>
-    dplyr::relocate("response", "prompt") |>
-    dplyr::mutate(hash = current_hash)
 
   if (db_options_l[["db"]]) {
     con <- duckdb::dbConnect(duckdb::duckdb(),
       dbdir = duckdb_file,
       read_only = FALSE
     )
+  }
 
-    if (table_exists) {
-      duckdb::dbAppendTable(
-        conn = con,
-        name = "generate",
-        value = output_df
+  new_df <- purrr::map(
+    .progress = TRUE,
+    .x = purrr::transpose(prompt_to_process_df),
+    .f = \(current_prompt) {
+      req <- ql_request(
+        prompt_df = current_prompt,
+        endpoint = "generate"
       )
-    } else {
-      duckdb::dbWriteTable(
-        conn = con,
-        name = "generate",
-        value = output_df
-      )
+
+      resp <- req |>
+        httr2::req_perform()
+
+      resp_l <- resp |>
+        httr2::resp_body_json()
+
+      if (!is.null(resp_l[["error"]])) {
+        rlang::abort(message = resp_l[["error"]])
+      }
+
+      resp_l[["context"]] <- NULL
+
+      output_df <- resp_l |>
+        tibble::as_tibble() |>
+        dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
+        dplyr::bind_cols(
+          tibble::as_tibble(current_prompt) |>
+            dplyr::select(-"model")
+        ) |>
+        dplyr::relocate("response", "prompt") |>
+        dplyr::relocate("model", "system", "format", "seed", "temperature",
+          .after = "model"
+        )
+
+      if (db_options_l[["db"]]) {
+        if (table_exists) {
+          duckdb::dbAppendTable(
+            conn = con,
+            name = "generate",
+            value = output_df
+          )
+        } else {
+          duckdb::dbWriteTable(
+            conn = con,
+            name = "generate",
+            value = output_df
+          )
+          table_exists <<- duckdb::dbExistsTable(
+            conn = con,
+            name = "generate"
+          )
+        }
+      }
+      output_df
     }
+  ) |>
+    purrr::list_rbind()
 
+  if (db_options_l[["db"]]) {
     duckdb::dbDisconnect(conn = con)
   }
 
-  output_df
+  if (is.null(cached_df)) {
+    return(new_df)
+  } else {
+    prompt_df |>
+      dplyr::select(hash) |>
+      dplyr::left_join(
+        y = dplyr::bind_rows(
+          cached_df,
+          new_df
+        ),
+        by = "hash"
+      ) |>
+      dplyr::relocate(hash,
+        .after = dplyr::last_col()
+      )
+  }
 }
