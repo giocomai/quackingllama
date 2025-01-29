@@ -48,7 +48,6 @@ ql_categorise <- function(prompt,
   }
 
   output_df <- tibble::tibble(
-    #  doc_id = item[["doc_id"]],
     response = extracted_v,
     total_duration = resp_l |>
       purrr::pluck("total_duration"),

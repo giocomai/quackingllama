@@ -19,7 +19,8 @@ ql_generate <- function(prompt_df,
     cli::cli_abort(
       message = c(
         x = "{.fun ql_generate} accepts only prompts with one model.",
-        i = "The current prompt includes the following models: {stringr::str_flatten_comma(model)}"
+        i = "The current prompt includes the following models:
+        {stringr::str_flatten_comma(sQuote(model))}"
       )
     )
   }
@@ -33,8 +34,13 @@ ql_generate <- function(prompt_df,
 
   if (db_options_l[["db"]]) {
     if (db_options_l[["db_filename"]] == "") {
-      db_filename <- stringr::str_c(c("quackingllama", model), collapse = "-") |>
-        stringr::str_replace_all(pattern = "[[:punct:]]", replacement = "_") |>
+      db_filename <- stringr::str_c(c("quackingllama", model),
+        collapse = "-"
+      ) |>
+        stringr::str_replace_all(
+          pattern = "[[:punct:]]",
+          replacement = "_"
+        ) |>
         fs::path_sanitize()
     } else {
       db_filename <- db_options_l[["db_filename"]]
@@ -62,18 +68,18 @@ ql_generate <- function(prompt_df,
         duckdb::dbDisconnect(conn = con)
       } else {
         cached_df <- dplyr::tbl(src = con, "generate") |>
-          dplyr::filter(hash %in% prompt_df$hash) |>
+          dplyr::filter(.data[["hash"]] %in% prompt_df$hash) |>
           dplyr::collect()
 
         duckdb::dbDisconnect(conn = con)
 
         cached_df <- prompt_df |>
-          dplyr::select(hash) |>
+          dplyr::select("hash") |>
           dplyr::left_join(
             y = cached_df,
             by = "hash"
           ) |>
-          dplyr::relocate(hash,
+          dplyr::relocate("hash",
             .after = dplyr::last_col()
           ) |>
           dplyr::filter(!is.na(model))
@@ -168,7 +174,7 @@ ql_generate <- function(prompt_df,
     return(new_df)
   } else {
     prompt_df |>
-      dplyr::select(hash) |>
+      dplyr::select("hash") |>
       dplyr::left_join(
         y = dplyr::bind_rows(
           cached_df,
@@ -176,7 +182,8 @@ ql_generate <- function(prompt_df,
         ),
         by = "hash"
       ) |>
-      dplyr::relocate(hash,
+      dplyr::relocate(
+        "hash",
         .after = dplyr::last_col()
       )
   }

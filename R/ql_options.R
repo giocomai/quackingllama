@@ -40,30 +40,30 @@ ql_set_db_options <- function(db_filename = NULL,
 #'
 #' ## Retrieve only selected option
 #' ql_get_db_options("db_type")
-ql_get_db_options <-
-  function(options = c(
-             "db",
-             "db_type",
-             "db_folder",
-             "db_filename"
-           )) {
-    ql_db_options_list <- list(
-      db = as.logical(Sys.getenv("quackingllama_db",
-        unset = TRUE
-      )),
-      db_type = as.character(Sys.getenv("quackingllama_db_type",
-        unset = "DuckDB"
-      )),
-      db_folder = fs::path(Sys.getenv("quackingllama_db_folder",
-        unset = "."
-      )),
-      db_filename = as.character(Sys.getenv("quackingllama_db_filename",
-        unset = ""
-      ))
-    )
+ql_get_db_options <- function(
+    options = c(
+      "db",
+      "db_type",
+      "db_folder",
+      "db_filename"
+    )) {
+  ql_db_options_list <- list(
+    db = as.logical(Sys.getenv("quackingllama_db",
+      unset = TRUE
+    )),
+    db_type = as.character(Sys.getenv("quackingllama_db_type",
+      unset = "DuckDB"
+    )),
+    db_folder = fs::path(Sys.getenv("quackingllama_db_folder",
+      unset = "."
+    )),
+    db_filename = as.character(Sys.getenv("quackingllama_db_filename",
+      unset = ""
+    ))
+  )
 
-    ql_db_options_list[options]
-  }
+  ql_db_options_list[options]
+}
 
 
 #' Enable storing data in a database for the current session
