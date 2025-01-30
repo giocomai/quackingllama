@@ -4,16 +4,25 @@
 \alias{ql_request}
 \title{Create \code{httr2} request for both generate and chat endpoints}
 \usage{
-ql_request(prompt_df, endpoint = "generate", host = NULL, message = NULL)
+ql_request(
+  prompt_df,
+  endpoint = "generate",
+  host = NULL,
+  message = NULL,
+  timeout = NULL
+)
 }
 \arguments{
 \item{endpoint}{Defaults to "generate". Must be either "generate" or "chat".}
 
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}
+
+\item{timeout}{If not set with {ql_set_options()}, defaults to 300 seconds (5
+minutes).}
 }
 \value{
-An httr2 request object.
+A \code{httr2} request object.
 }
 \description{
 Create \code{httr2} request for both generate and chat endpoints

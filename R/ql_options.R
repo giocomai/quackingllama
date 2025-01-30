@@ -135,7 +135,8 @@ ql_set_options <- function(system = NULL,
                            host = NULL,
                            temperature = NULL,
                            seed = NULL,
-                           keep_alive = NULL) {
+                           keep_alive = NULL,
+                           timeout = NULL) {
   if (!is.null(system)) {
     Sys.setenv(quackingllama_system = system)
   }
@@ -158,6 +159,10 @@ ql_set_options <- function(system = NULL,
 
   if (!is.null(keep_alive)) {
     Sys.setenv(quackingllama_keep_alive = keep_alive)
+  }
+
+  if (!is.null(timeout)) {
+    Sys.setenv(quackingllama_timeout = timeout)
   }
 }
 
@@ -190,14 +195,16 @@ ql_get_options <- function(
       "host",
       "temperature",
       "seed",
-      "keep_alive"
+      "keep_alive",
+      "timeout"
     ),
     system = NULL,
     model = NULL,
     host = NULL,
     temperature = NULL,
     seed = NULL,
-    keep_alive = NULL) {
+    keep_alive = NULL,
+    timeout = NULL) {
   ql_options_list <-
     list(
       system = as.character(
@@ -226,7 +233,7 @@ ql_get_options <- function(
       ),
       seed = as.integer(
         seed %||%
-          Sys.getenv("quackingllama_db_filename",
+          Sys.getenv("quackingllama_seed",
             unset = sample.int(n = .Machine$integer.max, size = 1)
           )
       ),
@@ -234,6 +241,12 @@ ql_get_options <- function(
         host %||%
           Sys.getenv("quackingllama_keep_alive",
             unset = "5m"
+          )
+      ),
+      timeout = as.integer(
+        timeout %||%
+          Sys.getenv("quackingllama_timeout",
+            unset = 300
           )
       )
     )

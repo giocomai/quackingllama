@@ -10,7 +10,8 @@ ql_set_options(
   host = NULL,
   temperature = NULL,
   seed = NULL,
-  keep_alive = NULL
+  keep_alive = NULL,
+  timeout = NULL
 )
 }
 \arguments{

@@ -4,7 +4,13 @@
 \alias{ql_generate}
 \title{Generate a response and return the result in a data frame}
 \usage{
-ql_generate(prompt_df, only_cached = FALSE)
+ql_generate(
+  prompt_df,
+  only_cached = FALSE,
+  host = NULL,
+  message = NULL,
+  timeout = NULL
+)
 }
 \arguments{
 \item{prompt_df}{A data frame with all inputs passed to the LLM, typically
@@ -12,6 +18,12 @@ created with {ql_prompt()}.}
 
 \item{only_cached}{Defaults to FALSE. If TRUE, only cached responses are
 returned.}
+
+\item{host}{The address where the Ollama API can be reached, e.g.
+\verb{http://localhost:11434} for locally deployed Ollama.}
+
+\item{timeout}{If not set with {ql_set_options()}, defaults to 300 seconds (5
+minutes).}
 }
 \value{
 A data frame, including a response column, as well as other

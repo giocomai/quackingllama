@@ -1,10 +1,12 @@
 #' Create `httr2` request for both generate and chat endpoints
 #'
 #' @param endpoint Defaults to "generate". Must be either "generate" or "chat".
+#' @param timeout If not set with {ql_set_options()}, defaults to 300 seconds (5
+#'   minutes).
 #'
 #' @inheritParams ql_set_options
 #'
-#' @returns An httr2 request object.
+#' @returns A `httr2` request object.
 #' @export
 #'
 #' @examples
@@ -15,7 +17,8 @@
 ql_request <- function(prompt_df,
                        endpoint = "generate",
                        host = NULL,
-                       message = NULL) {
+                       message = NULL,
+                       timeout = NULL) {
   rlang::arg_match(
     arg = endpoint,
     values = c(
@@ -36,7 +39,8 @@ ql_request <- function(prompt_df,
 
 
   options_l <- ql_get_options(
-    host = host
+    host = host,
+    timeout = timeout
   )
 
   if (prompt_df[["format"]] == "") {
@@ -104,7 +108,8 @@ ql_request <- function(prompt_df,
   }
 
   req <- req_02 |>
-    httr2::req_error(is_error = \(resp) FALSE)
+    httr2::req_error(is_error = \(resp) FALSE) |>
+    httr2::req_timeout(seconds = options_l[["timeout"]])
 
   req
 }

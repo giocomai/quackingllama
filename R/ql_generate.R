@@ -3,6 +3,7 @@
 #' @param only_cached Defaults to FALSE. If TRUE, only cached responses are
 #'   returned.
 #' @inheritParams ql_hash
+#' @inheritParams ql_request
 #'
 #' @return A data frame, including a response column, as well as other
 #'   information returned by the model.
@@ -12,7 +13,10 @@
 #' ql_prompt("a haiku") |>
 #'   ql_generate()
 ql_generate <- function(prompt_df,
-                        only_cached = FALSE) {
+                        only_cached = FALSE,
+                        host = NULL,
+                        message = NULL,
+                        timeout = NULL) {
   model <- unique(prompt_df[["model"]])
 
   if (length(model) > 1) {
@@ -54,7 +58,8 @@ ql_generate <- function(prompt_df,
     if (!fs::file_exists(duckdb_file)) {
       table_exists <- FALSE
     } else {
-      con <- duckdb::dbConnect(duckdb::duckdb(),
+      con <- duckdb::dbConnect(
+        duckdb::duckdb(),
         dbdir = duckdb_file,
         read_only = TRUE
       )
@@ -79,7 +84,8 @@ ql_generate <- function(prompt_df,
             y = cached_df,
             by = "hash"
           ) |>
-          dplyr::relocate("hash",
+          dplyr::relocate(
+            "hash",
             .after = dplyr::last_col()
           ) |>
           dplyr::filter(!is.na(model))
@@ -103,19 +109,23 @@ ql_generate <- function(prompt_df,
   }
 
   if (db_options_l[["db"]]) {
-    con <- duckdb::dbConnect(duckdb::duckdb(),
+    con <- duckdb::dbConnect(
+      duckdb::duckdb(),
       dbdir = duckdb_file,
       read_only = FALSE
     )
   }
 
   new_df <- purrr::map(
-    .progress = TRUE,
+    .progress = model,
     .x = purrr::transpose(prompt_to_process_df),
     .f = \(current_prompt) {
       req <- ql_request(
         prompt_df = current_prompt,
-        endpoint = "generate"
+        endpoint = "generate",
+        host = host,
+        message = message,
+        timeout = timeout
       )
 
       resp <- req |>
@@ -132,6 +142,7 @@ ql_generate <- function(prompt_df,
 
       output_df <- resp_l |>
         tibble::as_tibble() |>
+        dplyr::mutate(timeout = db_options_l[["timeout"]]) |>
         dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
         dplyr::bind_cols(
           tibble::as_tibble(current_prompt) |>
