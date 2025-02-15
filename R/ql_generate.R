@@ -2,6 +2,7 @@
 #'
 #' @param only_cached Defaults to FALSE. If TRUE, only cached responses are
 #'   returned.
+#' @param error Defines how errors should be handled, defaults to "fail", i.e. if an error emerges while querying the LLM, the function stops. If set to "warn", it sets the response to `NA_character_` and stores it in database. This can be useful e.g. for proceed if the prompts include a request that routinely time outs without giving a response. This does not imply that the model would never give a respones, e.g. re-running the same query with longer time out may work.
 #' @inheritParams ql_hash
 #' @inheritParams ql_request
 #'
@@ -16,7 +17,8 @@ ql_generate <- function(prompt_df,
                         only_cached = FALSE,
                         host = NULL,
                         message = NULL,
-                        timeout = NULL) {
+                        timeout = NULL,
+                        error = c("fail", "warn")) {
   model <- unique(prompt_df[["model"]])
 
   if (length(model) > 1) {
@@ -128,30 +130,57 @@ ql_generate <- function(prompt_df,
         timeout = timeout
       )
 
-      resp <- req |>
-        httr2::req_perform()
-
-      resp_l <- resp |>
-        httr2::resp_body_json()
+      resp_l <- rlang::try_fetch(
+        expr = {
+          req |>
+            httr2::req_perform() |>
+            httr2::resp_body_json()
+        },
+        error = function(cnd) {
+          l <- list(error = cnd)
+          list(error = l$error$message)
+        }
+      )
 
       if (!is.null(resp_l[["error"]])) {
-        rlang::abort(message = resp_l[["error"]])
+        if (error[[1]] == "fail" | error[[1]] == "abort") {
+          rlang::abort(message = resp_l[["error"]])
+        } else if (error[[1]] == "warn") {
+          rlang::warn(message = resp_l[["error"]])
+
+          output_df <- ql_na_response_df |>
+            dplyr::mutate(timeout = ql_get_options(timeout = timeout)[["timeout"]] |> as.numeric()) |>
+            dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
+            dplyr::select(-names(current_prompt)) |>
+            dplyr::bind_cols(
+              tibble::as_tibble(current_prompt)
+            ) |>
+            dplyr::mutate(
+              done = FALSE,
+              done_reason = resp_l[["error"]],
+              created_at = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+            ) |>
+            dplyr::relocate("response", "prompt") |>
+            dplyr::relocate("model", "system", "format", "seed", "temperature",
+              .after = "model"
+            )
+        }
+      } else {
+        resp_l[["context"]] <- NULL
+
+        output_df <- resp_l |>
+          tibble::as_tibble() |>
+          dplyr::mutate(timeout = ql_get_options(timeout = timeout)[["timeout"]] |> as.numeric()) |>
+          dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
+          dplyr::select(-"model") |>
+          dplyr::bind_cols(
+            tibble::as_tibble(current_prompt)
+          ) |>
+          dplyr::relocate("response", "prompt") |>
+          dplyr::relocate("model", "system", "format", "seed", "temperature",
+            .after = "model"
+          )
       }
-
-      resp_l[["context"]] <- NULL
-
-      output_df <- resp_l |>
-        tibble::as_tibble() |>
-        dplyr::mutate(timeout = db_options_l[["timeout"]]) |>
-        dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
-        dplyr::bind_cols(
-          tibble::as_tibble(current_prompt) |>
-            dplyr::select(-"model")
-        ) |>
-        dplyr::relocate("response", "prompt") |>
-        dplyr::relocate("model", "system", "format", "seed", "temperature",
-          .after = "model"
-        )
 
       if (db_options_l[["db"]]) {
         if (table_exists) {
