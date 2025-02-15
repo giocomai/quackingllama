@@ -1,6 +1,6 @@
 library("quackingllama")
 
-resp_df <- ql_prompt(prompt = "haiku") |>
+resp_df <- ql_prompt(prompt = "haiku3") |>
   ql_generate()
 
 ql_na_response_df <- resp_df |>
