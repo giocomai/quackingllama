@@ -305,15 +305,15 @@ not very different, really, but still different).
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pants fall down to feet\nEmbarrassment's warm whisper\n adult mistake made"
+#> [1] "Tacos on my face\nSalsa drips down happy tears\nCrunchy, cheesy bliss"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in my soul\nToppings of cheesy bliss\nTummy's happy dance"
+#> [1] "Socks in the toilet\nLaughing, I try to escape\nWet and very sore"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in my bed\nCheesy dreams and crispy tears\nMidnight snack regret"
+#> [1] "Pizza rolls abound\nCheesy fingers, joyful mess\nMidnight's guilty sin"
 ```
 
 But then, replicability of results is possible even when the temperature
@@ -569,9 +569,10 @@ quality of results.
 ## Pass images to the model
 
 You can pass images and have multimodal models such as
-e.g. “llama3.2-vision” consider them in their response. Just pass the
-path of the relevant image to `ql_prompt()`. For example, if we ask to
-describe the logo of this package, we get the following reponse:
+e.g. “llama3.2-vision” or (the considerably smaller) “llava-phi3”
+consider them in their response. Just pass the path of the relevant
+image to `ql_prompt()`. For example, if we ask to describe the logo of
+this package, we get the following reponse:
 
 ``` r
 library("quackingllama")
@@ -597,6 +598,19 @@ cat(">", resp_df$response)
 > This appears to be an image of a bird’s head, possibly a goose or
 > swan, with its beak open and feathers ruffled. The image is framed by
 > a pink hexagon shape.
+
+``` r
+resp_df <- ql_prompt(
+  prompt = "what is this?",
+  images = img_path,
+  model = "llava-phi3"
+) |>
+  ql_generate()
+
+
+cat(">", resp_df$response)
+#> > The image features a close-up of a llama's face, which is the central focus of the composition. The llama has a distinctive yellow nose and ears that stand out against its white fur. A gray mask with two holes for eyes covers the lower part of the llama's face, adding an element of intrigue to the image. The background is black, providing a stark contrast to the vibrant colors of the llama and enhancing the visibility of the details in the image. The entire scene is framed within a pink border, further emphasizing the subject matter. The image does not contain any text or other discernible objects. The relative position of the objects suggests that the mask is worn by the llama, covering its lower face while leaving its upper facial features exposed.
+```
 
 ## About the hex logo
 

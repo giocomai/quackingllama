@@ -6,3 +6,5 @@ img
 docs
 quackingllama.duckdb
 quackingllama_llama3_2.duckdb
+quackingllama_llama3_2_vision.duckdb
+quackingllama_llava_phi3.duckdb

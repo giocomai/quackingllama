@@ -422,7 +422,7 @@ Querying with different models can have a substantial impact on the quality of r
 
 ## Pass images to the model
 
-You can pass images and have multimodal models such as e.g. "llama3.2-vision" consider them in their response. Just pass the path of the relevant image to `ql_prompt()`. For example, if we ask to describe the logo of this package, we get the following reponse:
+You can pass images and have multimodal models such as e.g. "llama3.2-vision" or (the considerably smaller) "llava-phi3" consider them in their response. Just pass the path of the relevant image to `ql_prompt()`. For example, if we ask to describe the logo of this package, we get the following reponse:
 
 ```{r describe images, results='asis'}
 library("quackingllama")
@@ -438,6 +438,18 @@ resp_df <- ql_prompt(
   prompt = "what is this?",
   images = img_path,
   model = "llama3.2-vision"
+) |>
+  ql_generate()
+
+
+cat(">", resp_df$response)
+```
+
+```{r llava phi3}
+resp_df <- ql_prompt(
+  prompt = "what is this?",
+  images = img_path,
+  model = "llava-phi3"
 ) |>
   ql_generate()
 
