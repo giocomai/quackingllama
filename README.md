@@ -66,24 +66,25 @@ pol_df <- ql_prompt(prompt = "Describe an imaginary political leader in less tha
   ql_generate()
 
 str(pol_df)
-#> tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 18] (S3: tbl_df/tbl/data.frame)
 #>  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__
 #>  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."
-#>  $ model               : chr "llama3.2"
-#>  $ created_at          : chr "2025-01-24T10:33:17.253671092Z"
+#>  $ created_at          : chr "2025-02-15T16:46:21.768679723Z"
 #>  $ done                : logi TRUE
 #>  $ done_reason         : chr "stop"
-#>  $ total_duration      : num 2.81e+09
-#>  $ load_duration       : num 19382578
+#>  $ total_duration      : num 2.83e+09
+#>  $ load_duration       : num 19721280
 #>  $ prompt_eval_count   : num 43
-#>  $ prompt_eval_duration: num 4.8e+07
+#>  $ prompt_eval_duration: num 6e+07
 #>  $ eval_count          : num 118
-#>  $ eval_duration       : num 2.74e+09
+#>  $ eval_duration       : num 2.75e+09
+#>  $ timeout             : num 300
+#>  $ model               : chr "llama3.2"
 #>  $ system              : chr "You are a helpful assistant."
+#>  $ format              : chr ""
 #>  $ seed                : num 0
 #>  $ temperature         : num 0
-#>  $ format              : chr ""
-#>  $ hash                : chr "80514baa233dba4997c4f2dcbdc8557d"
+#>  $ hash                : chr "ff3978b23a04a61a6037ab8e66521252"
 ```
 
 ``` r
@@ -304,15 +305,15 @@ not very different, really, but still different).
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Farting on my toe\nSilent-but-deadly revenge\nGassy little joke"
+#> [1] "Pants fall down to feet\nEmbarrassment's warm whisper\n adult mistake made"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in my pants\nCheesy dreams and joyful mess\nLaughter's warm delight"
+#> [1] "Pizza in my soul\nToppings of cheesy bliss\nTummy's happy dance"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pants fall down at night\nSilent, sloppy, I confess\nMorning's bitter laugh"
+#> [1] "Pizza in my bed\nCheesy dreams and crispy tears\nMidnight snack regret"
 ```
 
 But then, replicability of results is possible even when the temperature
@@ -540,20 +541,20 @@ responses_combo_df |>
 | political statement | given political leaning | identified political leaning | explanation |
 |:---|:---|:---|:---|
 | Embracing a global citizenry through the universal basic income, sustainable development and intergenerational justice. | progressive | progressive | This statement suggests a progressive political leaning, as it advocates for policies that prioritize the well-being of all people worldwide (universal basic income), promote sustainable development, and ensure fairness across generations (intergenerati… |
-| ‘Restoring the Founding Principles: Limited Government, Personal Responsibility, and Traditional Values’ | conservative | conservative | This title suggests a focus on restoring principles that are traditionally associated with conservative politics. The three key areas mentioned are: Limited Government, Personal Responsibility, and Traditional Values. Here’s a brief explanation of each:… |
+| ‘Restoring the Founding Principles: Limited Government, Personal Responsibility, and Traditional Values’ | conservative | conservative | This title suggests a political stance that aligns with conservative values. The focus is on restoring the principles of limited government, personal responsibility, and traditional values. Limited government implies a preference for smaller government … |
 | We believe that ‘eudaimonia’ – the ancient Greek concept of living a fulfilling life – is the guiding principle for our society, where everyone has access to quality education, healthcare, and economic opportunities, and can live in harmony with themselves and the planet. | progressive | progressive | The belief that ‘Eudaimonia’ – the ancient Greek concept of living a fulfilling life – should be the guiding principle for society, emphasizes the importance of providing quality education, healthcare, and economic opportunities to all individuals. This… |
-| Balancing Tradition with Innovation | conservative | progressive | Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach req… |
+| Balancing Tradition with Innovation | conservative | progressive | Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach all… |
 | ‘We are the torchbearers of a brighter future: A future where technology serves humanity, not the other way around; where economic growth is equitable and sustainable; where justice and equality are the guiding principles that shape our society.’ | progressive | progressive | This statement expresses a progressive political viewpoint. The speaker advocates for a future in which technology benefits humanity, economic growth is equitable and sustainable, and justice and equality are prioritized in society. This perspective emp… |
 | We believe that the United States is at its strongest when it maintains a strong sense of self-reliance, limited government intervention, and unwavering commitment to traditional values. | conservative | conservative | The statement suggests a conservative political stance that emphasizes individualism, minimal government interference, and adherence to traditional values. This perspective is often associated with the belief that self-reliance and limited government in… |
-| We believe that the greatest wealth of any nation is not measured by its GDP or GDP per capita, but rather by the well-being and flourishing of all its citizens. | progressive | progressive | This statement reflects a progressive perspective on economic development, emphasizing the importance of social welfare, equality, and quality of life for all citizens over traditional measures such as GDP or GDP per capita. Progressives often advocate … |
+| We believe that the greatest wealth of any nation is not measured by its GDP or GDP per capita, but rather by the well-being and flourishing of all its citizens. | progressive | progressive | This statement reflects a progressive perspective on economic development, emphasizing that a nation’s true wealth lies not in material wealth or financial indicators like GDP, but rather in the well-being and flourishing of its citizens. This perspecti… |
 | Emphasizing the importance of local autonomy, traditional values, and environmental stewardship. | conservative | progressive | The emphasis on local autonomy suggests a belief in decentralized decision-making and empowering communities to govern themselves. This is often associated with progressive politics as it promotes grassroots democracy and respect for cultural diversity…. |
 | We believe that technology is a force for the betterment of humanity, but it must be guided by empathy and solidarity to truly serve the needs of all. | progressive | progressive | This statement reflects a progressive perspective on technology, emphasizing its potential for positive impact on humanity while acknowledging the importance of empathy and solidarity in shaping its development. This approach suggests that technology sh… |
-| Protecting Traditional Values, Preserving Freedom | conservative | conservative | This phrase suggests a political stance that values traditional customs and beliefs while also emphasizing the importance of individual freedom. It implies a desire to maintain cultural heritage while ensuring personal liberties are protected. |
+| Protecting Traditional Values, Preserving Freedom | conservative | conservative | This phrase seems to align with conservative values as it suggests a commitment to preserving traditional values and upholding individual freedom. The term ‘Traditional Values’ often refers to moral, social, or cultural beliefs that have been passed dow… |
 
-In this stereotyped case, the LLM categorises all statements as expected
-and provide a broadly meaningful explanation for the choice (if you try
-with shorter sentences, e.g., just a political motto, the correct
-response rate decreases substantially). Fundamentally:
+In this stereotyped case, the LLM categorises most statements as
+expected and provide a broadly meaningful explanation for the choice (if
+you try with shorter sentences, e.g., just a political motto, the
+correct response rate decreases substantially). Fundamentally:
 
 - responses are returned in a predictable and user-defined format,
   consistently responding with user-defined categories
@@ -564,6 +565,38 @@ response rate decreases substantially). Fundamentally:
 
 Querying with different models can have a substantial impact on the
 quality of results.
+
+## Pass images to the model
+
+You can pass images and have multimodal models such as
+e.g. “llama3.2-vision” consider them in their response. Just pass the
+path of the relevant image to `ql_prompt()`. For example, if we ask to
+describe the logo of this package, we get the following reponse:
+
+``` r
+library("quackingllama")
+
+img_path <- fs::path(
+  system.file(package = "quackingllama"),
+  "help",
+  "figures",
+  "logo.png"
+)
+
+resp_df <- ql_prompt(
+  prompt = "what is this?",
+  images = img_path,
+  model = "llama3.2-vision"
+) |>
+  ql_generate()
+
+
+cat(">", resp_df$response)
+```
+
+> This appears to be an image of a bird’s head, possibly a goose or
+> swan, with its beak open and feathers ruffled. The image is framed by
+> a pink hexagon shape.
 
 ## About the hex logo
 

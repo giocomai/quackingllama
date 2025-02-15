@@ -2,7 +2,13 @@
 #'
 #' @param only_cached Defaults to FALSE. If TRUE, only cached responses are
 #'   returned.
-#' @param error Defines how errors should be handled, defaults to "fail", i.e. if an error emerges while querying the LLM, the function stops. If set to "warn", it sets the response to `NA_character_` and stores it in database. This can be useful e.g. for proceed if the prompts include a request that routinely time outs without giving a response. This does not imply that the model would never give a respones, e.g. re-running the same query with longer time out may work.
+#' @param error Defines how errors should be handled, defaults to "fail", i.e.
+#'   if an error emerges while querying the LLM, the function stops. If set to
+#'   "warn", it sets the response to `NA_character_` and stores it in database.
+#'   This can be useful e.g. for proceed if the prompts include a request that
+#'   routinely time outs without giving a response. This does not imply that the
+#'   model would never give a respones, e.g. re-running the same query with
+#'   longer time out may work.
 #' @inheritParams ql_hash
 #' @inheritParams ql_request
 #'
@@ -122,6 +128,12 @@ ql_generate <- function(prompt_df,
     .progress = model,
     .x = purrr::transpose(prompt_to_process_df),
     .f = \(current_prompt) {
+      if ("images" %in% names(current_prompt)) {
+        if (inherits(current_prompt[["images"]], "character")) {
+          current_prompt[["images"]] <- list(current_prompt[["images"]])
+        }
+      }
+
       req <- ql_request(
         prompt_df = current_prompt,
         endpoint = "generate",
@@ -149,9 +161,17 @@ ql_generate <- function(prompt_df,
           rlang::warn(message = resp_l[["error"]])
 
           output_df <- ql_na_response_df |>
-            dplyr::mutate(timeout = ql_get_options(timeout = timeout)[["timeout"]] |> as.numeric()) |>
-            dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
-            dplyr::select(-names(current_prompt)) |>
+            dplyr::mutate(
+              timeout = ql_get_options(timeout = timeout)[["timeout"]] |>
+                as.numeric()
+            ) |>
+            dplyr::mutate(
+              dplyr::across(
+                dplyr::where(is.integer),
+                as.numeric
+              )
+            ) |>
+            dplyr::select(-dplyr::any_of(names(current_prompt))) |>
             dplyr::bind_cols(
               tibble::as_tibble(current_prompt)
             ) |>
@@ -170,7 +190,10 @@ ql_generate <- function(prompt_df,
 
         output_df <- resp_l |>
           tibble::as_tibble() |>
-          dplyr::mutate(timeout = ql_get_options(timeout = timeout)[["timeout"]] |> as.numeric()) |>
+          dplyr::mutate(
+            timeout = ql_get_options(timeout = timeout)[["timeout"]] |>
+              as.numeric()
+          ) |>
           dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
           dplyr::select(-"model") |>
           dplyr::bind_cols(

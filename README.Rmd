@@ -410,7 +410,7 @@ responses_combo_df |>
 ```
 
 
-In this stereotyped case, the LLM categorises all statements as expected and provide a broadly meaningful explanation for the choice (if you try with shorter sentences, e.g., just a political motto, the correct response rate decreases substantially). Fundamentally:
+In this stereotyped case, the LLM categorises most statements as expected and provide a broadly meaningful explanation for the choice (if you try with shorter sentences, e.g., just a political motto, the correct response rate decreases substantially). Fundamentally:
 
 - responses are returned in a predictable and user-defined format, consistently responding with user-defined categories
 - responses are cached locally:
@@ -419,6 +419,32 @@ In this stereotyped case, the LLM categorises all statements as expected and pro
 
 
 Querying with different models can have a substantial impact on the quality of results. 
+
+## Pass images to the model
+
+You can pass images and have multimodal models such as e.g. "llama3.2-vision" consider them in their response. Just pass the path of the relevant image to `ql_prompt()`. For example, if we ask to describe the logo of this package, we get the following reponse:
+
+```{r describe images, results='asis'}
+library("quackingllama")
+
+img_path <- fs::path(
+  system.file(package = "quackingllama"),
+  "help",
+  "figures",
+  "logo.png"
+)
+
+resp_df <- ql_prompt(
+  prompt = "what is this?",
+  images = img_path,
+  model = "llama3.2-vision"
+) |>
+  ql_generate()
+
+
+cat(">", resp_df$response)
+```
+
 
 
 ## About the hex logo

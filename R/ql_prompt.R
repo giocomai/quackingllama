@@ -21,6 +21,7 @@ ql_prompt <- function(prompt,
                       system = NULL,
                       format = NULL,
                       model = NULL,
+                      images = NULL,
                       temperature = NULL,
                       seed = NULL,
                       host = NULL,
@@ -46,14 +47,26 @@ ql_prompt <- function(prompt,
     seed <- options_l[["seed"]]
   }
 
-  prompt_df <- tibble::tibble(
-    prompt = prompt,
-    system = options_l[["system"]],
-    seed = seed,
-    temperature = as.numeric(options_l[["temperature"]]),
-    model = as.character(options_l[["model"]]),
-    format = as.character(format_string)
-  )
+  if (is.null(images)) {
+    prompt_df <- tibble::tibble(
+      prompt = prompt,
+      system = options_l[["system"]],
+      seed = seed,
+      temperature = as.numeric(options_l[["temperature"]]),
+      model = as.character(options_l[["model"]]),
+      format = as.character(format_string)
+    )
+  } else {
+    prompt_df <- tibble::tibble(
+      prompt = prompt,
+      images = ql_read_images(images),
+      system = options_l[["system"]],
+      seed = seed,
+      temperature = as.numeric(options_l[["temperature"]]),
+      model = as.character(options_l[["model"]]),
+      format = as.character(format_string)
+    )
+  }
 
   if (hash) {
     prompt_df <- ql_hash(prompt_df = prompt_df)

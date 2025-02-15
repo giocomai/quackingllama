@@ -9,6 +9,7 @@ ql_prompt(
   system = NULL,
   format = NULL,
   model = NULL,
+  images = NULL,
   temperature = NULL,
   seed = NULL,
   host = NULL,

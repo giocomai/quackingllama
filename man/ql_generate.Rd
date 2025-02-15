@@ -26,7 +26,13 @@ returned.}
 \item{timeout}{If not set with {ql_set_options()}, defaults to 300 seconds (5
 minutes).}
 
-\item{error}{Defines how errors should be handled, defaults to "fail", i.e. if an error emerges while querying the LLM, the function stops. If set to "warn", it sets the response to \code{NA_character_} and stores it in database. This can be useful e.g. for proceed if the prompts include a request that routinely time outs without giving a response. This does not imply that the model would never give a respones, e.g. re-running the same query with longer time out may work.}
+\item{error}{Defines how errors should be handled, defaults to "fail", i.e.
+if an error emerges while querying the LLM, the function stops. If set to
+"warn", it sets the response to \code{NA_character_} and stores it in database.
+This can be useful e.g. for proceed if the prompts include a request that
+routinely time outs without giving a response. This does not imply that the
+model would never give a respones, e.g. re-running the same query with
+longer time out may work.}
 }
 \value{
 A data frame, including a response column, as well as other

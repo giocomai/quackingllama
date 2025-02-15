@@ -12,7 +12,8 @@
 #' @examples
 #' ql_request(prompt = "a haiku")
 #'
-#' ql_request(prompt = "a haiku") |>
+#' ql_prompt(prompt = "a haiku") |>
+#'   ql_request() |>
 #'   httr2::req_dry_run()
 ql_request <- function(prompt_df,
                        endpoint = "generate",
@@ -37,7 +38,6 @@ ql_request <- function(prompt_df,
     endpoint <- stringr::str_c("api/", endpoint)
   }
 
-
   options_l <- ql_get_options(
     host = host,
     timeout = timeout
@@ -48,6 +48,7 @@ ql_request <- function(prompt_df,
   } else {
     format_schema <- prompt_df[["format"]]
   }
+
 
   req_01 <- httr2::request(options_l[["host"]]) |>
     httr2::req_url_path(endpoint) |>
@@ -60,6 +61,7 @@ ql_request <- function(prompt_df,
           list(
             model = prompt_df[["model"]],
             prompt = prompt_df[["prompt"]],
+            images = prompt_df[["images"]],
             stream = FALSE,
             raw = FALSE,
             options = list(
@@ -75,6 +77,7 @@ ql_request <- function(prompt_df,
           list(
             model = prompt_df[["model"]],
             prompt = prompt_df[["prompt"]],
+            images = prompt_df[["images"]],
             format = yyjsonr::read_json_str(format_schema),
             stream = FALSE,
             raw = FALSE,

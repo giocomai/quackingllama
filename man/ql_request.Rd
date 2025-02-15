@@ -30,6 +30,7 @@ Create \code{httr2} request for both generate and chat endpoints
 \examples{
 ql_request(prompt = "a haiku")
 
-ql_request(prompt = "a haiku") |>
+ql_prompt(prompt = "a haiku") |>
+  ql_request() |>
   httr2::req_dry_run()
 }
