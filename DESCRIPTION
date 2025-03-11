@@ -27,3 +27,4 @@ Imports:
 Depends: 
     R (>= 3.5)
 LazyData: true
+URL: https://giocomai.github.io/quackingllama/
