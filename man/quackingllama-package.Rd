@@ -10,6 +10,13 @@
 
 Process text with Ollama, store results in DuckDB.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://giocomai.github.io/quackingllama/}
+}
+
+}
 \author{
 \strong{Maintainer}: Giorgio Comai \email{g@giorgiocomai.eu} (\href{https://orcid.org/0000-0002-0515-9542}{ORCID}) [copyright holder]
 

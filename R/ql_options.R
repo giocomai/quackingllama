@@ -113,6 +113,8 @@ ql_disable_db <- function() {
 #'   prompt.
 #' @param keep_alive Defaults to "5m". Controls controls how long the model will
 #'   stay loaded into memory following the request.
+#' @param timeout Time in seconds before the request times out. Defaults to 300
+#'   (corresponding to 5 minutes).
 #'
 #' @return Nothing, used for its side effects. Options can be retrieved with
 #'   `ql_get_db_options()`

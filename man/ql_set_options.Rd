@@ -37,6 +37,9 @@ prompt.}
 
 \item{keep_alive}{Defaults to "5m". Controls controls how long the model will
 stay loaded into memory following the request.}
+
+\item{timeout}{Time in seconds before the request times out. Defaults to 300
+(corresponding to 5 minutes).}
 }
 \value{
 Nothing, used for its side effects. Options can be retrieved with
