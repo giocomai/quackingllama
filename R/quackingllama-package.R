@@ -7,3 +7,9 @@
 #' @importFrom rlang .env
 ## usethis namespace: end
 NULL
+
+
+httr2_suggested_imports <- function() {
+  httpuv::encodeURI("")
+  jsonlite::base64_enc("")
+}
