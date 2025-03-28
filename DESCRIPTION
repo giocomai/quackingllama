@@ -19,6 +19,7 @@ Imports:
     duckdb,
     fs,
     httr2,
+    jsonlite,
     purrr,
     rlang,
     stringr,
