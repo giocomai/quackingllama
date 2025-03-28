@@ -16,7 +16,7 @@ A list object of character vectors of base 64 encoded images.
 Read image in order to pass it to multimodal models
 }
 \examples{
-if (interactive) {
+if (interactive()) {
   library("quackingllama")
 
   img_path <- fs::file_temp(ext = "png")

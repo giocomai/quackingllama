@@ -1,6 +1,6 @@
 #' Generate a data frame with all relevant inputs for the LLM.
 #'
-#' Typically passed to {ql_generate()}.
+#' Typically passed to [ql_generate()].
 #'
 #' For more details and context about each parameter, see
 #' \url{https://github.com/ollama/ollama/blob/main/docs/api.md}.
@@ -8,11 +8,11 @@
 #' @param prompt A prompt for the LLM.
 #' @param hash Defaults to TRUE. If TRUE, adds a column with the hash of all
 #'   other components of the prompt. Used internally for caching. Can be added
-#'   separately with {ql_hash()}.
+#'   separately with [ql_hash()].
 #' @inheritParams ql_set_options
 #'
 #' @returns A tibble with all main components of a query, to be passed to
-#'   {ql_generate()}.
+#'   [ql_generate()].
 #' @export
 #'
 #' @examples

@@ -4,7 +4,7 @@
 \name{quackingllama-package}
 \alias{quackingllama}
 \alias{quackingllama-package}
-\title{quackingllama: Process text with Ollama, retrieve structured results, cache them locally in DuckDB.}
+\title{quackingllama: Process text with Ollama, retrieve structured results, cache them locally in DuckDB}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

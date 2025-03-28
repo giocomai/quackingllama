@@ -15,7 +15,7 @@ ql_generate(
 }
 \arguments{
 \item{prompt_df}{A data frame with all inputs passed to the LLM, typically
-created with {ql_prompt()}.}
+created with \code{\link[=ql_prompt]{ql_prompt()}}.}
 
 \item{only_cached}{Defaults to FALSE. If TRUE, only cached responses are
 returned.}
@@ -23,7 +23,7 @@ returned.}
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}
 
-\item{timeout}{If not set with {ql_set_options()}, defaults to 300 seconds (5
+\item{timeout}{If not set with \code{\link[=ql_set_options]{ql_set_options()}}, defaults to 300 seconds (5
 minutes).}
 
 \item{error}{Defines how errors should be handled, defaults to "fail", i.e.
@@ -42,6 +42,8 @@ information returned by the model.
 Generate a response and return the result in a data frame
 }
 \examples{
+\dontrun{
 ql_prompt("a haiku") |>
   ql_generate()
+  }
 }

@@ -4,9 +4,9 @@
 #' Mostly used internally.
 #'
 #' @param prompt_df A data frame with all inputs passed to the LLM, typically
-#'   created with {ql_prompt()}.
+#'   created with [ql_prompt()].
 #'
-#' @returns A tibble, such as those returned by {ql_prompt()}, but always
+#' @returns A tibble, such as those returned by [ql_prompt()], but always
 #'   including a hash column.
 #' @export
 #'

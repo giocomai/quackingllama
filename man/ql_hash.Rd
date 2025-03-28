@@ -9,10 +9,10 @@ ql_hash(prompt_df)
 }
 \arguments{
 \item{prompt_df}{A data frame with all inputs passed to the LLM, typically
-created with {ql_prompt()}.}
+created with \code{\link[=ql_prompt]{ql_prompt()}}.}
 }
 \value{
-A tibble, such as those returned by {ql_prompt()}, but always
+A tibble, such as those returned by \code{\link[=ql_prompt]{ql_prompt()}}, but always
 including a hash column.
 }
 \description{

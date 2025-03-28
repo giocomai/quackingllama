@@ -17,8 +17,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' ql_prompt("a haiku") |>
 #'   ql_generate()
+#'   }
 ql_generate <- function(prompt_df,
                         only_cached = FALSE,
                         host = NULL,

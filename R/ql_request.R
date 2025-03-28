@@ -1,7 +1,7 @@
 #' Create `httr2` request for both generate and chat endpoints
 #'
 #' @param endpoint Defaults to "generate". Must be either "generate" or "chat".
-#' @param timeout If not set with {ql_set_options()}, defaults to 300 seconds (5
+#' @param timeout If not set with [ql_set_options()], defaults to 300 seconds (5
 #'   minutes).
 #'
 #' @inheritParams ql_set_options
@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' ql_request(prompt = "a haiku")
+#' ql_prompt(prompt = "a haiku")
 #'
 #' ql_prompt(prompt = "a haiku") |>
 #'   ql_request() |>

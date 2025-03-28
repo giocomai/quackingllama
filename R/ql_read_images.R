@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#' if (interactive) {
+#' if (interactive()) {
 #'   library("quackingllama")
 #'
 #'   img_path <- fs::file_temp(ext = "png")

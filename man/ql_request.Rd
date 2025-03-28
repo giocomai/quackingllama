@@ -18,7 +18,7 @@ ql_request(
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}
 
-\item{timeout}{If not set with {ql_set_options()}, defaults to 300 seconds (5
+\item{timeout}{If not set with \code{\link[=ql_set_options]{ql_set_options()}}, defaults to 300 seconds (5
 minutes).}
 }
 \value{
@@ -28,7 +28,7 @@ A \code{httr2} request object.
 Create \code{httr2} request for both generate and chat endpoints
 }
 \examples{
-ql_request(prompt = "a haiku")
+ql_prompt(prompt = "a haiku")
 
 ql_prompt(prompt = "a haiku") |>
   ql_request() |>

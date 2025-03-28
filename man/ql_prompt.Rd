@@ -41,14 +41,14 @@ prompt.}
 
 \item{hash}{Defaults to TRUE. If TRUE, adds a column with the hash of all
 other components of the prompt. Used internally for caching. Can be added
-separately with {ql_hash()}.}
+separately with \code{\link[=ql_hash]{ql_hash()}}.}
 }
 \value{
 A tibble with all main components of a query, to be passed to
-{ql_generate()}.
+\code{\link[=ql_generate]{ql_generate()}}.
 }
 \description{
-Typically passed to {ql_generate()}.
+Typically passed to \code{\link[=ql_generate]{ql_generate()}}.
 }
 \details{
 For more details and context about each parameter, see
