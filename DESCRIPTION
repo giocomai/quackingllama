@@ -1,5 +1,5 @@
 Package: quackingllama
-Title: Process text with Ollama, retrieve structured results, cache them locally in DuckDB. 
+Title: Process text with Ollama, retrieve structured results, cache them locally in DuckDB
 Version: 0.0.0.9012
 Authors@R: 
     c(person(given = "Giorgio",
