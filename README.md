@@ -66,19 +66,20 @@ pol_df <- ql_prompt(prompt = "Describe an imaginary political leader in less tha
   ql_generate()
 
 str(pol_df)
-#> tibble [1 × 18] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 19] (S3: tbl_df/tbl/data.frame)
 #>  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__
 #>  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."
-#>  $ created_at          : chr "2025-02-15T16:46:21.768679723Z"
+#>  $ created_at          : chr "2025-04-03T13:18:16.042489584Z"
 #>  $ done                : logi TRUE
 #>  $ done_reason         : chr "stop"
-#>  $ total_duration      : num 2.83e+09
-#>  $ load_duration       : num 19721280
+#>  $ total_duration      : num 2.84e+09
+#>  $ load_duration       : num 20312921
 #>  $ prompt_eval_count   : num 43
-#>  $ prompt_eval_duration: num 6e+07
+#>  $ prompt_eval_duration: num 57514831
 #>  $ eval_count          : num 118
-#>  $ eval_duration       : num 2.75e+09
+#>  $ eval_duration       : num 2.77e+09
 #>  $ timeout             : num 300
+#>  $ keep_alive          : chr "5m"
 #>  $ model               : chr "llama3.2"
 #>  $ system              : chr "You are a helpful assistant."
 #>  $ format              : chr ""
@@ -305,15 +306,15 @@ not very different, really, but still different).
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Tacos on my face\nSalsa drips down happy tears\nCrunchy, cheesy bliss"
+#> [1] "Tacos for my soul\nCrunchy shell, cheesy delight\nMidlife crisis food"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Socks in the toilet\nLaughing, I try to escape\nWet and very sore"
+#> [1] "Tacos on my head\nSalsa drips from every pore\nMidlife crisis dance"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza rolls abound\nCheesy fingers, joyful mess\nMidnight's guilty sin"
+#> [1] "Taco Tuesday dreams\nCrunchy, cheesy, saucy bliss\nDance on the couch night"
 ```
 
 But then, replicability of results is possible even when the temperature
@@ -611,6 +612,74 @@ resp_df <- ql_prompt(
 cat(">", resp_df$response)
 #> > The image features a close-up of a llama's face, which is the central focus of the composition. The llama has a distinctive yellow nose and ears that stand out against its white fur. A gray mask with two holes for eyes covers the lower part of the llama's face, adding an element of intrigue to the image. The background is black, providing a stark contrast to the vibrant colors of the llama and enhancing the visibility of the details in the image. The entire scene is framed within a pink border, further emphasizing the subject matter. The image does not contain any text or other discernible objects. The relative position of the objects suggests that the mask is worn by the llama, covering its lower face while leaving its upper facial features exposed.
 ```
+
+## About context windows and time-outs
+
+`ollama` is great in enabling easy local deployment of local LLMs, but
+comes with some embedded defaults that may come with unintended
+consequences.
+
+### About the context window
+
+If you look at the model page of one of the models available from
+Ollama’s website, you may well notice that some of these come with very
+large context windows. For example,
+[`gemma3`](https://ollama.com/library/gemma3) boasts a “128K context
+window”, big enough to include book-length inputs. You may well expect
+that, by default, this context window is fully available to you. You
+would, however, be mistaken: no matter the model’s capabilities, Ollama
+truncates the input at 2048 tokens: as a user, you would notice it only
+if you looked at the `ollama serve` logs, or because you notice
+unsatisfying results, as truncation happens in a way that is mostly
+invisible to the client. This is a known issue with Ollama, and until
+this is approached more sensibly by Ollama, the user should take core of
+this limitation themselves (`quackingllama` will likely include a
+dedicated warning in future versions). The easiest workaround is to
+re-create a new model with a larger context window: it’s a matter of a
+few seconds, following the [instructions reported in the relevant issue
+on
+Ollama](https://github.com/ollama/ollama/issues/8099#issuecomment-2543316682).
+
+Basically, from the command line you do something like this:
+
+    $ ollama run gemma3
+    >>> /set parameter num_ctx 65536
+    Set parameter 'num_ctx' to '65536'
+    >>> /save gemma3-64k
+    Created new model 'gemma3-64k'
+    >>> /bye
+
+And in a matter of seconds you will get a `gemma3` model with a 64k
+context window, which you’ll be able to use by choosing `gemma3-64k` as
+model.
+
+### About `timeout` and `keep_alive`
+
+Congratulations, now you can enjoy bigger context windows. This is all
+nice, but this makes it also more likely that you are going to stumble
+into time-out issues, as processing lengthy prompts can take many
+minutes.
+
+There are two parameters that determine how long `quackingllama` will
+wait for a response from `ollama` before throwing an error.
+
+- one is `ollama`’s `keep_alive` argument, that basically tells how long
+  the model should remain in memory after it is called. By default, this
+  is “5m” for five minutes. If the model doesn’t get a response in time,
+  it throws an error.
+- one is `httr2`’s `timeout` argument, that expresses how long the
+  client should be waiting for a response. This defaults to “300”, as it
+  is expressed in seconds, and corresponds to 5 minutes.
+
+The combined effect of these two arguments may not be exactly as you
+expect (a 5 minute `keep_alive` may actually let the model run for 10
+minutes, if your `timeout` argument is big enough), but either way, be
+mindful and if you do expect lengthy response times, do set both values
+to an adequately high value.
+
+On the other hand, if you know you have short prompts and expect quick
+responses, the defaults are more efficient, and will just move on sooner
+if the model is stuck for whatever reason.
 
 ## About the hex logo
 

@@ -21,13 +21,15 @@
 #' ql_prompt("a haiku") |>
 #'   ql_generate()
 #'   }
-ql_generate <- function(prompt_df,
-                        only_cached = FALSE,
-                        host = NULL,
-                        message = NULL,
-                        keep_alive = NULL,
-                        timeout = NULL,
-                        error = c("fail", "warn")) {
+ql_generate <- function(
+  prompt_df,
+  only_cached = FALSE,
+  host = NULL,
+  message = NULL,
+  keep_alive = NULL,
+  timeout = NULL,
+  error = c("fail", "warn")
+) {
   model <- unique(prompt_df[["model"]])
 
   if (length(model) > 1) {
@@ -49,7 +51,8 @@ ql_generate <- function(prompt_df,
 
   if (db_options_l[["db"]]) {
     if (db_options_l[["db_filename"]] == "") {
-      db_filename <- stringr::str_c(c("quackingllama", model),
+      db_filename <- stringr::str_c(
+        c("quackingllama", model),
         collapse = "-"
       ) |>
         stringr::str_replace_all(
@@ -167,7 +170,11 @@ ql_generate <- function(prompt_df,
           output_df <- ql_na_response_df |>
             dplyr::mutate(
               timeout = ql_get_options(timeout = timeout)[["timeout"]] |>
-                as.numeric()
+                as.numeric(),
+              keep_alive = ql_get_options(keep_alive = keep_alive)[[
+                "keep_alive"
+              ]] |>
+                as.character()
             ) |>
             dplyr::mutate(
               dplyr::across(
@@ -185,7 +192,12 @@ ql_generate <- function(prompt_df,
               created_at = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
             ) |>
             dplyr::relocate("response", "prompt") |>
-            dplyr::relocate("model", "system", "format", "seed", "temperature",
+            dplyr::relocate(
+              "model",
+              "system",
+              "format",
+              "seed",
+              "temperature",
               .after = "model"
             )
         }
@@ -196,7 +208,11 @@ ql_generate <- function(prompt_df,
           tibble::as_tibble() |>
           dplyr::mutate(
             timeout = ql_get_options(timeout = timeout)[["timeout"]] |>
-              as.numeric()
+              as.numeric(),
+            keep_alive = ql_get_options(keep_alive = keep_alive)[[
+              "keep_alive"
+            ]] |>
+              as.character()
           ) |>
           dplyr::mutate(dplyr::across(dplyr::where(is.integer), as.numeric)) |>
           dplyr::select(-"model") |>
@@ -204,7 +220,12 @@ ql_generate <- function(prompt_df,
             tibble::as_tibble(current_prompt)
           ) |>
           dplyr::relocate("response", "prompt") |>
-          dplyr::relocate("model", "system", "format", "seed", "temperature",
+          dplyr::relocate(
+            "model",
+            "system",
+            "format",
+            "seed",
+            "temperature",
             .after = "model"
           )
       }

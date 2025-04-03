@@ -1,7 +1,9 @@
 library("quackingllama")
 
-resp_df <- ql_prompt(prompt = "haiku3") |>
-  ql_generate()
+ql_disable_db()
+
+resp_df <- ql_prompt(prompt = "haiku") |>
+  ql_generate(keep_alive = "100m")
 
 ql_na_response_df <- resp_df |>
   dplyr::slice(0) |>

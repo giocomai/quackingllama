@@ -14,9 +14,11 @@
 #'
 #' @examples
 #' ql_set_db_options(db_filename = "testing_ground")
-ql_set_db_options <- function(db_filename = NULL,
-                              db_type = "DuckDB",
-                              db_folder = ".") {
+ql_set_db_options <- function(
+  db_filename = NULL,
+  db_type = "DuckDB",
+  db_folder = "."
+) {
   if (is.null(db_folder) == FALSE) {
     Sys.setenv(quackingllama_db_folder = db_folder)
   }
@@ -41,23 +43,22 @@ ql_set_db_options <- function(db_filename = NULL,
 #' ## Retrieve only selected option
 #' ql_get_db_options("db_type")
 ql_get_db_options <- function(
-    options = c(
-      "db",
-      "db_type",
-      "db_folder",
-      "db_filename"
-    )) {
+  options = c(
+    "db",
+    "db_type",
+    "db_folder",
+    "db_filename"
+  )
+) {
   ql_db_options_list <- list(
-    db = as.logical(Sys.getenv("quackingllama_db",
-      unset = TRUE
-    )),
-    db_type = as.character(Sys.getenv("quackingllama_db_type",
+    db = as.logical(Sys.getenv("quackingllama_db", unset = TRUE)),
+    db_type = as.character(Sys.getenv(
+      "quackingllama_db_type",
       unset = "DuckDB"
     )),
-    db_folder = fs::path(Sys.getenv("quackingllama_db_folder",
-      unset = "."
-    )),
-    db_filename = as.character(Sys.getenv("quackingllama_db_filename",
+    db_folder = fs::path(Sys.getenv("quackingllama_db_folder", unset = ".")),
+    db_filename = as.character(Sys.getenv(
+      "quackingllama_db_filename",
       unset = ""
     ))
   )
@@ -132,13 +133,15 @@ ql_disable_db <- function() {
 #'
 #' ql_get_options()
 #'
-ql_set_options <- function(system = NULL,
-                           model = NULL,
-                           host = NULL,
-                           temperature = NULL,
-                           seed = NULL,
-                           keep_alive = NULL,
-                           timeout = NULL) {
+ql_set_options <- function(
+  system = NULL,
+  model = NULL,
+  host = NULL,
+  temperature = NULL,
+  seed = NULL,
+  keep_alive = NULL,
+  timeout = NULL
+) {
   if (!is.null(system)) {
     Sys.setenv(quackingllama_system = system)
   }
@@ -191,65 +194,58 @@ ql_set_options <- function(system = NULL,
 #'
 #' ql_get_options()
 ql_get_options <- function(
-    options = c(
-      "system",
-      "model",
-      "host",
-      "temperature",
-      "seed",
-      "keep_alive",
-      "timeout"
-    ),
-    system = NULL,
-    model = NULL,
-    host = NULL,
-    temperature = NULL,
-    seed = NULL,
-    keep_alive = NULL,
-    timeout = NULL) {
+  options = c(
+    "system",
+    "model",
+    "host",
+    "temperature",
+    "seed",
+    "keep_alive",
+    "timeout"
+  ),
+  system = NULL,
+  model = NULL,
+  host = NULL,
+  temperature = NULL,
+  seed = NULL,
+  keep_alive = NULL,
+  timeout = NULL
+) {
   ql_options_list <-
     list(
       system = as.character(
         system %||%
-          Sys.getenv("quackingllama_system",
+          Sys.getenv(
+            "quackingllama_system",
             unset = "You are a helpful assistant."
           )
       ),
       model = as.character(
         model %||%
-          Sys.getenv("quackingllama_model",
-            unset = "llama3.2"
-          )
+          Sys.getenv("quackingllama_model", unset = "llama3.2")
       ),
       host = as.character(
         host %||%
-          Sys.getenv("quackingllama_host",
-            unset = "http://localhost:11434"
-          )
+          Sys.getenv("quackingllama_host", unset = "http://localhost:11434")
       ),
       temperature = as.integer(
         temperature %||%
-          Sys.getenv("quackingllama_temperature",
-            unset = 0
-          )
+          Sys.getenv("quackingllama_temperature", unset = 0)
       ),
       seed = as.integer(
         seed %||%
-          Sys.getenv("quackingllama_seed",
+          Sys.getenv(
+            "quackingllama_seed",
             unset = sample.int(n = .Machine$integer.max, size = 1)
           )
       ),
       keep_alive = as.character(
-        host %||%
-          Sys.getenv("quackingllama_keep_alive",
-            unset = "5m"
-          )
+        keep_alive %||%
+          Sys.getenv("quackingllama_keep_alive", unset = "5m")
       ),
       timeout = as.integer(
         timeout %||%
-          Sys.getenv("quackingllama_timeout",
-            unset = 300
-          )
+          Sys.getenv("quackingllama_timeout", unset = 300)
       )
     )
 
