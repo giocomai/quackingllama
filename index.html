@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">quackingllama</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9014</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,19 +95,20 @@
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pol_df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; tibble [1 × 18] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt; tibble [1 × 19] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__</span></span>
 <span><span class="co">#&gt;  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."</span></span>
-<span><span class="co">#&gt;  $ created_at          : chr "2025-02-15T16:46:21.768679723Z"</span></span>
+<span><span class="co">#&gt;  $ created_at          : chr "2025-04-03T13:18:16.042489584Z"</span></span>
 <span><span class="co">#&gt;  $ done                : logi TRUE</span></span>
 <span><span class="co">#&gt;  $ done_reason         : chr "stop"</span></span>
-<span><span class="co">#&gt;  $ total_duration      : num 2.83e+09</span></span>
-<span><span class="co">#&gt;  $ load_duration       : num 19721280</span></span>
+<span><span class="co">#&gt;  $ total_duration      : num 2.84e+09</span></span>
+<span><span class="co">#&gt;  $ load_duration       : num 20312921</span></span>
 <span><span class="co">#&gt;  $ prompt_eval_count   : num 43</span></span>
-<span><span class="co">#&gt;  $ prompt_eval_duration: num 6e+07</span></span>
+<span><span class="co">#&gt;  $ prompt_eval_duration: num 57514831</span></span>
 <span><span class="co">#&gt;  $ eval_count          : num 118</span></span>
-<span><span class="co">#&gt;  $ eval_duration       : num 2.75e+09</span></span>
+<span><span class="co">#&gt;  $ eval_duration       : num 2.77e+09</span></span>
 <span><span class="co">#&gt;  $ timeout             : num 300</span></span>
+<span><span class="co">#&gt;  $ keep_alive          : chr "5m"</span></span>
 <span><span class="co">#&gt;  $ model               : chr "llama3.2"</span></span>
 <span><span class="co">#&gt;  $ system              : chr "You are a helpful assistant."</span></span>
 <span><span class="co">#&gt;  $ format              : chr ""</span></span>
@@ -267,15 +268,15 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Tacos on my face\nSalsa drips down happy tears\nCrunchy, cheesy bliss"</span></span>
+<span><span class="co">#&gt; [1] "Tacos for my soul\nCrunchy shell, cheesy delight\nMidlife crisis food"</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Socks in the toilet\nLaughing, I try to escape\nWet and very sore"</span></span>
+<span><span class="co">#&gt; [1] "Tacos on my head\nSalsa drips from every pore\nMidlife crisis dance"</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Pizza rolls abound\nCheesy fingers, joyful mess\nMidnight's guilty sin"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Taco Tuesday dreams\nCrunchy, cheesy, saucy bliss\nDance on the couch night"</span></span></code></pre></div>
 <p>But then, replicability of results is possible even when the temperature is set to a value higher than 0. We just need to set the same seed, and we’ll consistently get the same result.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -588,6 +589,37 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">resp_df</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &gt; The image features a close-up of a llama's face, which is the central focus of the composition. The llama has a distinctive yellow nose and ears that stand out against its white fur. A gray mask with two holes for eyes covers the lower part of the llama's face, adding an element of intrigue to the image. The background is black, providing a stark contrast to the vibrant colors of the llama and enhancing the visibility of the details in the image. The entire scene is framed within a pink border, further emphasizing the subject matter. The image does not contain any text or other discernible objects. The relative position of the objects suggests that the mask is worn by the llama, covering its lower face while leaving its upper facial features exposed.</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="about-context-windows-and-time-outs">About context windows and time-outs<a class="anchor" aria-label="anchor" href="#about-context-windows-and-time-outs"></a>
+</h2>
+<p><code>ollama</code> is great in enabling easy local deployment of local LLMs, but comes with some embedded defaults that may come with unintended consequences.</p>
+<div class="section level3">
+<h3 id="about-the-context-window">About the context window<a class="anchor" aria-label="anchor" href="#about-the-context-window"></a>
+</h3>
+<p>If you look at the model page of one of the models available from Ollama’s website, you may well notice that some of these come with very large context windows. For example, <a href="https://ollama.com/library/gemma3" class="external-link"><code>gemma3</code></a> boasts a “128K context window”, big enough to include book-length inputs. You may well expect that, by default, this context window is fully available to you. You would, however, be mistaken: no matter the model’s capabilities, Ollama truncates the input at 2048 tokens: as a user, you would notice it only if you looked at the <code>ollama serve</code> logs, or because you notice unsatisfying results, as truncation happens in a way that is mostly invisible to the client. This is a known issue with Ollama, and until this is approached more sensibly by Ollama, the user should take core of this limitation themselves (<code>quackingllama</code> will likely include a dedicated warning in future versions). The easiest workaround is to re-create a new model with a larger context window: it’s a matter of a few seconds, following the <a href="https://github.com/ollama/ollama/issues/8099#issuecomment-2543316682" class="external-link">instructions reported in the relevant issue on Ollama</a>.</p>
+<p>Basically, from the command line you do something like this:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="sc">$</span> ollama run gemma3</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>set parameter num_ctx <span class="dv">65536</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>Set parameter <span class="st">'num_ctx'</span> to <span class="st">'65536'</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>save gemma3<span class="dv">-64</span>k</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>Created new model <span class="st">'gemma3-64k'</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>bye</span></code></pre></div>
+<p>And in a matter of seconds you will get a <code>gemma3</code> model with a 64k context window, which you’ll be able to use by choosing <code>gemma3-64k</code> as model.</p>
+</div>
+<div class="section level3">
+<h3 id="about-timeout-and-keep_alive">About <code>timeout</code> and <code>keep_alive</code>
+<a class="anchor" aria-label="anchor" href="#about-timeout-and-keep_alive"></a>
+</h3>
+<p>Congratulations, now you can enjoy bigger context windows. This is all nice, but this makes it also more likely that you are going to stumble into time-out issues, as processing lengthy prompts can take many minutes.</p>
+<p>There are two parameters that determine how long <code>quackingllama</code> will wait for a response from <code>ollama</code> before throwing an error.</p>
+<ul>
+<li>one is <code>ollama</code>’s <code>keep_alive</code> argument, that basically tells how long the model should remain in memory after it is called. By default, this is “5m” for five minutes. If the model doesn’t get a response in time, it throws an error.</li>
+<li>one is <code>httr2</code>’s <code>timeout</code> argument, that expresses how long the client should be waiting for a response. This defaults to “300”, as it is expressed in seconds, and corresponds to 5 minutes.</li>
+</ul>
+<p>The combined effect of these two arguments may not be exactly as you expect (a 5 minute <code>keep_alive</code> may actually let the model run for 10 minutes, if your <code>timeout</code> argument is big enough), but either way, be mindful and if you do expect lengthy response times, do set both values to an adequately high value.</p>
+<p>On the other hand, if you know you have short prompts and expect quick responses, the defaults are more efficient, and will just move on sooner if the model is stuck for whatever reason.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="about-the-hex-logo">About the hex logo<a class="anchor" aria-label="anchor" href="#about-the-hex-logo"></a>
