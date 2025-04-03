@@ -19,6 +19,7 @@ ql_request <- function(prompt_df,
                        endpoint = "generate",
                        host = NULL,
                        message = NULL,
+                       keep_alive = NULL,
                        timeout = NULL) {
   rlang::arg_match(
     arg = endpoint,
@@ -40,6 +41,7 @@ ql_request <- function(prompt_df,
 
   options_l <- ql_get_options(
     host = host,
+    keep_alive = keep_alive,
     timeout = timeout
   )
 
@@ -64,6 +66,7 @@ ql_request <- function(prompt_df,
             images = prompt_df[["images"]],
             stream = FALSE,
             raw = FALSE,
+            keep_alive = options_l[["keep_alive"]],
             options = list(
               seed = prompt_df[["seed"]],
               temperature = prompt_df[["temperature"]]
@@ -81,6 +84,7 @@ ql_request <- function(prompt_df,
             format = yyjsonr::read_json_str(format_schema),
             stream = FALSE,
             raw = FALSE,
+            keep_alive = options_l[["keep_alive"]],
             options = list(
               seed = prompt_df[["seed"]],
               temperature = prompt_df[["temperature"]]
@@ -98,6 +102,7 @@ ql_request <- function(prompt_df,
           format = yyjsonr::read_json_str(format_schema),
           stream = FALSE,
           raw = FALSE,
+          keep_alive = options_l[["keep_alive"]],
           options = list(
             seed = prompt_df[["seed"]],
             temperature = prompt_df[["temperature"]]

@@ -25,6 +25,7 @@ ql_generate <- function(prompt_df,
                         only_cached = FALSE,
                         host = NULL,
                         message = NULL,
+                        keep_alive = NULL,
                         timeout = NULL,
                         error = c("fail", "warn")) {
   model <- unique(prompt_df[["model"]])
@@ -141,6 +142,7 @@ ql_generate <- function(prompt_df,
         endpoint = "generate",
         host = host,
         message = message,
+        keep_alive = keep_alive,
         timeout = timeout
       )
 

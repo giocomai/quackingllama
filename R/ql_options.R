@@ -111,8 +111,8 @@ ql_disable_db <- function() {
 #' @param seed An integer. When temperature is set to 0 and the seed is
 #'   constant, the model consistently returns the same response to the same
 #'   prompt.
-#' @param keep_alive Defaults to "5m". Controls controls how long the model will
-#'   stay loaded into memory following the request.
+#' @param keep_alive Defaults to "5m". Controls how long the model will stay
+#'   loaded into memory following the request.
 #' @param timeout Time in seconds before the request times out. Defaults to 300
 #'   (corresponding to 5 minutes).
 #'

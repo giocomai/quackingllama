@@ -35,8 +35,8 @@ is a common choice for creative or interactive tasks.}
 constant, the model consistently returns the same response to the same
 prompt.}
 
-\item{keep_alive}{Defaults to "5m". Controls controls how long the model will
-stay loaded into memory following the request.}
+\item{keep_alive}{Defaults to "5m". Controls how long the model will stay
+loaded into memory following the request.}
 
 \item{timeout}{Time in seconds before the request times out. Defaults to 300
 (corresponding to 5 minutes).}
