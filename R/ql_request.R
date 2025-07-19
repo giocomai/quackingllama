@@ -3,6 +3,9 @@
 #' @param endpoint Defaults to "generate". Must be either "generate" or "chat".
 #' @param timeout If not set with [ql_set_options()], defaults to 300 seconds (5
 #'   minutes).
+#' @param messages Defaults to NULL. If given, in line with official Ollama
+#'   documentation: "the messages of the chat, this can be used to keep a chat
+#'   memory".
 #'
 #' @inheritParams ql_set_options
 #'
@@ -15,12 +18,14 @@
 #' ql_prompt(prompt = "a haiku") |>
 #'   ql_request() |>
 #'   httr2::req_dry_run()
-ql_request <- function(prompt_df,
-                       endpoint = "generate",
-                       host = NULL,
-                       message = NULL,
-                       keep_alive = NULL,
-                       timeout = NULL) {
+ql_request <- function(
+  prompt_df,
+  endpoint = "generate",
+  host = NULL,
+  messages = NULL,
+  keep_alive = NULL,
+  timeout = NULL
+) {
   rlang::arg_match(
     arg = endpoint,
     values = c(
@@ -31,11 +36,13 @@ ql_request <- function(prompt_df,
     )
   )
 
-  if (stringr::str_starts(
-    string = endpoint,
-    pattern = "api",
-    negate = TRUE
-  )) {
+  if (
+    stringr::str_starts(
+      string = endpoint,
+      pattern = "api",
+      negate = TRUE
+    )
+  ) {
     endpoint <- stringr::str_c("api/", endpoint)
   }
 
@@ -50,7 +57,6 @@ ql_request <- function(prompt_df,
   } else {
     format_schema <- prompt_df[["format"]]
   }
-
 
   req_01 <- httr2::request(options_l[["host"]]) |>
     httr2::req_url_path(endpoint) |>
@@ -98,7 +104,7 @@ ql_request <- function(prompt_df,
         list(
           model = prompt_df[["model"]],
           prompt = prompt_df[["prompt"]],
-          messages = message,
+          messages = messages,
           format = yyjsonr::read_json_str(format_schema),
           stream = FALSE,
           raw = FALSE,

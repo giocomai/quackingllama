@@ -25,7 +25,7 @@ ql_generate <- function(
   prompt_df,
   only_cached = FALSE,
   host = NULL,
-  message = NULL,
+  messages = NULL,
   keep_alive = NULL,
   timeout = NULL,
   error = c("fail", "warn")
@@ -144,7 +144,7 @@ ql_generate <- function(
         prompt_df = current_prompt,
         endpoint = "generate",
         host = host,
-        message = message,
+        messages = messages,
         keep_alive = keep_alive,
         timeout = timeout
       )

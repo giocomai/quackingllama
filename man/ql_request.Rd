@@ -8,7 +8,7 @@ ql_request(
   prompt_df,
   endpoint = "generate",
   host = NULL,
-  message = NULL,
+  messages = NULL,
   keep_alive = NULL,
   timeout = NULL
 )
@@ -18,6 +18,10 @@ ql_request(
 
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}
+
+\item{messages}{Defaults to NULL. If given, in line with official Ollama
+documentation: "the messages of the chat, this can be used to keep a chat
+memory".}
 
 \item{keep_alive}{Defaults to "5m". Controls how long the model will stay
 loaded into memory following the request.}
