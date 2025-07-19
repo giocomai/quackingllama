@@ -5,9 +5,11 @@
 \title{Get options}
 \usage{
 ql_get_options(
-  options = c("system", "model", "host", "temperature", "seed", "keep_alive", "timeout"),
+  options = c("system", "model", "think", "host", "temperature", "seed", "keep_alive",
+    "timeout"),
   system = NULL,
   model = NULL,
+  think = NULL,
   host = NULL,
   temperature = NULL,
   seed = NULL,

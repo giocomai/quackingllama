@@ -104,6 +104,10 @@ ql_disable_db <- function() {
 #'   `http://localhost:11434` for locally deployed Ollama.
 #' @param system System message to pass to the model. See official documentation
 #'   for details. For example: "You are a helpful assistant."
+#' @param think If TRUE, Ollama enables thinking mode for models which support
+#'   it. For more information, see
+#'   \href{https://ollama.com/blog/thinking}{Ollama's announcement of 'thinking'
+#'   capabilities}.
 #' @param temperature Numeric value comprised between 0 and 1 passed to the
 #'   model. When set to 0 and with the same seed, the response to the same
 #'   prompt is always exactly the same. When closer to one, the response is more
@@ -136,6 +140,7 @@ ql_disable_db <- function() {
 ql_set_options <- function(
   system = NULL,
   model = NULL,
+  think = NULL,
   host = NULL,
   temperature = NULL,
   seed = NULL,
@@ -148,6 +153,10 @@ ql_set_options <- function(
 
   if (!is.null(model)) {
     Sys.setenv(quackingllama_model = model)
+  }
+
+  if (!is.null(think)) {
+    Sys.setenv(quackingllama_model = think)
   }
 
   if (!is.null(host)) {
@@ -197,6 +206,7 @@ ql_get_options <- function(
   options = c(
     "system",
     "model",
+    "think",
     "host",
     "temperature",
     "seed",
@@ -205,6 +215,7 @@ ql_get_options <- function(
   ),
   system = NULL,
   model = NULL,
+  think = NULL,
   host = NULL,
   temperature = NULL,
   seed = NULL,
@@ -223,6 +234,10 @@ ql_get_options <- function(
       model = as.character(
         model %||%
           Sys.getenv("quackingllama_model", unset = "llama3.2")
+      ),
+      think = as.logical(
+        think %||%
+          Sys.getenv("quackingllama_model", unset = FALSE)
       ),
       host = as.character(
         host %||%

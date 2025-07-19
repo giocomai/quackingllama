@@ -191,7 +191,7 @@ ql_generate <- function(
               done_reason = resp_l[["error"]],
               created_at = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
             ) |>
-            dplyr::relocate("response", "prompt") |>
+            dplyr::relocate("response", "prompt", "thinking") |>
             dplyr::relocate(
               "model",
               "system",
@@ -203,6 +203,10 @@ ql_generate <- function(
         }
       } else {
         resp_l[["context"]] <- NULL
+
+        if (!"thinking" %in% names(resp_l)) {
+          resp_l[["thinking"]] <- NA_character_
+        }
 
         output_df <- resp_l |>
           tibble::as_tibble() |>
@@ -219,7 +223,7 @@ ql_generate <- function(
           dplyr::bind_cols(
             tibble::as_tibble(current_prompt)
           ) |>
-          dplyr::relocate("response", "prompt") |>
+          dplyr::relocate("response", "prompt", "thinking") |>
           dplyr::relocate(
             "model",
             "system",

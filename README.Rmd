@@ -457,6 +457,36 @@ resp_df <- ql_prompt(
 cat(">", resp_df$response)
 ```
 
+## Thinking models
+
+In May 2025, Ollama started supporting "thinking" models ([more details in the post announcing the feature](https://ollama.com/blog/thinking)). Pay attention to the fact that not all reasoning models available via Ollama actually support thinking mode; as of July 2025, only three models were effectively supported (`deepseek-r1`, `qwen3`, and `magistral`). An [up-to-date list should be available on Ollama's website](https://ollama.com/search?c=thinking).
+
+When thinking mode is enabled, the LLM goes through an iterative "thinking" process before providing its answer. The "thinking" process is expressed in plain English and can be seen along with the response. See the following example:
+
+
+```{r strawberry_t_df}
+strawberry_t_df <- ql_prompt(
+  prompt = "How many r are there in strawberry? Provide a concise answer.",
+  model = "deepseek-r1:1.5b",
+  think = TRUE) |>
+  ql_generate()
+
+```
+
+Here's the thinking:
+
+```{r strawberry_t_df thinking, results='asis'}
+
+cat(">", strawberry_t_df$thinking |> stringr::str_replace_all(pattern = stringr::fixed("\n"), replacement = "\n > ")) 
+```
+
+And here is the response:
+
+```{r strawberry_t_df response, results='asis'}
+cat(">", strawberry_t_df$response)
+```
+
+
 ## About context windows and time-outs
 
 `ollama` is great in enabling easy local deployment of local LLMs, but comes with some embedded defaults that may come with unintended consequences. 

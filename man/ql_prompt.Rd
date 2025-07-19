@@ -9,6 +9,7 @@ ql_prompt(
   system = NULL,
   format = NULL,
   model = NULL,
+  think = NULL,
   images = NULL,
   temperature = NULL,
   seed = NULL,
@@ -25,6 +26,11 @@ for details. For example: "You are a helpful assistant."}
 \item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
 \verb{ollama list} from the command line to see a list of locally available
 models.}
+
+\item{think}{If TRUE, Ollama enables thinking mode for models which support
+it. For more information, see
+\href{https://ollama.com/blog/thinking}{Ollama's announcement of 'thinking'
+capabilities}.}
 
 \item{temperature}{Numeric value comprised between 0 and 1 passed to the
 model. When set to 0 and with the same seed, the response to the same

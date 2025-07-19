@@ -7,6 +7,7 @@
 ql_set_options(
   system = NULL,
   model = NULL,
+  think = NULL,
   host = NULL,
   temperature = NULL,
   seed = NULL,
@@ -21,6 +22,11 @@ for details. For example: "You are a helpful assistant."}
 \item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
 \verb{ollama list} from the command line to see a list of locally available
 models.}
+
+\item{think}{If TRUE, Ollama enables thinking mode for models which support
+it. For more information, see
+\href{https://ollama.com/blog/thinking}{Ollama's announcement of 'thinking'
+capabilities}.}
 
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}

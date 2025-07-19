@@ -69,6 +69,7 @@ ql_request <- function(
           list(
             model = prompt_df[["model"]],
             prompt = prompt_df[["prompt"]],
+            think = prompt_df[["think"]],
             images = prompt_df[["images"]],
             stream = FALSE,
             raw = FALSE,
@@ -86,6 +87,7 @@ ql_request <- function(
           list(
             model = prompt_df[["model"]],
             prompt = prompt_df[["prompt"]],
+            think = prompt_df[["think"]],
             images = prompt_df[["images"]],
             format = yyjsonr::read_json_str(format_schema),
             stream = FALSE,

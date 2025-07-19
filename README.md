@@ -66,26 +66,28 @@ pol_df <- ql_prompt(prompt = "Describe an imaginary political leader in less tha
   ql_generate()
 
 str(pol_df)
-#> tibble [1 × 19] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 21] (S3: tbl_df/tbl/data.frame)
 #>  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__
 #>  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."
-#>  $ created_at          : chr "2025-04-03T13:18:16.042489584Z"
+#>  $ thinking            : chr NA
+#>  $ created_at          : chr "2025-07-19T14:40:25.179215418Z"
 #>  $ done                : logi TRUE
 #>  $ done_reason         : chr "stop"
-#>  $ total_duration      : num 2.84e+09
-#>  $ load_duration       : num 20312921
+#>  $ total_duration      : num 1.04e+10
+#>  $ load_duration       : num 7.43e+09
 #>  $ prompt_eval_count   : num 43
-#>  $ prompt_eval_duration: num 57514831
+#>  $ prompt_eval_duration: num 2.59e+08
 #>  $ eval_count          : num 118
-#>  $ eval_duration       : num 2.77e+09
+#>  $ eval_duration       : num 2.72e+09
 #>  $ timeout             : num 300
 #>  $ keep_alive          : chr "5m"
+#>  $ think               : logi FALSE
 #>  $ model               : chr "llama3.2"
 #>  $ system              : chr "You are a helpful assistant."
 #>  $ format              : chr ""
 #>  $ seed                : num 0
 #>  $ temperature         : num 0
-#>  $ hash                : chr "ff3978b23a04a61a6037ab8e66521252"
+#>  $ hash                : chr "1b383c4d98978dfd1805743b597fd361"
 ```
 
 ``` r
@@ -159,7 +161,7 @@ pol_schema_df$response |>
 #> [1] "Aurora Wynter"
 #> 
 #> $description
-#> [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people with her unwavering commitment to justice, equality, and environmental sustainability. Born in the coastal city of Newhaven, Aurora grew up surrounded by the beauty and fragility of the ocean, which instilled in her a deep love for the natural world and a fierce determination to protect it from harm. As a young woman, she became an outspoken advocate for climate action, using her powerful voice to raise awareness about the urgent need for sustainable practices and renewable energy sources. Her message resonated with people of all ages and backgrounds, earning her a reputation as a passionate and authentic leader who is not afraid to challenge the status quo. Aurora's leadership style is characterized by her collaborative approach, which brings together diverse stakeholders to find innovative solutions to complex problems. She is known for her ability to listen deeply and empathetically, often finding common ground with even the most unlikely of opponents. Despite facing numerous challenges and setbacks throughout her career, Aurora remains steadfast in her commitment to creating a better world for all, inspiring countless individuals around the globe to join her on this journey towards a brighter future."
+#> [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people with her unwavering commitment to justice, equality, and environmental sustainability. Born in the coastal city of Newhaven, Aurora grew up surrounded by the beauty and fragility of the ocean, which instilled in her a deep love for the natural world and a fierce determination to protect it."
 ```
 
 or slightly more complex, for example making clear that we expect a
@@ -213,7 +215,7 @@ pol_schema_df$response |>
 #> [1] "Unity in Diversity, Progress through Inclusion"
 #> 
 #> $description
-#> [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people. Born into a family of modest means, she rose to prominence as a grassroots activist, fighting for social justice and equality. Her unwavering commitment to these values has earned her the respect and admiration of her constituents. With a warm smile and an infectious laugh, Aurora exudes confidence and compassion, inspiring those around her to work towards a brighter future."
+#> [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people. Born into a family of modest means, she rose to prominence as a grassroots activist, fighting for social justice and equality. Her unwavering commitment to these values has earned her the respect and admiration of her constituents."
 ```
 
 Having the response in a structured format allows for easily storing
@@ -306,15 +308,15 @@ not very different, really, but still different).
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Tacos for my soul\nCrunchy shell, cheesy delight\nMidlife crisis food"
+#> [1] "Pizza in the night\nMozzarella dreams so sweet\nTummy's happy song"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Tacos on my head\nSalsa drips from every pore\nMidlife crisis dance"
+#> [1] "Socks disappear too\n Lost my sole mates in the wash\nLonely foot remains"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Taco Tuesday dreams\nCrunchy, cheesy, saucy bliss\nDance on the couch night"
+#> [1] "Pizza in my face\nMelty cheese and saucey shame\nTummy's guilty grin"
 ```
 
 But then, replicability of results is possible even when the temperature
@@ -388,7 +390,7 @@ haiku_str_df |>
 #> [1] "I fart in space"
 #> 
 #> $why_funny
-#> [1] "This haiku is meant to be humorous because it takes a common bodily function (farting) and combines it with an unexpected setting (space). The juxtaposition of the mundane and the extraordinary creates a comedic effect. Additionally, the simplicity and brevity of the haiku make the punchline more impactful."
+#> [1] "This haiku is humorous because it takes the common experience of passing gas and applies it to an unexpected situation - being in outer space. The idea that someone could let out a fart while floating in zero gravity, causing their own spaceship to drift away, is absurd and comical. It's also a bit of a commentary on how even in the most unlikely situations, human bodily functions can still be a source of embarrassment."
 ```
 
 In brief, when should we expect to receive exactly the same response
@@ -466,18 +468,18 @@ parties_responses_df <- purrr::map(
 
 parties_responses_df
 #> # A tibble: 10 × 3
-#>    `party name`                    `political leaning` `political statement`    
-#>    <chr>                           <chr>               <chr>                    
-#>  1 The Luminari Party              progressive         "Embracing a global citi…
-#>  2 The Liberty Rebirth Party (LRP) conservative        " 'Restoring the Foundin…
-#>  3 Eunoia Party                    progressive         "We believe that 'eudaim…
-#>  4 Libertarian Progressives        conservative        "Balancing Tradition wit…
-#>  5 The Luminari                    progressive         " 'We are the torchbeare…
-#>  6 Libertas Novi                   conservative        "We believe that the Uni…
-#>  7 Eudaimonia                      progressive         "We believe that the gre…
-#>  8 The Terra Vita Party            conservative        "Emphasizing the importa…
-#>  9 The Luminari Party              progressive         "We believe that technol…
-#> 10 The New Order Party (NOP)       conservative        "Protecting Traditional …
+#>    `party name`              `political leaning` `political statement`          
+#>    <chr>                     <chr>               <chr>                          
+#>  1 The Luminari Party        progressive         "Embracing a global citizenry …
+#>  2 Virtus                    conservative        "austrian  economics in americ…
+#>  3 The New Horizon Party     progressive         "The New Horizon Party advocat…
+#>  4 Libertarian Progressives  conservative        "Balancing Tradition with Inno…
+#>  5 Luminaria                 progressive         "At Luminaria, we believe that…
+#>  6 Libertas Novi             conservative        "We believe that the United St…
+#>  7 Eudaimonia                progressive         "We believe that the greatest …
+#>  8 The Terra Vita Party      conservative        "Emphasizing the importance of…
+#>  9 Eunoia Party              progressive         "The Eunoia Party is committed…
+#> 10 The New Order Party (NOP) conservative        "Protecting Traditional Values…
 ```
 
 Then we ask a different model to categorise results (in this example,
@@ -541,16 +543,16 @@ responses_combo_df |>
 
 | political statement | given political leaning | identified political leaning | explanation |
 |:---|:---|:---|:---|
-| Embracing a global citizenry through the universal basic income, sustainable development and intergenerational justice. | progressive | progressive | This statement suggests a progressive political leaning, as it advocates for policies that prioritize the well-being of all people worldwide (universal basic income), promote sustainable development, and ensure fairness across generations (intergenerati… |
-| ‘Restoring the Founding Principles: Limited Government, Personal Responsibility, and Traditional Values’ | conservative | conservative | This title suggests a political stance that aligns with conservative values. The focus is on restoring the principles of limited government, personal responsibility, and traditional values. Limited government implies a preference for smaller government … |
-| We believe that ‘eudaimonia’ – the ancient Greek concept of living a fulfilling life – is the guiding principle for our society, where everyone has access to quality education, healthcare, and economic opportunities, and can live in harmony with themselves and the planet. | progressive | progressive | The belief that ‘Eudaimonia’ – the ancient Greek concept of living a fulfilling life – should be the guiding principle for society, emphasizes the importance of providing quality education, healthcare, and economic opportunities to all individuals. This… |
-| Balancing Tradition with Innovation | conservative | progressive | Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach all… |
-| ‘We are the torchbearers of a brighter future: A future where technology serves humanity, not the other way around; where economic growth is equitable and sustainable; where justice and equality are the guiding principles that shape our society.’ | progressive | progressive | This statement expresses a progressive political viewpoint. The speaker advocates for a future in which technology benefits humanity, economic growth is equitable and sustainable, and justice and equality are prioritized in society. This perspective emp… |
-| We believe that the United States is at its strongest when it maintains a strong sense of self-reliance, limited government intervention, and unwavering commitment to traditional values. | conservative | conservative | The statement suggests a conservative political stance that emphasizes individualism, minimal government interference, and adherence to traditional values. This perspective is often associated with the belief that self-reliance and limited government in… |
+| Embracing a global citizenry through the universal basic income, sustainable development and intergenerational justice. | progressive | progressive | This statement advocates for three key progressive policies: Universal Basic Income (UBI), Sustainable Development, and Intergenerational Justice. The Universal Basic Income is a policy where every citizen receives a set amount of money regularly, regar… |
+| austrian economics in american governance | conservative | conservative | Austrian Economics, which emphasizes the importance of individual action and market processes, has had an influence on American governance, particularly among conservative political circles. The Austrian School’s key principles, such as subjectivism (th… |
+| The New Horizon Party advocates for a future where technology is used to create a sustainable, equitable, and just society for all. | progressive | progressive | The New Horizon Party appears to be a progressive political party that emphasizes the use of technology to achieve a sustainable, equitable, and just society. This suggests they are forward-thinking, prioritizing innovation and technological advancement… |
+| Balancing Tradition with Innovation | conservative | progressive | Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach req… |
+| At Luminaria, we believe that the collective well-being of our society is inextricably linked to the well-being of its most vulnerable members. We advocate for a world where every individual has access to quality healthcare, education, and economic opportunities, regardless of their background or circumstances. | progressive | progressive | Luminaria’s mission statement emphasizes the importance of social justice and equality for all individuals, particularly those who are most vulnerable in society. They advocate for policies that ensure access to essential resources such as healthcare, e… |
+| We believe that the United States is at its strongest when it maintains a strong sense of self-reliance, limited government intervention, and unwavering commitment to traditional values. | conservative | conservative | The statement suggests a conservative political ideology that emphasizes individualism, minimal government interference, and adherence to traditional values. This perspective often advocates for self-reliance, which means relying on one’s own efforts ra… |
 | We believe that the greatest wealth of any nation is not measured by its GDP or GDP per capita, but rather by the well-being and flourishing of all its citizens. | progressive | progressive | This statement reflects a progressive perspective on economic development, emphasizing that a nation’s true wealth lies not in material wealth or financial indicators like GDP, but rather in the well-being and flourishing of its citizens. This perspecti… |
-| Emphasizing the importance of local autonomy, traditional values, and environmental stewardship. | conservative | progressive | The emphasis on local autonomy suggests a belief in decentralized decision-making and empowering communities to govern themselves. This is often associated with progressive politics as it promotes grassroots democracy and respect for cultural diversity…. |
-| We believe that technology is a force for the betterment of humanity, but it must be guided by empathy and solidarity to truly serve the needs of all. | progressive | progressive | This statement reflects a progressive perspective on technology, emphasizing its potential for positive impact on humanity while acknowledging the importance of empathy and solidarity in shaping its development. This approach suggests that technology sh… |
-| Protecting Traditional Values, Preserving Freedom | conservative | conservative | This phrase seems to align with conservative values as it suggests a commitment to preserving traditional values and upholding individual freedom. The term ‘Traditional Values’ often refers to moral, social, or cultural beliefs that have been passed dow… |
+| Emphasizing the importance of local autonomy, traditional values, and environmental stewardship. | conservative | progressive | This individual or group prioritizes the empowerment of local communities, preservation of cultural traditions, and sustainable management of natural resources. They advocate for policies that allow regions to govern themselves while maintaining a stron… |
+| The Eunoia Party is committed to ‘Designing a Brighter Tomorrow for All’ by prioritizing human well-being, social justice, and ecological sustainability. | progressive | progressive | The Eunoia Party appears to be a progressive political party, as it emphasizes human well-being, social justice, and ecological sustainability. These are key issues that progressive parties often prioritize, with the goal of creating a more equitable an… |
+| Protecting Traditional Values, Preserving Freedom | conservative | conservative | This phrase suggests a political stance that values traditional customs and beliefs while also emphasizing the importance of individual freedom. It implies a balance between preserving cultural heritage and upholding personal liberties, often associated… |
 
 In this stereotyped case, the LLM categorises most statements as
 expected and provide a broadly meaningful explanation for the choice (if
@@ -596,9 +598,10 @@ resp_df <- ql_prompt(
 cat(">", resp_df$response)
 ```
 
-> This appears to be an image of a bird’s head, possibly a goose or
-> swan, with its beak open and feathers ruffled. The image is framed by
-> a pink hexagon shape.
+> This appears to be a digital illustration of a bird’s head, possibly a
+> duck or goose, with a bright pink hexagon border around it. The image
+> is likely a graphic or icon used for decorative or illustrative
+> purposes.
 
 ``` r
 resp_df <- ql_prompt(
@@ -610,8 +613,80 @@ resp_df <- ql_prompt(
 
 
 cat(">", resp_df$response)
-#> > The image features a close-up of a llama's face, which is the central focus of the composition. The llama has a distinctive yellow nose and ears that stand out against its white fur. A gray mask with two holes for eyes covers the lower part of the llama's face, adding an element of intrigue to the image. The background is black, providing a stark contrast to the vibrant colors of the llama and enhancing the visibility of the details in the image. The entire scene is framed within a pink border, further emphasizing the subject matter. The image does not contain any text or other discernible objects. The relative position of the objects suggests that the mask is worn by the llama, covering its lower face while leaving its upper facial features exposed.
+#> > The image features a close-up of an alpaca's face, which is set against a black background. The alpaca has a yellow and gray mask on its face, with the eyes closed in what appears to be sleep or rest. The mask covers the alpaca's mouth and nose, giving it a unique appearance. The image is framed by a pink border, adding a pop of color to the overall composition. The alpaca seems calm and at ease despite the unusual accessory.
 ```
+
+## Thinking models
+
+In May 2025, Ollama started supporting “thinking” models ([more details
+in the post announcing the feature](https://ollama.com/blog/thinking)).
+Pay attention to the fact that not all reasoning models available via
+Ollama actually support thinking mode; as of July 2025, only three
+models were effectively supported (`deepseek-r1`, `qwen3`, and
+`magistral`). An [up-to-date list should be available on Ollama’s
+website](https://ollama.com/search?c=thinking).
+
+When thinking mode is enabled, the LLM goes through an iterative
+“thinking” process before providing its answer. The “thinking” process
+is expressed in plain English and can be seen along with the response.
+See the following example:
+
+``` r
+strawberry_t_df <- ql_prompt(
+  prompt = "How many r are there in strawberry? Provide a concise answer.",
+  model = "deepseek-r1:1.5b",
+  think = TRUE) |>
+  ql_generate()
+```
+
+Here’s the thinking:
+
+``` r
+
+cat(">", strawberry_t_df$thinking |> stringr::str_replace_all(pattern = stringr::fixed("\n"), replacement = "\n > ")) 
+```
+
+> Okay, so I need to figure out how many ’r’s are in the word
+> “strawberry.” Hmm, let me start by writing down the word: S T R A W B
+> E R R Y.
+>
+> Wait, that doesn’t seem right. Let me check again. The spelling is
+> S-T-R-A-W-B-E-R-R-Y. So I think I missed an ‘r’ somewhere. Let me go
+> through each letter one by one to make sure I don’t miss any.
+>
+> 1.  S – nope.
+> 2.  T – nope.
+> 3.  R – yes, that’s the first ‘r’.
+> 4.  A – nope.
+> 5.  W – nope.
+> 6.  B – nope.
+> 7.  E – nope.
+> 8.  R – second ‘r’.
+> 9.  R – third ‘r’.
+> 10. Y – nope.
+>
+> Wait a minute, I think I might have missed an ‘R’ at the end of
+> “berry.” Let me count again: S T R A W B E R R Y. So after B comes E,
+> then R (that’s one), then another R (two), and finally Y. So that
+> makes three ’r’s in total.
+>
+> But wait, I’m not sure if the word is spelled correctly. Maybe it’s
+> “strawberry” without an extra ‘R’ at the end? Let me check a
+> dictionary or something to confirm. Oh, no, it does have two more ’R’s
+> after E and before Y. So that makes three ’r’s in total.
+>
+> I think I was overcomplicating it by thinking about the word
+> “strawberry” as if it were spelled without those extra letters. But
+> actually, it is spelled with two more ’R’s. So the answer should be
+> three ’r’s.
+
+And here is the response:
+
+``` r
+cat(">", strawberry_t_df$response)
+```
+
+> There are three ’r’s in the word “strawberry.”
 
 ## About context windows and time-outs
 

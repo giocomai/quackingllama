@@ -17,17 +17,21 @@
 #'
 #' @examples
 #' ql_prompt("a haiku")
-ql_prompt <- function(prompt,
-                      system = NULL,
-                      format = NULL,
-                      model = NULL,
-                      images = NULL,
-                      temperature = NULL,
-                      seed = NULL,
-                      host = NULL,
-                      hash = TRUE) {
+ql_prompt <- function(
+  prompt,
+  system = NULL,
+  format = NULL,
+  model = NULL,
+  think = NULL,
+  images = NULL,
+  temperature = NULL,
+  seed = NULL,
+  host = NULL,
+  hash = TRUE
+) {
   options_l <- ql_get_options(
     system = system,
+    think = think,
     host = host,
     model = model,
     temperature = temperature,
@@ -51,6 +55,7 @@ ql_prompt <- function(prompt,
     prompt_df <- tibble::tibble(
       prompt = prompt,
       system = options_l[["system"]],
+      think = options_l[["think"]],
       seed = seed,
       temperature = as.numeric(options_l[["temperature"]]),
       model = as.character(options_l[["model"]]),
@@ -61,6 +66,7 @@ ql_prompt <- function(prompt,
       prompt = prompt,
       images = ql_read_images(images),
       system = options_l[["system"]],
+      think = options_l[["think"]],
       seed = seed,
       temperature = as.numeric(options_l[["temperature"]]),
       model = as.character(options_l[["model"]]),
