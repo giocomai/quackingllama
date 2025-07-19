@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">quackingllama</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9015</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9016</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,26 +94,28 @@
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pol_df</span><span class="op">)</span></span>
-<span><span class="co">#&gt; tibble [1 × 19] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt; tibble [1 × 21] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__</span></span>
 <span><span class="co">#&gt;  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."</span></span>
-<span><span class="co">#&gt;  $ created_at          : chr "2025-04-03T13:18:16.042489584Z"</span></span>
+<span><span class="co">#&gt;  $ thinking            : chr NA</span></span>
+<span><span class="co">#&gt;  $ created_at          : chr "2025-07-19T14:40:25.179215418Z"</span></span>
 <span><span class="co">#&gt;  $ done                : logi TRUE</span></span>
 <span><span class="co">#&gt;  $ done_reason         : chr "stop"</span></span>
-<span><span class="co">#&gt;  $ total_duration      : num 2.84e+09</span></span>
-<span><span class="co">#&gt;  $ load_duration       : num 20312921</span></span>
+<span><span class="co">#&gt;  $ total_duration      : num 1.04e+10</span></span>
+<span><span class="co">#&gt;  $ load_duration       : num 7.43e+09</span></span>
 <span><span class="co">#&gt;  $ prompt_eval_count   : num 43</span></span>
-<span><span class="co">#&gt;  $ prompt_eval_duration: num 57514831</span></span>
+<span><span class="co">#&gt;  $ prompt_eval_duration: num 2.59e+08</span></span>
 <span><span class="co">#&gt;  $ eval_count          : num 118</span></span>
-<span><span class="co">#&gt;  $ eval_duration       : num 2.77e+09</span></span>
+<span><span class="co">#&gt;  $ eval_duration       : num 2.72e+09</span></span>
 <span><span class="co">#&gt;  $ timeout             : num 300</span></span>
 <span><span class="co">#&gt;  $ keep_alive          : chr "5m"</span></span>
+<span><span class="co">#&gt;  $ think               : logi FALSE</span></span>
 <span><span class="co">#&gt;  $ model               : chr "llama3.2"</span></span>
 <span><span class="co">#&gt;  $ system              : chr "You are a helpful assistant."</span></span>
 <span><span class="co">#&gt;  $ format              : chr ""</span></span>
 <span><span class="co">#&gt;  $ seed                : num 0</span></span>
 <span><span class="co">#&gt;  $ temperature         : num 0</span></span>
-<span><span class="co">#&gt;  $ hash                : chr "ff3978b23a04a61a6037ab8e66521252"</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ hash                : chr "1b383c4d98978dfd1805743b597fd361"</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">pol_df</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
@@ -162,7 +164,7 @@
 <span><span class="co">#&gt; [1] "Aurora Wynter"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $description</span></span>
-<span><span class="co">#&gt; [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people with her unwavering commitment to justice, equality, and environmental sustainability. Born in the coastal city of Newhaven, Aurora grew up surrounded by the beauty and fragility of the ocean, which instilled in her a deep love for the natural world and a fierce determination to protect it from harm. As a young woman, she became an outspoken advocate for climate action, using her powerful voice to raise awareness about the urgent need for sustainable practices and renewable energy sources. Her message resonated with people of all ages and backgrounds, earning her a reputation as a passionate and authentic leader who is not afraid to challenge the status quo. Aurora's leadership style is characterized by her collaborative approach, which brings together diverse stakeholders to find innovative solutions to complex problems. She is known for her ability to listen deeply and empathetically, often finding common ground with even the most unlikely of opponents. Despite facing numerous challenges and setbacks throughout her career, Aurora remains steadfast in her commitment to creating a better world for all, inspiring countless individuals around the globe to join her on this journey towards a brighter future."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people with her unwavering commitment to justice, equality, and environmental sustainability. Born in the coastal city of Newhaven, Aurora grew up surrounded by the beauty and fragility of the ocean, which instilled in her a deep love for the natural world and a fierce determination to protect it."</span></span></code></pre></div>
 <p>or slightly more complex, for example making clear that we expect a field to be numeric, and another one to pick between one of a set of options:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -208,7 +210,7 @@
 <span><span class="co">#&gt; [1] "Unity in Diversity, Progress through Inclusion"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $description</span></span>
-<span><span class="co">#&gt; [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people. Born into a family of modest means, she rose to prominence as a grassroots activist, fighting for social justice and equality. Her unwavering commitment to these values has earned her the respect and admiration of her constituents. With a warm smile and an infectious laugh, Aurora exudes confidence and compassion, inspiring those around her to work towards a brighter future."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people. Born into a family of modest means, she rose to prominence as a grassroots activist, fighting for social justice and equality. Her unwavering commitment to these values has earned her the respect and admiration of her constituents."</span></span></code></pre></div>
 <p>Having the response in a structured format allows for easily storing results in a data frame and processing them further.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pol3_schema_df</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
@@ -267,15 +269,15 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Tacos for my soul\nCrunchy shell, cheesy delight\nMidlife crisis food"</span></span>
+<span><span class="co">#&gt; [1] "Pizza in the night\nMozzarella dreams so sweet\nTummy's happy song"</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Tacos on my head\nSalsa drips from every pore\nMidlife crisis dance"</span></span>
+<span><span class="co">#&gt; [1] "Socks disappear too\n Lost my sole mates in the wash\nLonely foot remains"</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Taco Tuesday dreams\nCrunchy, cheesy, saucy bliss\nDance on the couch night"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Pizza in my face\nMelty cheese and saucey shame\nTummy's guilty grin"</span></span></code></pre></div>
 <p>But then, replicability of results is possible even when the temperature is set to a value higher than 0. We just need to set the same seed, and we’ll consistently get the same result.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -327,7 +329,7 @@
 <span><span class="co">#&gt; [1] "I fart in space"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $why_funny</span></span>
-<span><span class="co">#&gt; [1] "This haiku is meant to be humorous because it takes a common bodily function (farting) and combines it with an unexpected setting (space). The juxtaposition of the mundane and the extraordinary creates a comedic effect. Additionally, the simplicity and brevity of the haiku make the punchline more impactful."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "This haiku is humorous because it takes the common experience of passing gas and applies it to an unexpected situation - being in outer space. The idea that someone could let out a fart while floating in zero gravity, causing their own spaceship to drift away, is absurd and comical. It's also a bit of a commentary on how even in the most unlikely situations, human bodily functions can still be a source of embarrassment."</span></span></code></pre></div>
 <p>In brief, when should we expect to receive exactly the same response from the LLM, hence, making it possible to retrieve it from cache if already parsed? The following conditions must apply:</p>
 <ul>
 <li>same model</li>
@@ -396,18 +398,18 @@
 <span></span>
 <span><span class="va">parties_responses_df</span></span>
 <span><span class="co">#&gt; # A tibble: 10 × 3</span></span>
-<span><span class="co">#&gt;    `party name`                    `political leaning` `political statement`    </span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;                           &lt;chr&gt;               &lt;chr&gt;                    </span></span>
-<span><span class="co">#&gt;  1 The Luminari Party              progressive         "Embracing a global citi…</span></span>
-<span><span class="co">#&gt;  2 The Liberty Rebirth Party (LRP) conservative        " 'Restoring the Foundin…</span></span>
-<span><span class="co">#&gt;  3 Eunoia Party                    progressive         "We believe that 'eudaim…</span></span>
-<span><span class="co">#&gt;  4 Libertarian Progressives        conservative        "Balancing Tradition wit…</span></span>
-<span><span class="co">#&gt;  5 The Luminari                    progressive         " 'We are the torchbeare…</span></span>
-<span><span class="co">#&gt;  6 Libertas Novi                   conservative        "We believe that the Uni…</span></span>
-<span><span class="co">#&gt;  7 Eudaimonia                      progressive         "We believe that the gre…</span></span>
-<span><span class="co">#&gt;  8 The Terra Vita Party            conservative        "Emphasizing the importa…</span></span>
-<span><span class="co">#&gt;  9 The Luminari Party              progressive         "We believe that technol…</span></span>
-<span><span class="co">#&gt; 10 The New Order Party (NOP)       conservative        "Protecting Traditional …</span></span></code></pre></div>
+<span><span class="co">#&gt;    `party name`              `political leaning` `political statement`          </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                     &lt;chr&gt;               &lt;chr&gt;                          </span></span>
+<span><span class="co">#&gt;  1 The Luminari Party        progressive         "Embracing a global citizenry …</span></span>
+<span><span class="co">#&gt;  2 Virtus                    conservative        "austrian  economics in americ…</span></span>
+<span><span class="co">#&gt;  3 The New Horizon Party     progressive         "The New Horizon Party advocat…</span></span>
+<span><span class="co">#&gt;  4 Libertarian Progressives  conservative        "Balancing Tradition with Inno…</span></span>
+<span><span class="co">#&gt;  5 Luminaria                 progressive         "At Luminaria, we believe that…</span></span>
+<span><span class="co">#&gt;  6 Libertas Novi             conservative        "We believe that the United St…</span></span>
+<span><span class="co">#&gt;  7 Eudaimonia                progressive         "We believe that the greatest …</span></span>
+<span><span class="co">#&gt;  8 The Terra Vita Party      conservative        "Emphasizing the importance of…</span></span>
+<span><span class="co">#&gt;  9 Eunoia Party              progressive         "The Eunoia Party is committed…</span></span>
+<span><span class="co">#&gt; 10 The New Order Party (NOP) conservative        "Protecting Traditional Values…</span></span></code></pre></div>
 <p>Then we ask a different model to categorise results (in this example, text generation with <code>llama3.2</code>, text categorisation with <code>mistral</code>). Trimming explanations in the following table for clarity.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">category_schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -480,37 +482,37 @@
 <td align="left">Embracing a global citizenry through the universal basic income, sustainable development and intergenerational justice.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">This statement suggests a progressive political leaning, as it advocates for policies that prioritize the well-being of all people worldwide (universal basic income), promote sustainable development, and ensure fairness across generations (intergenerati…</td>
+<td align="left">This statement advocates for three key progressive policies: Universal Basic Income (UBI), Sustainable Development, and Intergenerational Justice. The Universal Basic Income is a policy where every citizen receives a set amount of money regularly, regar…</td>
 </tr>
 <tr class="even">
-<td align="left">‘Restoring the Founding Principles: Limited Government, Personal Responsibility, and Traditional Values’</td>
+<td align="left">austrian economics in american governance</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">This title suggests a political stance that aligns with conservative values. The focus is on restoring the principles of limited government, personal responsibility, and traditional values. Limited government implies a preference for smaller government …</td>
+<td align="left">Austrian Economics, which emphasizes the importance of individual action and market processes, has had an influence on American governance, particularly among conservative political circles. The Austrian School’s key principles, such as subjectivism (th…</td>
 </tr>
 <tr class="odd">
-<td align="left">We believe that ‘eudaimonia’ – the ancient Greek concept of living a fulfilling life – is the guiding principle for our society, where everyone has access to quality education, healthcare, and economic opportunities, and can live in harmony with themselves and the planet.</td>
+<td align="left">The New Horizon Party advocates for a future where technology is used to create a sustainable, equitable, and just society for all.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">The belief that ‘Eudaimonia’ – the ancient Greek concept of living a fulfilling life – should be the guiding principle for society, emphasizes the importance of providing quality education, healthcare, and economic opportunities to all individuals. This…</td>
+<td align="left">The New Horizon Party appears to be a progressive political party that emphasizes the use of technology to achieve a sustainable, equitable, and just society. This suggests they are forward-thinking, prioritizing innovation and technological advancement…</td>
 </tr>
 <tr class="even">
 <td align="left">Balancing Tradition with Innovation</td>
 <td align="left">conservative</td>
 <td align="left">progressive</td>
-<td align="left">Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach all…</td>
+<td align="left">Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach req…</td>
 </tr>
 <tr class="odd">
-<td align="left">‘We are the torchbearers of a brighter future: A future where technology serves humanity, not the other way around; where economic growth is equitable and sustainable; where justice and equality are the guiding principles that shape our society.’</td>
+<td align="left">At Luminaria, we believe that the collective well-being of our society is inextricably linked to the well-being of its most vulnerable members. We advocate for a world where every individual has access to quality healthcare, education, and economic opportunities, regardless of their background or circumstances.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">This statement expresses a progressive political viewpoint. The speaker advocates for a future in which technology benefits humanity, economic growth is equitable and sustainable, and justice and equality are prioritized in society. This perspective emp…</td>
+<td align="left">Luminaria’s mission statement emphasizes the importance of social justice and equality for all individuals, particularly those who are most vulnerable in society. They advocate for policies that ensure access to essential resources such as healthcare, e…</td>
 </tr>
 <tr class="even">
 <td align="left">We believe that the United States is at its strongest when it maintains a strong sense of self-reliance, limited government intervention, and unwavering commitment to traditional values.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">The statement suggests a conservative political stance that emphasizes individualism, minimal government interference, and adherence to traditional values. This perspective is often associated with the belief that self-reliance and limited government in…</td>
+<td align="left">The statement suggests a conservative political ideology that emphasizes individualism, minimal government interference, and adherence to traditional values. This perspective often advocates for self-reliance, which means relying on one’s own efforts ra…</td>
 </tr>
 <tr class="odd">
 <td align="left">We believe that the greatest wealth of any nation is not measured by its GDP or GDP per capita, but rather by the well-being and flourishing of all its citizens.</td>
@@ -522,19 +524,19 @@
 <td align="left">Emphasizing the importance of local autonomy, traditional values, and environmental stewardship.</td>
 <td align="left">conservative</td>
 <td align="left">progressive</td>
-<td align="left">The emphasis on local autonomy suggests a belief in decentralized decision-making and empowering communities to govern themselves. This is often associated with progressive politics as it promotes grassroots democracy and respect for cultural diversity….</td>
+<td align="left">This individual or group prioritizes the empowerment of local communities, preservation of cultural traditions, and sustainable management of natural resources. They advocate for policies that allow regions to govern themselves while maintaining a stron…</td>
 </tr>
 <tr class="odd">
-<td align="left">We believe that technology is a force for the betterment of humanity, but it must be guided by empathy and solidarity to truly serve the needs of all.</td>
+<td align="left">The Eunoia Party is committed to ‘Designing a Brighter Tomorrow for All’ by prioritizing human well-being, social justice, and ecological sustainability.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">This statement reflects a progressive perspective on technology, emphasizing its potential for positive impact on humanity while acknowledging the importance of empathy and solidarity in shaping its development. This approach suggests that technology sh…</td>
+<td align="left">The Eunoia Party appears to be a progressive political party, as it emphasizes human well-being, social justice, and ecological sustainability. These are key issues that progressive parties often prioritize, with the goal of creating a more equitable an…</td>
 </tr>
 <tr class="even">
 <td align="left">Protecting Traditional Values, Preserving Freedom</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">This phrase seems to align with conservative values as it suggests a commitment to preserving traditional values and upholding individual freedom. The term ‘Traditional Values’ often refers to moral, social, or cultural beliefs that have been passed dow…</td>
+<td align="left">This phrase suggests a political stance that values traditional customs and beliefs while also emphasizing the importance of individual freedom. It implies a balance between preserving cultural heritage and upholding personal liberties, often associated…</td>
 </tr>
 </tbody>
 </table>
@@ -575,7 +577,7 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">resp_df</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p>This appears to be an image of a bird’s head, possibly a goose or swan, with its beak open and feathers ruffled. The image is framed by a pink hexagon shape.</p>
+<p>This appears to be a digital illustration of a bird’s head, possibly a duck or goose, with a bright pink hexagon border around it. The image is likely a graphic or icon used for decorative or illustrative purposes.</p>
 </blockquote>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
@@ -587,7 +589,48 @@
 <span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">resp_df</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &gt; The image features a close-up of a llama's face, which is the central focus of the composition. The llama has a distinctive yellow nose and ears that stand out against its white fur. A gray mask with two holes for eyes covers the lower part of the llama's face, adding an element of intrigue to the image. The background is black, providing a stark contrast to the vibrant colors of the llama and enhancing the visibility of the details in the image. The entire scene is framed within a pink border, further emphasizing the subject matter. The image does not contain any text or other discernible objects. The relative position of the objects suggests that the mask is worn by the llama, covering its lower face while leaving its upper facial features exposed.</span></span></code></pre></div>
+<span><span class="co">#&gt; &gt; The image features a close-up of an alpaca's face, which is set against a black background. The alpaca has a yellow and gray mask on its face, with the eyes closed in what appears to be sleep or rest. The mask covers the alpaca's mouth and nose, giving it a unique appearance. The image is framed by a pink border, adding a pop of color to the overall composition. The alpaca seems calm and at ease despite the unusual accessory.</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="thinking-models">Thinking models<a class="anchor" aria-label="anchor" href="#thinking-models"></a>
+</h2>
+<p>In May 2025, Ollama started supporting “thinking” models (<a href="https://ollama.com/blog/thinking" class="external-link">more details in the post announcing the feature</a>). Pay attention to the fact that not all reasoning models available via Ollama actually support thinking mode; as of July 2025, only three models were effectively supported (<code>deepseek-r1</code>, <code>qwen3</code>, and <code>magistral</code>). An <a href="https://ollama.com/search?c=thinking" class="external-link">up-to-date list should be available on Ollama’s website</a>.</p>
+<p>When thinking mode is enabled, the LLM goes through an iterative “thinking” process before providing its answer. The “thinking” process is expressed in plain English and can be seen along with the response. See the following example:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">strawberry_t_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
+<span>  prompt <span class="op">=</span> <span class="st">"How many r are there in strawberry? Provide a concise answer."</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"deepseek-r1:1.5b"</span>,</span>
+<span>  think <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Here’s the thinking:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">strawberry_t_df</span><span class="op">$</span><span class="va">thinking</span> <span class="op">|&gt;</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html" class="external-link">fixed</a></span><span class="op">(</span><span class="st">"\n"</span><span class="op">)</span>, replacement <span class="op">=</span> <span class="st">"\n &gt; "</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<blockquote>
+<p>Okay, so I need to figure out how many ’r’s are in the word “strawberry.” Hmm, let me start by writing down the word: S T R A W B E R R Y.</p>
+<p>Wait, that doesn’t seem right. Let me check again. The spelling is S-T-R-A-W-B-E-R-R-Y. So I think I missed an ‘r’ somewhere. Let me go through each letter one by one to make sure I don’t miss any.</p>
+<ol style="list-style-type: decimal">
+<li>S – nope.</li>
+<li>T – nope.</li>
+<li>R – yes, that’s the first ‘r’.</li>
+<li>A – nope.</li>
+<li>W – nope.</li>
+<li>B – nope.</li>
+<li>E – nope.</li>
+<li>R – second ‘r’.</li>
+<li>R – third ‘r’.</li>
+<li>Y – nope.</li>
+</ol>
+<p>Wait a minute, I think I might have missed an ‘R’ at the end of “berry.” Let me count again: S T R A W B E R R Y. So after B comes E, then R (that’s one), then another R (two), and finally Y. So that makes three ’r’s in total.</p>
+<p>But wait, I’m not sure if the word is spelled correctly. Maybe it’s “strawberry” without an extra ‘R’ at the end? Let me check a dictionary or something to confirm. Oh, no, it does have two more ’R’s after E and before Y. So that makes three ’r’s in total.</p>
+<p>I think I was overcomplicating it by thinking about the word “strawberry” as if it were spelled without those extra letters. But actually, it is spelled with two more ’R’s. So the answer should be three ’r’s.</p>
+</blockquote>
+<p>And here is the response:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">strawberry_t_df</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></span></code></pre></div>
+<blockquote>
+<p>There are three ’r’s in the word “strawberry.”</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="about-context-windows-and-time-outs">About context windows and time-outs<a class="anchor" aria-label="anchor" href="#about-context-windows-and-time-outs"></a>
@@ -598,12 +641,12 @@
 </h3>
 <p>If you look at the model page of one of the models available from Ollama’s website, you may well notice that some of these come with very large context windows. For example, <a href="https://ollama.com/library/gemma3" class="external-link"><code>gemma3</code></a> boasts a “128K context window”, big enough to include book-length inputs. You may well expect that, by default, this context window is fully available to you. You would, however, be mistaken: no matter the model’s capabilities, Ollama truncates the input at 2048 tokens: as a user, you would notice it only if you looked at the <code>ollama serve</code> logs, or because you notice unsatisfying results, as truncation happens in a way that is mostly invisible to the client. This is a known issue with Ollama, and until this is approached more sensibly by Ollama, the user should take core of this limitation themselves (<code>quackingllama</code> will likely include a dedicated warning in future versions). The easiest workaround is to re-create a new model with a larger context window: it’s a matter of a few seconds, following the <a href="https://github.com/ollama/ollama/issues/8099#issuecomment-2543316682" class="external-link">instructions reported in the relevant issue on Ollama</a>.</p>
 <p>Basically, from the command line you do something like this:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="sc">$</span> ollama run gemma3</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>set parameter num_ctx <span class="dv">65536</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>Set parameter <span class="st">'num_ctx'</span> to <span class="st">'65536'</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>save gemma3<span class="dv">-64</span>k</span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>Created new model <span class="st">'gemma3-64k'</span></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>bye</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="sc">$</span> ollama run gemma3</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>set parameter num_ctx <span class="dv">65536</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>Set parameter <span class="st">'num_ctx'</span> to <span class="st">'65536'</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>save gemma3<span class="dv">-64</span>k</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>Created new model <span class="st">'gemma3-64k'</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>bye</span></code></pre></div>
 <p>And in a matter of seconds you will get a <code>gemma3</code> model with a 64k context window, which you’ll be able to use by choosing <code>gemma3-64k</code> as model.</p>
 </div>
 <div class="section level3">

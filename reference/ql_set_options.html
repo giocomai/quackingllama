@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quackingllama</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9015</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9016</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ql_set_options</span><span class="op">(</span></span>
 <span>  system <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  think <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  host <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  temperature <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -60,6 +61,13 @@ for details. For example: "You are a helpful assistant."</p></dd>
 <dd><p>The name of the model, e.g. <code>llama3.2</code> or <code>phi3.5:3.8b</code>. Run
 <code>ollama list</code> from the command line to see a list of locally available
 models.</p></dd>
+
+
+<dt id="arg-think">think<a class="anchor" aria-label="anchor" href="#arg-think"></a></dt>
+<dd><p>If TRUE, Ollama enables thinking mode for models which support
+it. For more information, see
+<a href="https://ollama.com/blog/thinking" class="external-link">Ollama's announcement of 'thinking'
+capabilities</a>.</p></dd>
 
 
 <dt id="arg-host">host<a class="anchor" aria-label="anchor" href="#arg-host"></a></dt>
@@ -114,6 +122,9 @@ loaded into memory following the request.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "llama3.2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $think</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $host</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "http://localhost:11434"</span>
