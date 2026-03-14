@@ -233,7 +233,7 @@ ql_get_options <- function(
       ),
       model = as.character(
         model %||%
-          Sys.getenv("quackingllama_model", unset = "llama3.2")
+          Sys.getenv("quackingllama_model", unset = "ministral-3:3b")
       ),
       think = as.logical(
         think %||%
