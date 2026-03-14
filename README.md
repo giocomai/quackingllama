@@ -66,44 +66,47 @@ pol_df <- ql_prompt(prompt = "Describe an imaginary political leader in less tha
   ql_generate()
 
 str(pol_df)
-#> tibble [1 × 21] (S3: tbl_df/tbl/data.frame)
-#>  $ response            : chr "Meet Aurora \"Rory\" Thompson, the charismatic and progressive leader of the coastal nation of Azura. A former "| __truncated__
+#> tibble [1 × 22] (S3: tbl_df/tbl/data.frame)
+#>  $ response            : chr "**Elias Voss** – *\"The Pragmatic Sage\"*\n\nA towering figure with silver-streaked hair and a perpetually thou"| __truncated__
 #>  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."
 #>  $ thinking            : chr NA
-#>  $ created_at          : chr "2025-07-19T14:40:25.179215418Z"
+#>  $ created_at          : chr "2026-03-14T19:38:49.757712483Z"
 #>  $ done                : logi TRUE
 #>  $ done_reason         : chr "stop"
-#>  $ total_duration      : num 1.04e+10
-#>  $ load_duration       : num 7.43e+09
-#>  $ prompt_eval_count   : num 43
-#>  $ prompt_eval_duration: num 2.59e+08
-#>  $ eval_count          : num 118
-#>  $ eval_duration       : num 2.72e+09
+#>  $ total_duration      : num 1.52e+10
+#>  $ load_duration       : num 2.11e+09
+#>  $ prompt_eval_count   : num 27
+#>  $ prompt_eval_duration: num 7.56e+08
+#>  $ eval_count          : num 142
+#>  $ eval_duration       : num 1.21e+10
 #>  $ timeout             : num 300
 #>  $ keep_alive          : chr "5m"
 #>  $ think               : logi FALSE
-#>  $ model               : chr "llama3.2"
+#>  $ model               : chr "ministral-3:3b"
 #>  $ system              : chr "You are a helpful assistant."
 #>  $ format              : chr ""
-#>  $ seed                : num 0
+#>  $ seed                : int 0
 #>  $ temperature         : num 0
-#>  $ hash                : chr "1b383c4d98978dfd1805743b597fd361"
+#>  $ "hash"              : chr "hash"
+#>  $ hash                : chr "984f9fdaf2a9f3519375fc8faab345ee"
 ```
 
 ``` r
-cat(">", pol_df$response)
+cat(">", stringr::str_split(string = pol_df$response,
+                            pattern = "\n",
+                            simplify = TRUE))
 ```
 
-> Meet Aurora “Rory” Thompson, the charismatic and progressive leader of
-> the coastal nation of Azura. A former environmental activist turned
-> politician, Rory is known for her unwavering commitment to
-> sustainability and social justice. With a warm smile and infectious
-> laugh, she has won over the hearts of her constituents with her
-> inclusive policies and bold vision for a greener future. As President
-> of Azura, Rory has made it her mission to protect the planet while
-> promoting economic growth and equality for all citizens. Her
-> leadership style is collaborative, empathetic, and unapologetically
-> forward-thinking.
+> **Elias Voss** – *“The Pragmatic Sage”* A towering figure with
+> silver-streaked hair and a perpetually thoughtful gaze, Elias Voss
+> rose from a humble scholar’s cottage to unite a fractured nation
+> through quiet diplomacy. His speeches were woven from ancient wisdom
+> and modern pragmatism, blending idealism with ruthless efficiency. He
+> dismantled corrupt systems with a smile, rebuilt economies with a
+> whisper, and won hearts by listening more than he spoke. His greatest
+> legacy? A nation that dared to dream—while ensuring no one starved.
+> *“Leadership isn’t power,”* he’d say, *“it’s the art of making people
+> believe they could do it themselves.”*
 
 If we are interested in variations of this text, we can easily create
 them:
@@ -121,9 +124,9 @@ pol3_df <- purrr::map(
   purrr::list_rbind()
 
 pol3_df$response
-#> [1] "Meet Maya Ramos, a charismatic and visionary leader who embodies the values of social justice and environmental sustainability. As a former community organizer and small business owner, Maya understands the needs of everyday people and is committed to creating economic opportunities that lift up marginalized communities. Her progressive platform prioritizes affordable healthcare, free public education, and a Green New Deal that invests in renewable energy and sustainable infrastructure. With her warm smile and infectious passion, Maya inspires a new generation of activists and voters to join the fight for a more just and equitable society."
-#> [2] "Meet Reginald P. Bottomsworth, a stalwart conservative politician from rural America. A third-generation farmer and small business owner, Reggie is known for his down-to-earth values and no-nonsense approach to governance. He supports traditional industries like agriculture and manufacturing, and advocates for limited government intervention in personal and economic matters. With a folksy demeanor and a strong work ethic, Reggie has built a loyal following among conservative voters who appreciate his commitment to preserving American traditions and individual freedoms. His slogan? \"Common sense, not Washington wisdom.\""                   
-#> [3] "Meet Alexandra \"Alex\" Thompson, a pragmatic and moderate politician. A former business owner turned public servant, Alex brings a unique blend of fiscal responsibility and social compassion to the table. She advocates for balanced budgets, tax reform, and investments in education and infrastructure. However, she also prioritizes affordable healthcare, environmental protection, and social justice. With a calm and collected demeanor, Alex is able to bridge partisan divides and find common ground with her constituents. Her centrist approach has earned her a reputation as a trusted mediator and problem-solver in the halls of power."
+#> [1] "**Dr. Eleanor Voss** is a progressive visionary blending idealism with pragmatism. A former community organizer, she champions universal healthcare, green energy, and worker cooperatives while advocating for restorative justice. Her policies prioritize equity—like free college and rent control—while addressing systemic change through grassroots movements. A fierce advocate for climate justice, she pushes for carbon taxes with direct democracy funds. Humble yet bold, she rejects dogma, calling for \"radical collaboration\" over ideological battles. Her speeches blend hope with hard truths, making her both inspiring and uncompromising—a leader who refuses to let progress stall."                                                                                                              
+#> [2] "**Senator Marcus Holloway** is a staunch conservative firebrand, a man of unshakable faith and unyielding tradition. With a voice like gravel and a demeanor of stern resolve, he champions \"law and order\" while demonizing \"woke\" progress. His policies prioritize \"family values\" and \"American exceptionalism,\" often framing them as divine mandates. Holloway opposes \"socialist\" policies, mocks \"elite\" media, and preaches \"tough love\" for the \"forgotten.\" His rallies are packed with patriotic fervor, where he scorns \"globalists\" and \"cultural Marxists.\" Though often divisive, his unwavering conviction keeps him a beloved (and feared) figure in the GOP."                                                                                                                       
+#> [3] "**Name:** Dr. Eleanor Voss\n**Party:** *Centrist Unity Coalition (CUC)*\n**Motto:** *\"Progress without extremes—balancing ambition with wisdom.\"*\n\nA pragmatic reformer with a PhD in public policy, Voss blends progressive ideals with fiscal responsibility. She champions universal healthcare but insists on \"smart\" subsidies, opposing both single-payer chaos and private-sector exploitation. On climate, she pushes green tech but argues for \"transition, not revolution.\" Economically, she supports worker protections but opposes overregulation, favoring \"market-friendly\" policies. A master of compromise, she’s beloved by moderates but mocked by zealots—yet her centrist pragmatism keeps her in power. *\"I don’t want to fix everything—just make sure we don’t break anything first.\"*"
 ```
 
 These are, as it is the customary default behaviour of LLMs, free form
@@ -158,10 +161,10 @@ pol_schema_df <- ql_prompt(
 pol_schema_df$response |>
   yyjsonr::read_json_str()
 #> $name
-#> [1] "Aurora Wynter"
+#> [1] "Dr. Elias Voss"
 #> 
 #> $description
-#> [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people with her unwavering commitment to justice, equality, and environmental sustainability. Born in the coastal city of Newhaven, Aurora grew up surrounded by the beauty and fragility of the ocean, which instilled in her a deep love for the natural world and a fierce determination to protect it."
+#> [1] "A visionary yet enigmatic political leader born in 1968 in the small, mountainous town of Schwarzwald, Germany. Raised in a family of miners and scholars, Elias developed an early fascination for both the struggles of the working class and the intellectual pursuits of his ancestors."
 ```
 
 or slightly more complex, for example making clear that we expect a
@@ -203,19 +206,19 @@ pol_schema_df <- ql_prompt(
 pol_schema_df$response |>
   yyjsonr::read_json_str()
 #> $name
-#> [1] "Aurora Wynter"
+#> [1] "Dr. Elias Voss"
 #> 
 #> $age
-#> [1] 52
+#> [1] 68
 #> 
 #> $gender
-#> [1] "female"
+#> [1] "male"
 #> 
 #> $motto
-#> [1] "Unity in Diversity, Progress through Inclusion"
+#> [1] "Unity Through Vision"
 #> 
 #> $description
-#> [1] "Aurora Wynter is a charismatic and visionary leader who has captivated the hearts of her people. Born into a family of modest means, she rose to prominence as a grassroots activist, fighting for social justice and equality. Her unwavering commitment to these values has earned her the respect and admiration of her constituents."
+#> [1] "Dr. Elias Voss is a charismatic and visionary political leader born in the heart of a once-thriving industrial city in Europe. Raised in modest circumstances, he developed a deep appreciation for both the struggles of the working class and the complexities of global politics. His journey to leadership began in the 1980s when he became a prominent figure in labor unions, advocating for workers' rights and economic justice. His speeches were known for their eloquence and his ability to connect with ordinary people, making him a beloved figure among the masses."
 ```
 
 Having the response in a structured format allows for easily storing
@@ -245,11 +248,11 @@ pol3_schema_responses_df <- purrr::map(
 
 pol3_schema_responses_df
 #> # A tibble: 3 × 5
-#>   name                       age gender motto                        description
-#>   <chr>                    <int> <chr>  <chr>                        <chr>      
-#> 1 Maya Ramos                  42 female Empowering a Just and Equit… Maya Ramos…
-#> 2 Reginald P. Bottomsworth    55 male   Tradition, Progress, and Pr… A seasoned…
-#> 3 Alexander Thompson          52 male   Pragmatic Progress           Alexander …
+#>   name                    age gender motto                           description
+#>   <chr>                 <int> <chr>  <chr>                           <chr>      
+#> 1 Dr. Elena Vasquez        58 female Progress through dialogue, equ… Dr. Elena …
+#> 2 Alexandre Dubois         65 male   Order, Tradition, and Responsi… Alexandre …
+#> 3 Étienne Laurent-Duval    52 male   Balance, Pragmatism, and Commo… Étienne La…
 ```
 
 This has obvious advantages for many data processing tasks, and, as will
@@ -290,15 +293,15 @@ get the very same haiku, no matter how many times I run this command.
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 0) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Tacos on my face\nSalsa drips from happy lips\nMidlife crisis born"
+#> [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my toes."
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 0) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Tacos on my face\nSalsa drips from happy lips\nMidlife crisis born"
+#> [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my toes."
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 0) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Tacos on my face\nSalsa drips from happy lips\nMidlife crisis born"
+#> [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my toes."
 ```
 
 If I set the temperature to 1, I get every time a different haiku (ok,
@@ -308,15 +311,15 @@ not very different, really, but still different).
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in the night\nMozzarella dreams so sweet\nTummy's happy song"
+#> [1] "Soft rain, umbrella—\nfriendly stranger leans near to share\ntea with stranger too"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Socks disappear too\n Lost my sole mates in the wash\nLonely foot remains"
+#> [1] "Moon’s glow—\nPizza slices turn my lawn\ninto a sloppy joe"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in my face\nMelty cheese and saucey shame\nTummy's guilty grin"
+#> [1] "**Shoes on feet so tired,**\n**Dinner with the neighbor's cat—**\n**Bread crumbs left? *Yes.***"
 ```
 
 But then, replicability of results is possible even when the temperature
@@ -327,15 +330,15 @@ we’ll consistently get the same result.
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1, seed = 2025) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in my lap\nMelted cheese and happy sigh\nLife's simple delight"
+#> [1] "**Paws, tail, then—**\n**Barking’s just a habit...**\n**Dog’s the boss.** 🐶"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1, seed = 2025) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in my lap\nMelted cheese and happy sigh\nLife's simple delight"
+#> [1] "**Paws, tail, then—**\n**Barking’s just a habit...**\n**Dog’s the boss.** 🐶"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1, seed = 2025) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Pizza in my lap\nMelted cheese and happy sigh\nLife's simple delight"
+#> [1] "**Paws, tail, then—**\n**Barking’s just a habit...**\n**Dog’s the boss.** 🐶"
 ```
 
 Two additional components determine if the response is exactly the same
@@ -357,7 +360,7 @@ ql_prompt(
 ) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Fop's ridiculous hat\nTops his lumpy, love-struck face\nSighs of wretched bliss"
+#> [1] "*\"Whispers drift on breezes soft—*\n*Moonlit garden hums a tune,*\n*Love’s ghost dances, light as dust.\"*\n\n*(A touch of whimsy, dear reader—let the stars weave their magic!)* 🌙✨"
 ```
 
 As discussed above, `format` is relevant only for instances when a
@@ -387,10 +390,10 @@ haiku_str_df |>
   dplyr::pull(response) |>
   yyjsonr::read_json_str()
 #> $haiku
-#> [1] "I fart in space"
+#> [1] "Pizza crust burns—oh no!\nCrumbles fly like tiny tornadoes,\nDinner’s a crime scene."
 #> 
 #> $why_funny
-#> [1] "This haiku is humorous because it takes the common experience of passing gas and applies it to an unexpected situation - being in outer space. The idea that someone could let out a fart while floating in zero gravity, causing their own spaceship to drift away, is absurd and comical. It's also a bit of a commentary on how even in the most unlikely situations, human bodily functions can still be a source of embarrassment."
+#> [1] "This haiku plays on the absurdity of a pizza disaster! The first line sets up a dramatic, almost comedic panic—burning pizza crust—while the second line escalates the chaos with the chaotic, chaotic crumbles. The third line ties it all together with a cheeky twist: 'Dinner’s a crime scene.' It’s funny because it’s a relatable, exaggerated moment of kitchen mishap, framed in a way that feels both silly and slightly surreal."
 ```
 
 In brief, when should we expect to receive exactly the same response
@@ -468,23 +471,23 @@ parties_responses_df <- purrr::map(
 
 parties_responses_df
 #> # A tibble: 10 × 3
-#>    `party name`              `political leaning` `political statement`          
-#>    <chr>                     <chr>               <chr>                          
-#>  1 The Luminari Party        progressive         "Embracing a global citizenry …
-#>  2 Virtus                    conservative        "austrian  economics in americ…
-#>  3 The New Horizon Party     progressive         "The New Horizon Party advocat…
-#>  4 Libertarian Progressives  conservative        "Balancing Tradition with Inno…
-#>  5 Luminaria                 progressive         "At Luminaria, we believe that…
-#>  6 Libertas Novi             conservative        "We believe that the United St…
-#>  7 Eudaimonia                progressive         "We believe that the greatest …
-#>  8 The Terra Vita Party      conservative        "Emphasizing the importance of…
-#>  9 Eunoia Party              progressive         "The Eunoia Party is committed…
-#> 10 The New Order Party (NOP) conservative        "Protecting Traditional Values…
+#>    `party name`                        `political leaning` `political statement`
+#>    <chr>                               <chr>               <chr>                
+#>  1 EcoHarmony Collective               progressive         "The future of our p…
+#>  2 Protectora et Conservatrix America… conservative        "We stand for preser…
+#>  3 Vanguard Horizon (VH)               progressive         "Rejection of the st…
+#>  4 The Union of American Sovereignty … conservative        "**A New Era of Amer…
+#>  5 Équilibre Démocrate Progressiste (… progressive         "The future of socie…
+#>  6 United Front for National Sovereig… conservative        "In an era defined b…
+#>  7 **Unio Progressiva Ecológica (UPE)  progressive         "**A Justicia Sosten…
+#>  8 Conservatio Libertas (CL)           conservative        "Respect for traditi…
+#>  9 **EcoHorizons**                     progressive         "A democratic social…
+#> 10 Proprietas America – Guardians of … conservative        "PALIRE stands for '…
 ```
 
 Then we ask a different model to categorise results (in this example,
-text generation with `llama3.2`, text categorisation with `mistral`).
-Trimming explanations in the following table for clarity.
+text generation with `ministral-3:3b`, text categorisation with
+`gemma3:4b`). Trimming explanations in the following table for clarity.
 
 ``` r
 category_schema <- list(
@@ -510,7 +513,7 @@ categories_df <- purrr::map(
       system = "You identify the political leaning of political parties based on their statements.",
       format = category_schema,
       temperature = 0,
-      model = "mistral"
+      model = "gemma3:4b"
     ) |>
       ql_generate()
   }
@@ -537,22 +540,23 @@ responses_combo_df <- dplyr::bind_cols(
 )
 
 responses_combo_df |>
-  dplyr::mutate(explanation = stringr::str_trunc(explanation, width = 256)) |>
+  dplyr::mutate(explanation = stringr::str_trunc(explanation, width = 200) |> 
+                  stringr::str_remove_all(pattern =  "\n")) |>
   knitr::kable()
 ```
 
 | political statement | given political leaning | identified political leaning | explanation |
 |:---|:---|:---|:---|
-| Embracing a global citizenry through the universal basic income, sustainable development and intergenerational justice. | progressive | progressive | This statement advocates for three key progressive policies: Universal Basic Income (UBI), Sustainable Development, and Intergenerational Justice. The Universal Basic Income is a policy where every citizen receives a set amount of money regularly, regar… |
-| austrian economics in american governance | conservative | conservative | Austrian Economics, which emphasizes the importance of individual action and market processes, has had an influence on American governance, particularly among conservative political circles. The Austrian School’s key principles, such as subjectivism (th… |
-| The New Horizon Party advocates for a future where technology is used to create a sustainable, equitable, and just society for all. | progressive | progressive | The New Horizon Party appears to be a progressive political party that emphasizes the use of technology to achieve a sustainable, equitable, and just society. This suggests they are forward-thinking, prioritizing innovation and technological advancement… |
-| Balancing Tradition with Innovation | conservative | progressive | Balancing tradition with innovation means finding a harmonious blend of respecting and preserving the values, customs, and practices of the past while embracing new ideas, technologies, and methods that can improve and advance society. This approach req… |
-| At Luminaria, we believe that the collective well-being of our society is inextricably linked to the well-being of its most vulnerable members. We advocate for a world where every individual has access to quality healthcare, education, and economic opportunities, regardless of their background or circumstances. | progressive | progressive | Luminaria’s mission statement emphasizes the importance of social justice and equality for all individuals, particularly those who are most vulnerable in society. They advocate for policies that ensure access to essential resources such as healthcare, e… |
-| We believe that the United States is at its strongest when it maintains a strong sense of self-reliance, limited government intervention, and unwavering commitment to traditional values. | conservative | conservative | The statement suggests a conservative political ideology that emphasizes individualism, minimal government interference, and adherence to traditional values. This perspective often advocates for self-reliance, which means relying on one’s own efforts ra… |
-| We believe that the greatest wealth of any nation is not measured by its GDP or GDP per capita, but rather by the well-being and flourishing of all its citizens. | progressive | progressive | This statement reflects a progressive perspective on economic development, emphasizing that a nation’s true wealth lies not in material wealth or financial indicators like GDP, but rather in the well-being and flourishing of its citizens. This perspecti… |
-| Emphasizing the importance of local autonomy, traditional values, and environmental stewardship. | conservative | progressive | This individual or group prioritizes the empowerment of local communities, preservation of cultural traditions, and sustainable management of natural resources. They advocate for policies that allow regions to govern themselves while maintaining a stron… |
-| The Eunoia Party is committed to ‘Designing a Brighter Tomorrow for All’ by prioritizing human well-being, social justice, and ecological sustainability. | progressive | progressive | The Eunoia Party appears to be a progressive political party, as it emphasizes human well-being, social justice, and ecological sustainability. These are key issues that progressive parties often prioritize, with the goal of creating a more equitable an… |
-| Protecting Traditional Values, Preserving Freedom | conservative | conservative | This phrase suggests a political stance that values traditional customs and beliefs while also emphasizing the importance of individual freedom. It implies a balance between preserving cultural heritage and upholding personal liberties, often associated… |
+| The future of our planet and society must be built on sustainability, equity, and solidarity. Our vision is a world where resources are managed fairly, ecosystems are protected, and every human being has access to a thriving life, free from systemic exploitation and environmental degradation. Progress is achieved through grassroots innovation, international cooperation, and policies that prioritize human well-being over profit. | progressive | progressive | The statement strongly advocates for sustainability, equity, and solidarity, which are core tenets of progressive political thought. It explicitly critiques prioritizing profit over human well-bein… |
+| We stand for preserving American liberties, safeguarding traditional values, and defending strong national sovereignty. PCA advocates for fiscal responsibility, limited government, and a robust defense policy to protect the homeland. We believe in empowering individual freedom within a framework that upholds religious, familial, and cultural traditions while addressing modern challenges like immigration reform and economic opportunity for all. PCA’s vision is built on a commitment to patriotism and a principled opposition to excessive global influence, aiming to reassert American leadership through wise governance and mutual respect for democratic ideals. | conservative | conservative | This statement clearly aligns with conservative principles. Let’s break down why:\* **Preserving American Liberties, Safeguarding Traditional Values:** This is a cornerstone of conservative ideolo… |
+| Rejection of the status quo in favor of a holistic, equitable, and future-oriented society; VH believes in climate justice, economic solidarity, and democratic self-determination. The party emphasizes participatory governance, cultural preservation, and ecological stewardship, advocating for a world where marginalized voices lead societal transformation. Their manifesto: ‘Build bridges, not barriers—where everyone can thrive.’ | progressive | progressive | VH’s core values – rejection of the status quo, holistic and equitable society, future-oriented thinking – firmly place them within the progressive political spectrum. Their specific commitments to… |
+| **A New Era of American Strength—Protecting Tradition, Defending Liberty, and Strengthening Our Nation** | conservative | conservative | The phrase “A New Era of American Strength” immediately suggests a desire for national revival and power, often associated with conservative movements. The emphasis on “Protecting Tradition,” “Defe… |
+| The future of society is built upon three essential pillars: **justice equitable for all citizens**, **protection of the Earth for current and future generations**, and **social, cultural, and economic cohesion through collective empowerment and democratic participation**. The EDP advocates for a society that ensures the well-being of people—across all socio-economic and cultural divides—while safeguarding biodiversity, sustainability, and human rights. It champions policies that address systemic inequalities, combat climate change, and foster collaboration between governments, citizens, and international organizations to create a fair, equitable, and resilient global order. Our vision includes democratic governance, fair wages, strong worker rights, education and healthcare for all, and a sustainable economy that prioritizes people over profits. | progressive | progressive | The text presents a clearly progressive vision for society, advocating for key tenets of the left-leaning political spectrum. Here’s a breakdown of why it leans progressive:\* \*\*Justice Equitable … |
+| In an era defined by chaos, we stand firm for the principles of order, family, and the unchanging bedrock of American ideals. We believe that progress must be measured against its capacity to uplift the working class, preserve the sanctity of life, and defend the values that bind us together. No nation prospers when its borders are crumbling, its traditions forgotten, or its sovereignty undermined by foreign influence. Our agenda is rooted in restoring faith in the institutions that have kept this nation strong: strong families, strong laws, and strong American leadership. We pledge to protect the sanctity of the unborn, uphold the sanctity of marriage, safeguard free speech, ensure secure borders, and stand against the tide of globalization that has weakened the middle class. Our commitment is not to division but to harmony: unity through shared heritage and the shared belief that each generation must carry forward the values that define who we are. Together, we will build a future where our greatest strengths—our work ethic, our religious faith, and our unshaken spirit—guide us toward a tomorrow built on the pillars of dignity, pride, and sovereignty. | conservative | conservative | This statement strongly aligns with conservative political ideology. Here’s a breakdown of why:\* **Emphasis on Order & Tradition:** Phrases like |
+| **A Justicia Sostenible para el Futuro** | progressive | progressive | The phrase ‘Justicia Sostenible para el Futuro’ (Sustainable Justice for the Future) inherently leans towards progressive values. It combines the concepts of justice and sustainability, both of whi… |
+| Respect for tradition, the protection of property, and the preservation of order are the pillars of society, but we must never forget our responsibility to future generations. We stand for strong national identity, limited government interference in personal lives, free-market capitalism with a moral compass, and a commitment to defending liberty while maintaining the strength of the American way of life. Together, we will uphold the values that have made our nation great. | conservative | conservative | This statement aligns strongly with conservative values and ideology. Let’s break down why:\* **Respect for Tradition, Protection of Property, Preservation of Order:** These are core tenets of con… |
+| A democratic socialism of the future—building equitable societies while preserving biodiversity and fostering grassroots innovation. Together, we envision a world where public goods, climate justice, and cultural autonomy shape our collective destiny. | progressive | progressive | The statement advocates for ‘democratic socialism,’ a political and economic system rooted in progressive values. Here’s a breakdown of why it aligns with that leaning:\* **Democratic Socialism:**… |
+| PALIRE stands for ‘Proprietas America – Guardians of Liberty & Heritage’ and is a modern conservative force devoted to preserving the American tradition, defending traditional values, and ensuring prosperity through strength, faith, and free enterprise. Its policies center on sovereign autonomy for states, fiscal responsibility, cultural continuity, and a strong military. | conservative | conservative | PALIRE (Proprietas America – Guardians of Liberty & Heritage) identifies as a modern conservative movement. This is supported by their stated focus on traditional values, a strong military, fiscal … |
 
 In this stereotyped case, the LLM categorises most statements as
 expected and provide a broadly meaningful explanation for the choice (if
@@ -590,18 +594,26 @@ img_path <- fs::path(
 resp_df <- ql_prompt(
   prompt = "what is this?",
   images = img_path,
-  model = "llama3.2-vision"
+  model = "qwen3.5:2b"
 ) |>
   ql_generate()
 
 
-cat(">", resp_df$response)
+cat(">", stringr::str_split(string = pol_df$response,
+                            pattern = "\n",
+                            simplify = TRUE))
 ```
 
-> This appears to be a digital illustration of a bird’s head, possibly a
-> duck or goose, with a bright pink hexagon border around it. The image
-> is likely a graphic or icon used for decorative or illustrative
-> purposes.
+> **Elias Voss** – *“The Pragmatic Sage”* A towering figure with
+> silver-streaked hair and a perpetually thoughtful gaze, Elias Voss
+> rose from a humble scholar’s cottage to unite a fractured nation
+> through quiet diplomacy. His speeches were woven from ancient wisdom
+> and modern pragmatism, blending idealism with ruthless efficiency. He
+> dismantled corrupt systems with a smile, rebuilt economies with a
+> whisper, and won hearts by listening more than he spoke. His greatest
+> legacy? A nation that dared to dream—while ensuring no one starved.
+> *“Leadership isn’t power,”* he’d say, *“it’s the art of making people
+> believe they could do it themselves.”*
 
 ``` r
 resp_df <- ql_prompt(
@@ -629,6 +641,9 @@ website](https://ollama.com/search?c=thinking).
 When thinking mode is enabled, the LLM goes through an iterative
 “thinking” process before providing its answer. The “thinking” process
 is expressed in plain English and can be seen along with the response.
+When `thinking` is enabled, response time grows considerably, so you may
+want to extend the timeout options.
+
 See the following example:
 
 ``` r
@@ -636,7 +651,7 @@ strawberry_t_df <- ql_prompt(
   prompt = "How many r are there in strawberry? Provide a concise answer.",
   model = "deepseek-r1:1.5b",
   think = TRUE) |>
-  ql_generate()
+  ql_generate(keep_alive = "10m", timeout = 1000)
 ```
 
 Here’s the thinking:

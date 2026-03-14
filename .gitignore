@@ -8,3 +8,5 @@ quackingllama.duckdb
 quackingllama_llama3_2.duckdb
 quackingllama_llama3_2_vision.duckdb
 quackingllama_llava_phi3.duckdb
+quackingllama_ministral_3_3b.duckdb
+quackingllama_qwen3_5_2b.duckdb
