@@ -234,6 +234,10 @@ ql_generate <- function(
           )
       }
 
+      if ("images" %in% names(output_df)) {
+        output_df[["images"]] <- NULL
+      }
+
       if (db_options_l[["db"]]) {
         if (table_exists) {
           duckdb::dbAppendTable(
