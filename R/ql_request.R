@@ -125,7 +125,8 @@ ql_request <- function(
 
   req <- req_02 |>
     httr2::req_error(is_error = \(resp) FALSE) |>
-    httr2::req_timeout(seconds = options_l[["timeout"]])
+    httr2::req_timeout(seconds = options_l[["timeout"]]) |>
+    httr2::req_options(low_speed_time = options_l[["timeout"]])
 
   req
 }
