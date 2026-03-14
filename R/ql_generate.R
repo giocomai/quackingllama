@@ -272,7 +272,7 @@ ql_generate <- function(
           cached_df,
           new_df
         ) |>
-          dplyr::distinct(hash, .keep_all = TRUE),
+          dplyr::distinct("hash", .keep_all = TRUE),
         by = "hash"
       ) |>
       dplyr::relocate(
