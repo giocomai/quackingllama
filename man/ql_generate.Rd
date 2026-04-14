@@ -18,7 +18,7 @@ ql_generate(
 \item{prompt_df}{A data frame with all inputs passed to the LLM, typically
 created with \code{\link[=ql_prompt]{ql_prompt()}}.}
 
-\item{only_cached}{Defaults to FALSE. If TRUE, only cached responses are
+\item{only_cached}{Defaults to \code{FALSE}. If \code{TRUE}, only cached responses are
 returned.}
 
 \item{host}{The address where the Ollama API can be reached, e.g.

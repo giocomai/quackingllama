@@ -1,6 +1,6 @@
 #' Generate a response and return the result in a data frame
 #'
-#' @param only_cached Defaults to FALSE. If TRUE, only cached responses are
+#' @param only_cached Defaults to `FALSE`. If `TRUE`, only cached responses are
 #'   returned.
 #' @param error Defines how errors should be handled, defaults to "fail", i.e.
 #'   if an error emerges while querying the LLM, the function stops. If set to
@@ -276,7 +276,7 @@ ql_generate <- function(
           cached_df,
           new_df
         ) |>
-          dplyr::distinct("hash", .keep_all = TRUE),
+          dplyr::distinct(dplyr::pick("hash"), .keep_all = TRUE),
         by = "hash"
       ) |>
       dplyr::relocate(
