@@ -25,7 +25,7 @@ ql_generate(
 
 - only_cached:
 
-  Defaults to FALSE. If TRUE, only cached responses are returned.
+  Defaults to `FALSE`. If `TRUE`, only cached responses are returned.
 
 - host:
 
