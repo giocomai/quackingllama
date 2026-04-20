@@ -426,7 +426,7 @@ Querying with different models can have a substantial impact on the quality of r
 
 ## Pass images to the model
 
-You can pass images and have multimodal models such as e.g. "llama3.2-vision" or (the considerably smaller) "llava-phi3" consider them in their response. Just pass the path of the relevant image to `ql_prompt()`. For example, if we ask to describe the logo of this package, we get the following reponse:
+You can pass images and have multimodal models such as e.g. "llama3.2-vision" or (the considerably smaller) "llava-phi3" or "qwen3.5:2b" consider them in their response. Just pass the path of the relevant image to `ql_prompt()`. For example, if we ask to describe the logo of this package, we get the following reponse:
 
 ```{r describe images, results='asis'}
 library("quackingllama")
@@ -446,12 +446,12 @@ resp_df <- ql_prompt(
   ql_generate()
 
 
-cat(">", stringr::str_split(string = pol_df$response,
+cat(">", stringr::str_split(string = resp_df$response,
                             pattern = "\n",
                             simplify = TRUE))
 ```
 
-```{r llava phi3}
+```{r llava phi3 describe image, results='asis'}
 resp_df <- ql_prompt(
   prompt = "what is this?",
   images = img_path,
@@ -493,6 +493,26 @@ And here is the response:
 ```{r strawberry_t_df response, results='asis'}
 cat(">", strawberry_t_df$response)
 ```
+
+## Translate text
+
+Google made public a model specifically tuned for translating text, `translategemma`, providing [clear instructions](https://ollama.com/library/translategemma) on how the prompts should be structured. The function `ql_translate()` streamlines the process: it is enough to provide an input text, and the target language, and all the rest is managed internally. Input language can be provided; if not provided, it is auto-detected.
+
+```{r ql_translate, results='asis'}
+dracula_en_text <- ql_prompt(prompt = "Describe Dracula in one sentence") |> 
+  ql_generate() |> 
+  dplyr::pull(response)
+
+cat(">", dracula_en_text)
+
+
+dracula_it_text <- ql_translate(text = dracula_en_text,
+             target_language = "italian") |> 
+  dplyr::pull(response)
+
+cat(">", dracula_it_text)
+```
+
 
 
 ## About context windows and time-outs

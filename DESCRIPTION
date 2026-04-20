@@ -1,6 +1,6 @@
 Package: quackingllama
 Title: Process text with Ollama, retrieve structured results, cache them locally in DuckDB
-Version: 0.0.0.9017
+Version: 0.1.0.9000
 Authors@R: 
     c(person(given = "Giorgio",
              family = "Comai",
@@ -14,6 +14,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports: 
     base64enc,
+    cld3,
     cli,
     dplyr,
     duckdb,

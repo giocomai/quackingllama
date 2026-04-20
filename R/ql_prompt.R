@@ -6,7 +6,8 @@
 #' \url{https://github.com/ollama/ollama/blob/main/docs/api.md}.
 #'
 #' @param prompt A prompt for the LLM.
-#' @param hash Defaults to TRUE. If TRUE, adds a column with the hash of all
+#' @param format A json schema used to format the response. See README for examples.
+#' @param hash Defaults to `TRUE`. If `TRUE`, adds a column with the hash of all
 #'   other components of the prompt. Used internally for caching. Can be added
 #'   separately with [ql_hash()].
 #' @inheritParams ql_set_options

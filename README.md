@@ -66,28 +66,27 @@ pol_df <- ql_prompt(prompt = "Describe an imaginary political leader in less tha
   ql_generate()
 
 str(pol_df)
-#> tibble [1 × 22] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 21] (S3: tbl_df/tbl/data.frame)
 #>  $ response            : chr "**Elias Voss** – *\"The Pragmatic Sage\"*\n\nA towering figure with silver-streaked hair and a perpetually thou"| __truncated__
 #>  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."
 #>  $ thinking            : chr NA
-#>  $ created_at          : chr "2026-03-14T19:38:49.757712483Z"
+#>  $ created_at          : chr "2026-03-14T19:27:32.721529251Z"
 #>  $ done                : logi TRUE
 #>  $ done_reason         : chr "stop"
-#>  $ total_duration      : num 1.52e+10
+#>  $ total_duration      : num 1.46e+10
 #>  $ load_duration       : num 2.11e+09
 #>  $ prompt_eval_count   : num 27
-#>  $ prompt_eval_duration: num 7.56e+08
+#>  $ prompt_eval_duration: num 6.43e+08
 #>  $ eval_count          : num 142
-#>  $ eval_duration       : num 1.21e+10
+#>  $ eval_duration       : num 1.15e+10
 #>  $ timeout             : num 300
 #>  $ keep_alive          : chr "5m"
 #>  $ think               : logi FALSE
 #>  $ model               : chr "ministral-3:3b"
 #>  $ system              : chr "You are a helpful assistant."
 #>  $ format              : chr ""
-#>  $ seed                : int 0
+#>  $ seed                : num 0
 #>  $ temperature         : num 0
-#>  $ "hash"              : chr "hash"
 #>  $ hash                : chr "984f9fdaf2a9f3519375fc8faab345ee"
 ```
 
@@ -311,15 +310,15 @@ not very different, really, but still different).
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Soft rain, umbrella—\nfriendly stranger leans near to share\ntea with stranger too"
+#> [1] "Moonlight’s shadow,\njogger’s shoes crunch leaves—\nghost’s silent tap. 🌙✨"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "Moon’s glow—\nPizza slices turn my lawn\ninto a sloppy joe"
+#> [1] "Muddy paw prints—\ndog wins the debate,\nmeatball wins dinner"
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
-#> [1] "**Shoes on feet so tired,**\n**Dinner with the neighbor's cat—**\n**Bread crumbs left? *Yes.***"
+#> [1] "Dessert's first bite—oh joy!\nOreo falls, cake’s betrayal…\nCaramel’s revenge. 😈"
 ```
 
 But then, replicability of results is possible even when the temperature
@@ -576,10 +575,10 @@ quality of results.
 ## Pass images to the model
 
 You can pass images and have multimodal models such as
-e.g. “llama3.2-vision” or (the considerably smaller) “llava-phi3”
-consider them in their response. Just pass the path of the relevant
-image to `ql_prompt()`. For example, if we ask to describe the logo of
-this package, we get the following reponse:
+e.g. “llama3.2-vision” or (the considerably smaller) “llava-phi3” or
+“qwen3.5:2b” consider them in their response. Just pass the path of the
+relevant image to `ql_prompt()`. For example, if we ask to describe the
+logo of this package, we get the following reponse:
 
 ``` r
 library("quackingllama")
@@ -599,21 +598,23 @@ resp_df <- ql_prompt(
   ql_generate()
 
 
-cat(">", stringr::str_split(string = pol_df$response,
+cat(">", stringr::str_split(string = resp_df$response,
                             pattern = "\n",
                             simplify = TRUE))
 ```
 
-> **Elias Voss** – *“The Pragmatic Sage”* A towering figure with
-> silver-streaked hair and a perpetually thoughtful gaze, Elias Voss
-> rose from a humble scholar’s cottage to unite a fractured nation
-> through quiet diplomacy. His speeches were woven from ancient wisdom
-> and modern pragmatism, blending idealism with ruthless efficiency. He
-> dismantled corrupt systems with a smile, rebuilt economies with a
-> whisper, and won hearts by listening more than he spoke. His greatest
-> legacy? A nation that dared to dream—while ensuring no one starved.
-> *“Leadership isn’t power,”* he’d say, *“it’s the art of making people
-> believe they could do it themselves.”*
+> This image features a stylized, cartoonish llama wearing a yellow beak
+> and a silver mask. The design is framed within a bright pink hexagon
+> with a black background inside the frame. It appears to be a digital
+> illustration or icon, possibly from a game, app, or social media
+> profile picture. The llama’s expression is somewhat serious or
+> concerned due to the mask, which adds a humorous or dramatic tone to
+> the image. The overall aesthetic is playful and modern, likely
+> intended for branding, gaming avatars, or creative projects. If you’re
+> seeing this in a specific context (like a game lobby, app icon, or
+> meme), it might have a particular meaning — but without more context,
+> it’s best described as a whimsical, masked llama avatar. Let me know
+> if you’d like help identifying where this image came from!
 
 ``` r
 resp_df <- ql_prompt(
@@ -625,8 +626,15 @@ resp_df <- ql_prompt(
 
 
 cat(">", resp_df$response)
-#> > The image features a close-up of an alpaca's face, which is set against a black background. The alpaca has a yellow and gray mask on its face, with the eyes closed in what appears to be sleep or rest. The mask covers the alpaca's mouth and nose, giving it a unique appearance. The image is framed by a pink border, adding a pop of color to the overall composition. The alpaca seems calm and at ease despite the unusual accessory.
 ```
+
+> The image features a close-up of an alpaca’s face, which is set
+> against a black background. The alpaca has a yellow and gray mask on
+> its face, with the eyes closed in what appears to be sleep or rest.
+> The mask covers the alpaca’s mouth and nose, giving it a unique
+> appearance. The image is framed by a pink border, adding a pop of
+> color to the overall composition. The alpaca seems calm and at ease
+> despite the unusual accessory.
 
 ## Thinking models
 
@@ -702,6 +710,44 @@ cat(">", strawberry_t_df$response)
 ```
 
 > There are three ’r’s in the word “strawberry.”
+
+## Translate text
+
+Google made public a model specifically tuned for translating text,
+`translategemma`, providing [clear
+instructions](https://ollama.com/library/translategemma) on how the
+prompts should be structured. The function `ql_translate()` streamlines
+the process: it is enough to provide an input text, and the target
+language, and all the rest is managed internally. Input language can be
+provided; if not provided, it is auto-detected.
+
+``` r
+dracula_en_text <- ql_prompt(prompt = "Describe Dracula in one sentence") |> 
+  ql_generate() |> 
+  dplyr::pull(response)
+
+cat(">", dracula_en_text)
+```
+
+> Dracula, the iconic vampire count, is a brooding, aristocratic figure
+> from Bram Stoker’s *Dracula* (1897), embodying eerie charm, ancient
+> power, and a relentless pursuit of immortality through conquest and
+> bloodsucking.
+
+``` r
+
+
+dracula_it_text <- ql_translate(text = dracula_en_text,
+             target_language = "italian") |> 
+  dplyr::pull(response)
+
+cat(">", dracula_it_text)
+```
+
+> Dracula, il celebre conte vampiro, è una figura malinconica e
+> aristocratica tratta da *Dracula* di Bram Stoker (1897), che incarna
+> un fascino inquietante, un potere antico e una ricerca implacabile
+> dell’immortalità attraverso la conquista e l’assunzione di sangue.
 
 ## About context windows and time-outs
 

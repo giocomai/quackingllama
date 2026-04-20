@@ -10,3 +10,5 @@ quackingllama_llama3_2_vision.duckdb
 quackingllama_llava_phi3.duckdb
 quackingllama_ministral_3_3b.duckdb
 quackingllama_qwen3_5_2b.duckdb
+quackingllama_translategemma_12b.duckdb
+quackingllama_translategemma_4b.duckdb

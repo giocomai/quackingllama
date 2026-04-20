@@ -23,6 +23,8 @@ ql_prompt(
 \item{system}{System message to pass to the model. See official documentation
 for details. For example: "You are a helpful assistant."}
 
+\item{format}{A json schema used to format the response. See README for examples.}
+
 \item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
 \verb{ollama list} from the command line to see a list of locally available
 models.}
@@ -45,7 +47,7 @@ prompt.}
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}
 
-\item{hash}{Defaults to TRUE. If TRUE, adds a column with the hash of all
+\item{hash}{Defaults to \code{TRUE}. If \code{TRUE}, adds a column with the hash of all
 other components of the prompt. Used internally for caching. Can be added
 separately with \code{\link[=ql_hash]{ql_hash()}}.}
 }
