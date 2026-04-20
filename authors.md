@@ -9,12 +9,12 @@
 
 Comai G (2026). *quackingllama: Process text with Ollama, retrieve
 structured results, cache them locally in DuckDB*. R package version
-0.0.0.9017, <https://giocomai.github.io/quackingllama/>.
+0.1.0.9000, <https://giocomai.github.io/quackingllama/>.
 
     @Manual{,
       title = {quackingllama: Process text with Ollama, retrieve structured results, cache them locally in DuckDB},
       author = {Giorgio Comai},
       year = {2026},
-      note = {R package version 0.0.0.9017},
+      note = {R package version 0.1.0.9000},
       url = {https://giocomai.github.io/quackingllama/},
     }

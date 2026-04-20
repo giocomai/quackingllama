@@ -31,6 +31,10 @@ ql_prompt(
   System message to pass to the model. See official documentation for
   details. For example: "You are a helpful assistant."
 
+- format:
+
+  A json schema used to format the response. See README for examples.
+
 - model:
 
   The name of the model, e.g. `llama3.2` or `phi3.5:3.8b`. Run
@@ -63,9 +67,9 @@ ql_prompt(
 
 - hash:
 
-  Defaults to TRUE. If TRUE, adds a column with the hash of all other
-  components of the prompt. Used internally for caching. Can be added
-  separately with
+  Defaults to `TRUE`. If `TRUE`, adds a column with the hash of all
+  other components of the prompt. Used internally for caching. Can be
+  added separately with
   [`ql_hash()`](https://giocomai.github.io/quackingllama/reference/ql_hash.md).
 
 ## Value

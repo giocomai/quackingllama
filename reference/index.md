@@ -40,3 +40,6 @@
 
 - [`ql_set_options()`](https://giocomai.github.io/quackingllama/reference/ql_set_options.md)
   : Set basic options for the current session.
+
+- [`ql_translate()`](https://giocomai.github.io/quackingllama/reference/ql_translate.md)
+  : Translate strings relying on dedicated models
