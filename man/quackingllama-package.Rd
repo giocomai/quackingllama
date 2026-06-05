@@ -20,5 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Giorgio Comai \email{g@giorgiocomai.eu} (\href{https://orcid.org/0000-0002-0515-9542}{ORCID}) [copyright holder]
 
+Authors:
+\itemize{
+  \item Giorgio Comai \email{g@giorgiocomai.eu} (\href{https://orcid.org/0000-0002-0515-9542}{ORCID}) [copyright holder]
+}
+
 }
 \keyword{internal}

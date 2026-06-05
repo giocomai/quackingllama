@@ -1,6 +1,6 @@
 Package: quackingllama
 Title: Process text with Ollama, retrieve structured results, cache them locally in DuckDB
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Authors@R: 
     c(person(given = "Giorgio",
              family = "Comai",
@@ -11,7 +11,6 @@ Description: Process text with Ollama, store results in DuckDB.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     base64enc,
     cld3,
@@ -31,3 +30,4 @@ Depends:
     R (>= 3.5)
 LazyData: true
 URL: https://giocomai.github.io/quackingllama/
+Config/roxygen2/version: 8.0.0

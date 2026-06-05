@@ -1,6 +1,6 @@
 #' Set options for the local database and enables caching
 #'
-#' @param db_filename Defaults NULL. Internally, defaults to a combination of
+#' @param db_filename Defaults `NULL`. Internally, defaults to a combination of
 #'   `quackingllama`, followed by the name of the model used. Name given to the
 #'   local database file. Useful for differentiating among different approaches
 #'   or projects when storing multiple database files in the same folder.

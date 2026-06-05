@@ -7,7 +7,7 @@
 ql_set_db_options(db_filename = NULL, db_type = "DuckDB", db_folder = ".")
 }
 \arguments{
-\item{db_filename}{Defaults NULL. Internally, defaults to a combination of
+\item{db_filename}{Defaults \code{NULL}. Internally, defaults to a combination of
 \code{quackingllama}, followed by the name of the model used. Name given to the
 local database file. Useful for differentiating among different approaches
 or projects when storing multiple database files in the same folder.}
@@ -26,8 +26,8 @@ Set options for the local database and enables caching
 ql_set_db_options(db_filename = "testing_ground")
 }
 \seealso{
-Other database: 
-\code{\link{ql_disable_db}()},
-\code{\link{ql_enable_db}()}
+Other database:
+\code{\link[=ql_disable_db]{ql_disable_db()}},
+\code{\link[=ql_enable_db]{ql_enable_db()}}
 }
 \concept{database}

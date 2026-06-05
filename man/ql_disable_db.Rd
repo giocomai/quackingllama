@@ -16,8 +16,8 @@ Disable caching for the current session
 ql_disable_db()
 }
 \seealso{
-Other database: 
-\code{\link{ql_enable_db}()},
-\code{\link{ql_set_db_options}()}
+Other database:
+\code{\link[=ql_enable_db]{ql_enable_db()}},
+\code{\link[=ql_set_db_options]{ql_set_db_options()}}
 }
 \concept{database}
