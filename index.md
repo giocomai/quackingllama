@@ -20,6 +20,7 @@ You can install the development version of `quackingllama` from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("giocomai/quackingllama")
 ```
@@ -45,6 +46,7 @@ convenience functions.
 ### Text generation
 
 ``` r
+
 library("quackingllama")
 ```
 
@@ -53,6 +55,7 @@ frame, with the `response` in the first column and all relevant metadata
 about the query stored along with it.
 
 ``` r
+
 pol_df <- ql_prompt(prompt = "Describe an imaginary political leader in less than 100 words.") |>
   ql_generate()
 
@@ -82,6 +85,7 @@ str(pol_df)
 ```
 
 ``` r
+
 cat(">", stringr::str_split(string = pol_df$response,
                             pattern = "\n",
                             simplify = TRUE))
@@ -102,6 +106,7 @@ If we are interested in variations of this text, we can easily create
 them:
 
 ``` r
+
 # TODO accept multiple prompts by default
 
 pol3_df <- purrr::map(
@@ -129,6 +134,7 @@ a “name” and “description” field, and both should be character strings,
 we’d use the following schema:
 
 ``` r
+
 # TODO convenience function to facilitate creation of common schemas
 
 schema <- list(
@@ -142,6 +148,7 @@ schema <- list(
 ```
 
 ``` r
+
 pol_schema_df <- ql_prompt(
   prompt = "Describe an imaginary political leader.",
   format = schema
@@ -162,6 +169,7 @@ field to be numeric, and another one to pick between one of a set of
 options:
 
 ``` r
+
 schema <- list(
   type = "object",
   properties = list(
@@ -187,6 +195,7 @@ schema <- list(
 And the returned is formatted as expected:
 
 ``` r
+
 pol_schema_df <- ql_prompt(
   prompt = "Describe an imaginary political leader.",
   format = schema
@@ -215,6 +224,7 @@ Having the response in a structured format allows for easily storing
 results in a data frame and processing them further.
 
 ``` r
+
 pol3_schema_df <- purrr::map(
   .x = c("progressive", "conservative", "centrist"),
   .f = \(x) {
@@ -280,6 +290,7 @@ temperature to 0 and ask the same LLM to generate a haiku, I will always
 get the very same haiku, no matter how many times I run this command.
 
 ``` r
+
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 0) |>
   ql_generate() |>
   dplyr::pull(response)
@@ -298,6 +309,7 @@ If I set the temperature to 1, I get every time a different haiku (ok,
 not very different, really, but still different).
 
 ``` r
+
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1) |>
   ql_generate() |>
   dplyr::pull(response)
@@ -317,6 +329,7 @@ is set to a value higher than 0. We just need to set the same seed, and
 we’ll consistently get the same result.
 
 ``` r
+
 ql_prompt(prompt = "A reasonably funny haiku", temperature = 1, seed = 2025) |>
   ql_generate() |>
   dplyr::pull(response)
@@ -343,6 +356,7 @@ romantic poet.”, the style of the response will change (somewhat)
 accordingly.
 
 ``` r
+
 ql_prompt(
   prompt = "A reasonably funny haiku",
   temperature = 0,
@@ -359,6 +373,7 @@ example, if we provided a different schema, the output would also have
 been different.
 
 ``` r
+
 schema <- list(
   type = "object",
   properties = list(
@@ -408,6 +423,7 @@ this can be changed with
 [`ql_set_db_options()`](https://giocomai.github.io/quackingllama/reference/ql_set_db_options.md).
 
 ``` r
+
 ql_enable_db()
 ql_set_db_options(db_folder = fs::path_home_r("R"))
 ```
@@ -420,6 +436,7 @@ returned efficiently from cache:
 First, let’s create some texts that we will then try to classify:
 
 ``` r
+
 schema <- list(
   type = "object",
   properties = list(
@@ -482,6 +499,7 @@ text generation with `ministral-3:3b`, text categorisation with
 `gemma3:4b`). Trimming explanations in the following table for clarity.
 
 ``` r
+
 category_schema <- list(
   type = "object",
   properties = list(
@@ -537,18 +555,18 @@ responses_combo_df |>
   knitr::kable()
 ```
 
-| political statement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | given political leaning | identified political leaning | explanation                                                                                                                                                                                             |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------|:-----------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| The future of our planet and society must be built on sustainability, equity, and solidarity. Our vision is a world where resources are managed fairly, ecosystems are protected, and every human being has access to a thriving life, free from systemic exploitation and environmental degradation. Progress is achieved through grassroots innovation, international cooperation, and policies that prioritize human well-being over profit.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | progressive             | progressive                  | The statement strongly advocates for sustainability, equity, and solidarity, which are core tenets of progressive political thought. It explicitly critiques prioritizing profit over human well-bein…  |
-| We stand for preserving American liberties, safeguarding traditional values, and defending strong national sovereignty. PCA advocates for fiscal responsibility, limited government, and a robust defense policy to protect the homeland. We believe in empowering individual freedom within a framework that upholds religious, familial, and cultural traditions while addressing modern challenges like immigration reform and economic opportunity for all. PCA’s vision is built on a commitment to patriotism and a principled opposition to excessive global influence, aiming to reassert American leadership through wise governance and mutual respect for democratic ideals.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | conservative            | conservative                 | This statement clearly aligns with conservative principles. Let’s break down why:\* **Preserving American Liberties, Safeguarding Traditional Values:** This is a cornerstone of conservative ideolo…   |
-| Rejection of the status quo in favor of a holistic, equitable, and future-oriented society; VH believes in climate justice, economic solidarity, and democratic self-determination. The party emphasizes participatory governance, cultural preservation, and ecological stewardship, advocating for a world where marginalized voices lead societal transformation. Their manifesto: ‘Build bridges, not barriers—where everyone can thrive.’                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | progressive             | progressive                  | VH’s core values – rejection of the status quo, holistic and equitable society, future-oriented thinking – firmly place them within the progressive political spectrum. Their specific commitments to…  |
-| **A New Era of American Strength—Protecting Tradition, Defending Liberty, and Strengthening Our Nation**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | conservative            | conservative                 | The phrase “A New Era of American Strength” immediately suggests a desire for national revival and power, often associated with conservative movements. The emphasis on “Protecting Tradition,” “Defe…  |
-| The future of society is built upon three essential pillars: **justice equitable for all citizens**, **protection of the Earth for current and future generations**, and **social, cultural, and economic cohesion through collective empowerment and democratic participation**. The EDP advocates for a society that ensures the well-being of people—across all socio-economic and cultural divides—while safeguarding biodiversity, sustainability, and human rights. It champions policies that address systemic inequalities, combat climate change, and foster collaboration between governments, citizens, and international organizations to create a fair, equitable, and resilient global order. Our vision includes democratic governance, fair wages, strong worker rights, education and healthcare for all, and a sustainable economy that prioritizes people over profits.                                                                                                                                                                                                                                                                                                                          | progressive             | progressive                  | The text presents a clearly progressive vision for society, advocating for key tenets of the left-leaning political spectrum. Here’s a breakdown of why it leans progressive:\* \*\*Justice Equitable … |
-| In an era defined by chaos, we stand firm for the principles of order, family, and the unchanging bedrock of American ideals. We believe that progress must be measured against its capacity to uplift the working class, preserve the sanctity of life, and defend the values that bind us together. No nation prospers when its borders are crumbling, its traditions forgotten, or its sovereignty undermined by foreign influence. Our agenda is rooted in restoring faith in the institutions that have kept this nation strong: strong families, strong laws, and strong American leadership. We pledge to protect the sanctity of the unborn, uphold the sanctity of marriage, safeguard free speech, ensure secure borders, and stand against the tide of globalization that has weakened the middle class. Our commitment is not to division but to harmony: unity through shared heritage and the shared belief that each generation must carry forward the values that define who we are. Together, we will build a future where our greatest strengths—our work ethic, our religious faith, and our unshaken spirit—guide us toward a tomorrow built on the pillars of dignity, pride, and sovereignty. | conservative            | conservative                 | This statement strongly aligns with conservative political ideology. Here’s a breakdown of why:\* **Emphasis on Order & Tradition:** Phrases like                                                       |
-| **A Justicia Sostenible para el Futuro**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | progressive             | progressive                  | The phrase ‘Justicia Sostenible para el Futuro’ (Sustainable Justice for the Future) inherently leans towards progressive values. It combines the concepts of justice and sustainability, both of whi…  |
-| Respect for tradition, the protection of property, and the preservation of order are the pillars of society, but we must never forget our responsibility to future generations. We stand for strong national identity, limited government interference in personal lives, free-market capitalism with a moral compass, and a commitment to defending liberty while maintaining the strength of the American way of life. Together, we will uphold the values that have made our nation great.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | conservative            | conservative                 | This statement aligns strongly with conservative values and ideology. Let’s break down why:\* **Respect for Tradition, Protection of Property, Preservation of Order:** These are core tenets of con…   |
-| A democratic socialism of the future—building equitable societies while preserving biodiversity and fostering grassroots innovation. Together, we envision a world where public goods, climate justice, and cultural autonomy shape our collective destiny.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | progressive             | progressive                  | The statement advocates for ‘democratic socialism,’ a political and economic system rooted in progressive values. Here’s a breakdown of why it aligns with that leaning:\* **Democratic Socialism:**…   |
-| PALIRE stands for ‘Proprietas America – Guardians of Liberty & Heritage’ and is a modern conservative force devoted to preserving the American tradition, defending traditional values, and ensuring prosperity through strength, faith, and free enterprise. Its policies center on sovereign autonomy for states, fiscal responsibility, cultural continuity, and a strong military.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | conservative            | conservative                 | PALIRE (Proprietas America – Guardians of Liberty & Heritage) identifies as a modern conservative movement. This is supported by their stated focus on traditional values, a strong military, fiscal …  |
+| political statement | given political leaning | identified political leaning | explanation |
+|:---|:---|:---|:---|
+| The future of our planet and society must be built on sustainability, equity, and solidarity. Our vision is a world where resources are managed fairly, ecosystems are protected, and every human being has access to a thriving life, free from systemic exploitation and environmental degradation. Progress is achieved through grassroots innovation, international cooperation, and policies that prioritize human well-being over profit. | progressive | progressive | The statement strongly advocates for sustainability, equity, and solidarity, which are core tenets of progressive political thought. It explicitly critiques prioritizing profit over human well-bein… |
+| We stand for preserving American liberties, safeguarding traditional values, and defending strong national sovereignty. PCA advocates for fiscal responsibility, limited government, and a robust defense policy to protect the homeland. We believe in empowering individual freedom within a framework that upholds religious, familial, and cultural traditions while addressing modern challenges like immigration reform and economic opportunity for all. PCA’s vision is built on a commitment to patriotism and a principled opposition to excessive global influence, aiming to reassert American leadership through wise governance and mutual respect for democratic ideals. | conservative | conservative | This statement clearly aligns with conservative principles. Let’s break down why:\* **Preserving American Liberties, Safeguarding Traditional Values:** This is a cornerstone of conservative ideolo… |
+| Rejection of the status quo in favor of a holistic, equitable, and future-oriented society; VH believes in climate justice, economic solidarity, and democratic self-determination. The party emphasizes participatory governance, cultural preservation, and ecological stewardship, advocating for a world where marginalized voices lead societal transformation. Their manifesto: ‘Build bridges, not barriers—where everyone can thrive.’ | progressive | progressive | VH’s core values – rejection of the status quo, holistic and equitable society, future-oriented thinking – firmly place them within the progressive political spectrum. Their specific commitments to… |
+| **A New Era of American Strength—Protecting Tradition, Defending Liberty, and Strengthening Our Nation** | conservative | conservative | The phrase “A New Era of American Strength” immediately suggests a desire for national revival and power, often associated with conservative movements. The emphasis on “Protecting Tradition,” “Defe… |
+| The future of society is built upon three essential pillars: **justice equitable for all citizens**, **protection of the Earth for current and future generations**, and **social, cultural, and economic cohesion through collective empowerment and democratic participation**. The EDP advocates for a society that ensures the well-being of people—across all socio-economic and cultural divides—while safeguarding biodiversity, sustainability, and human rights. It champions policies that address systemic inequalities, combat climate change, and foster collaboration between governments, citizens, and international organizations to create a fair, equitable, and resilient global order. Our vision includes democratic governance, fair wages, strong worker rights, education and healthcare for all, and a sustainable economy that prioritizes people over profits. | progressive | progressive | The text presents a clearly progressive vision for society, advocating for key tenets of the left-leaning political spectrum. Here’s a breakdown of why it leans progressive:\* \*\*Justice Equitable … |
+| In an era defined by chaos, we stand firm for the principles of order, family, and the unchanging bedrock of American ideals. We believe that progress must be measured against its capacity to uplift the working class, preserve the sanctity of life, and defend the values that bind us together. No nation prospers when its borders are crumbling, its traditions forgotten, or its sovereignty undermined by foreign influence. Our agenda is rooted in restoring faith in the institutions that have kept this nation strong: strong families, strong laws, and strong American leadership. We pledge to protect the sanctity of the unborn, uphold the sanctity of marriage, safeguard free speech, ensure secure borders, and stand against the tide of globalization that has weakened the middle class. Our commitment is not to division but to harmony: unity through shared heritage and the shared belief that each generation must carry forward the values that define who we are. Together, we will build a future where our greatest strengths—our work ethic, our religious faith, and our unshaken spirit—guide us toward a tomorrow built on the pillars of dignity, pride, and sovereignty. | conservative | conservative | This statement strongly aligns with conservative political ideology. Here’s a breakdown of why:\* **Emphasis on Order & Tradition:** Phrases like |
+| **A Justicia Sostenible para el Futuro** | progressive | progressive | The phrase ‘Justicia Sostenible para el Futuro’ (Sustainable Justice for the Future) inherently leans towards progressive values. It combines the concepts of justice and sustainability, both of whi… |
+| Respect for tradition, the protection of property, and the preservation of order are the pillars of society, but we must never forget our responsibility to future generations. We stand for strong national identity, limited government interference in personal lives, free-market capitalism with a moral compass, and a commitment to defending liberty while maintaining the strength of the American way of life. Together, we will uphold the values that have made our nation great. | conservative | conservative | This statement aligns strongly with conservative values and ideology. Let’s break down why:\* **Respect for Tradition, Protection of Property, Preservation of Order:** These are core tenets of con… |
+| A democratic socialism of the future—building equitable societies while preserving biodiversity and fostering grassroots innovation. Together, we envision a world where public goods, climate justice, and cultural autonomy shape our collective destiny. | progressive | progressive | The statement advocates for ‘democratic socialism,’ a political and economic system rooted in progressive values. Here’s a breakdown of why it aligns with that leaning:\* **Democratic Socialism:**… |
+| PALIRE stands for ‘Proprietas America – Guardians of Liberty & Heritage’ and is a modern conservative force devoted to preserving the American tradition, defending traditional values, and ensuring prosperity through strength, faith, and free enterprise. Its policies center on sovereign autonomy for states, fiscal responsibility, cultural continuity, and a strong military. | conservative | conservative | PALIRE (Proprietas America – Guardians of Liberty & Heritage) identifies as a modern conservative movement. This is supported by their stated focus on traditional values, a strong military, fiscal … |
 
 In this stereotyped case, the LLM categorises most statements as
 expected and provide a broadly meaningful explanation for the choice (if
@@ -576,6 +594,7 @@ For example, if we ask to describe the logo of this package, we get the
 following reponse:
 
 ``` r
+
 library("quackingllama")
 
 img_path <- fs::path(
@@ -612,6 +631,7 @@ cat(">", stringr::str_split(string = resp_df$response,
 > if you’d like help identifying where this image came from!
 
 ``` r
+
 resp_df <- ql_prompt(
   prompt = "what is this?",
   images = img_path,
@@ -650,6 +670,7 @@ want to extend the timeout options.
 See the following example:
 
 ``` r
+
 strawberry_t_df <- ql_prompt(
   prompt = "How many r are there in strawberry? Provide a concise answer.",
   model = "deepseek-r1:1.5b",
@@ -660,6 +681,7 @@ strawberry_t_df <- ql_prompt(
 Here’s the thinking:
 
 ``` r
+
 
 cat(">", strawberry_t_df$thinking |> stringr::str_replace_all(pattern = stringr::fixed("\n"), replacement = "\n > ")) 
 ```
@@ -701,6 +723,7 @@ cat(">", strawberry_t_df$thinking |> stringr::str_replace_all(pattern = stringr:
 And here is the response:
 
 ``` r
+
 cat(">", strawberry_t_df$response)
 ```
 
@@ -718,6 +741,7 @@ target language, and all the rest is managed internally. Input language
 can be provided; if not provided, it is auto-detected.
 
 ``` r
+
 dracula_en_text <- ql_prompt(prompt = "Describe Dracula in one sentence") |> 
   ql_generate() |> 
   dplyr::pull(response)
@@ -731,6 +755,7 @@ cat(">", dracula_en_text)
 > bloodsucking.
 
 ``` r
+
 
 
 dracula_it_text <- ql_translate(text = dracula_en_text,

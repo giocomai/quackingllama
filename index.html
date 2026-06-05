@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="favicon.ico">
 <link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Process text with Ollama, retrieve structured results, cache them locally in DuckDB">
 <meta name="description" content="Process text with Ollama, store results in DuckDB.">
@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">quackingllama</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -474,68 +474,68 @@
 <col width="25%">
 <col width="25%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th align="left">political statement</th>
 <th align="left">given political leaning</th>
 <th align="left">identified political leaning</th>
 <th align="left">explanation</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">The future of our planet and society must be built on sustainability, equity, and solidarity. Our vision is a world where resources are managed fairly, ecosystems are protected, and every human being has access to a thriving life, free from systemic exploitation and environmental degradation. Progress is achieved through grassroots innovation, international cooperation, and policies that prioritize human well-being over profit.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
 <td align="left">The statement strongly advocates for sustainability, equity, and solidarity, which are core tenets of progressive political thought. It explicitly critiques prioritizing profit over human well-bein…</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">We stand for preserving American liberties, safeguarding traditional values, and defending strong national sovereignty. PCA advocates for fiscal responsibility, limited government, and a robust defense policy to protect the homeland. We believe in empowering individual freedom within a framework that upholds religious, familial, and cultural traditions while addressing modern challenges like immigration reform and economic opportunity for all. PCA’s vision is built on a commitment to patriotism and a principled opposition to excessive global influence, aiming to reassert American leadership through wise governance and mutual respect for democratic ideals.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
 <td align="left">This statement clearly aligns with conservative principles. Let’s break down why:* <strong>Preserving American Liberties, Safeguarding Traditional Values:</strong> This is a cornerstone of conservative ideolo…</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Rejection of the status quo in favor of a holistic, equitable, and future-oriented society; VH believes in climate justice, economic solidarity, and democratic self-determination. The party emphasizes participatory governance, cultural preservation, and ecological stewardship, advocating for a world where marginalized voices lead societal transformation. Their manifesto: ‘Build bridges, not barriers—where everyone can thrive.’</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
 <td align="left">VH’s core values – rejection of the status quo, holistic and equitable society, future-oriented thinking – firmly place them within the progressive political spectrum. Their specific commitments to…</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><strong>A New Era of American Strength—Protecting Tradition, Defending Liberty, and Strengthening Our Nation</strong></td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
 <td align="left">The phrase “A New Era of American Strength” immediately suggests a desire for national revival and power, often associated with conservative movements. The emphasis on “Protecting Tradition,” “Defe…</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">The future of society is built upon three essential pillars: <strong>justice equitable for all citizens</strong>, <strong>protection of the Earth for current and future generations</strong>, and <strong>social, cultural, and economic cohesion through collective empowerment and democratic participation</strong>. The EDP advocates for a society that ensures the well-being of people—across all socio-economic and cultural divides—while safeguarding biodiversity, sustainability, and human rights. It champions policies that address systemic inequalities, combat climate change, and foster collaboration between governments, citizens, and international organizations to create a fair, equitable, and resilient global order. Our vision includes democratic governance, fair wages, strong worker rights, education and healthcare for all, and a sustainable economy that prioritizes people over profits.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
 <td align="left">The text presents a clearly progressive vision for society, advocating for key tenets of the left-leaning political spectrum. Here’s a breakdown of why it leans progressive:* **Justice Equitable …</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">In an era defined by chaos, we stand firm for the principles of order, family, and the unchanging bedrock of American ideals. We believe that progress must be measured against its capacity to uplift the working class, preserve the sanctity of life, and defend the values that bind us together. No nation prospers when its borders are crumbling, its traditions forgotten, or its sovereignty undermined by foreign influence. Our agenda is rooted in restoring faith in the institutions that have kept this nation strong: strong families, strong laws, and strong American leadership. We pledge to protect the sanctity of the unborn, uphold the sanctity of marriage, safeguard free speech, ensure secure borders, and stand against the tide of globalization that has weakened the middle class. Our commitment is not to division but to harmony: unity through shared heritage and the shared belief that each generation must carry forward the values that define who we are. Together, we will build a future where our greatest strengths—our work ethic, our religious faith, and our unshaken spirit—guide us toward a tomorrow built on the pillars of dignity, pride, and sovereignty.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
 <td align="left">This statement strongly aligns with conservative political ideology. Here’s a breakdown of why:* <strong>Emphasis on Order &amp; Tradition:</strong> Phrases like</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><strong>A Justicia Sostenible para el Futuro</strong></td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
 <td align="left">The phrase ‘Justicia Sostenible para el Futuro’ (Sustainable Justice for the Future) inherently leans towards progressive values. It combines the concepts of justice and sustainability, both of whi…</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Respect for tradition, the protection of property, and the preservation of order are the pillars of society, but we must never forget our responsibility to future generations. We stand for strong national identity, limited government interference in personal lives, free-market capitalism with a moral compass, and a commitment to defending liberty while maintaining the strength of the American way of life. Together, we will uphold the values that have made our nation great.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
 <td align="left">This statement aligns strongly with conservative values and ideology. Let’s break down why:* <strong>Respect for Tradition, Protection of Property, Preservation of Order:</strong> These are core tenets of con…</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">A democratic socialism of the future—building equitable societies while preserving biodiversity and fostering grassroots innovation. Together, we envision a world where public goods, climate justice, and cultural autonomy shape our collective destiny.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
 <td align="left">The statement advocates for ‘democratic socialism,’ a political and economic system rooted in progressive values. Here’s a breakdown of why it aligns with that leaning:* <strong>Democratic Socialism:</strong>…</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PALIRE stands for ‘Proprietas America – Guardians of Liberty &amp; Heritage’ and is a modern conservative force devoted to preserving the American tradition, defending traditional values, and ensuring prosperity through strength, faith, and free enterprise. Its policies center on sovereign autonomy for states, fiscal responsibility, cultural continuity, and a strong military.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>

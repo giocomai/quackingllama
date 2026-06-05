@@ -34,6 +34,7 @@ A list with all available options (or those selected with `options`)
 
 ``` r
 
+
 ql_set_options(
   model = "llama3.2",
   host = "http://localhost:11434",

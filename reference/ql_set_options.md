@@ -72,6 +72,7 @@ Nothing, used for its side effects. Options can be retrieved with
 ## Examples
 
 ``` r
+
 ql_set_options(
   model = "llama3.2",
   host = "http://localhost:11434",

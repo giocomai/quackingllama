@@ -65,7 +65,7 @@ ql_prompt(prompt = "a haiku") |>
 #> content-length: 188
 #> content-type: application/json
 #> host: localhost:11434
-#> user-agent: httr2/1.2.2 r-curl/7.0.0 libcurl/8.5.0
+#> user-agent: httr2/1.2.2 r-curl/7.1.0 libcurl/8.5.0
 #> 
 #> {
 #>   "model": "llama3.2",

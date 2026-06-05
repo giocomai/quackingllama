@@ -12,7 +12,7 @@ ql_set_db_options(db_filename = NULL, db_type = "DuckDB", db_folder = ".")
 
 - db_filename:
 
-  Defaults NULL. Internally, defaults to a combination of
+  Defaults `NULL`. Internally, defaults to a combination of
   `quackingllama`, followed by the name of the model used. Name given to
   the local database file. Useful for differentiating among different
   approaches or projects when storing multiple database files in the

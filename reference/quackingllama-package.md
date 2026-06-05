@@ -12,3 +12,8 @@ Useful links:
 
 **Maintainer**: Giorgio Comai <g@giorgiocomai.eu>
 ([ORCID](https://orcid.org/0000-0002-0515-9542)) \[copyright holder\]
+
+Authors:
+
+- Giorgio Comai <g@giorgiocomai.eu>
+  ([ORCID](https://orcid.org/0000-0002-0515-9542)) \[copyright holder\]

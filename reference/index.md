@@ -11,6 +11,10 @@
 - [`ql_generate()`](https://giocomai.github.io/quackingllama/reference/ql_generate.md)
   : Generate a response and return the result in a data frame
 
+- [`ql_get_api_keys()`](https://giocomai.github.io/quackingllama/reference/ql_get_api_keys.md)
+  : Retrieve previously set Ollama API keys typically used for cloud
+  models
+
 - [`ql_get_db_options()`](https://giocomai.github.io/quackingllama/reference/ql_get_db_options.md)
   : Retrieve
 
@@ -34,6 +38,9 @@
   :
 
   Create `httr2` request for both generate and chat endpoints
+
+- [`ql_set_api_keys()`](https://giocomai.github.io/quackingllama/reference/ql_set_api_keys.md)
+  : Set Ollama API keys typically used for cloud models
 
 - [`ql_set_db_options()`](https://giocomai.github.io/quackingllama/reference/ql_set_db_options.md)
   : Set options for the local database and enables caching
