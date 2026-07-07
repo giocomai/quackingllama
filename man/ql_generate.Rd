@@ -7,6 +7,7 @@
 ql_generate(
   prompt_df,
   only_cached = FALSE,
+  only_done = TRUE,
   host = NULL,
   messages = NULL,
   keep_alive = NULL,
@@ -20,6 +21,9 @@ created with \code{\link[=ql_prompt]{ql_prompt()}}.}
 
 \item{only_cached}{Defaults to \code{FALSE}. If \code{TRUE}, only cached responses are
 returned.}
+
+\item{only_done}{Defaults to \code{TRUE}. If \code{TRUE}, if a cached response was not
+"done" (i.e. not completed), it ignores the cache and processes it again.}
 
 \item{host}{The address where the Ollama API can be reached, e.g.
 \verb{http://localhost:11434} for locally deployed Ollama.}

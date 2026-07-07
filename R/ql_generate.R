@@ -2,6 +2,8 @@
 #'
 #' @param only_cached Defaults to `FALSE`. If `TRUE`, only cached responses are
 #'   returned.
+#' @param only_done Defaults to `TRUE`. If `TRUE`, if a cached response was not
+#'   "done" (i.e. not completed), it ignores the cache and processes it again.
 #' @param error Defines how errors should be handled, defaults to "fail", i.e.
 #'   if an error emerges while querying the LLM, the function stops. If set to
 #'   "warn", it sets the response to `NA_character_` and stores it in database.
@@ -24,6 +26,7 @@
 ql_generate <- function(
   prompt_df,
   only_cached = FALSE,
+  only_done = TRUE,
   host = NULL,
   messages = NULL,
   keep_alive = NULL,
@@ -86,9 +89,15 @@ ql_generate <- function(
       if (!table_exists) {
         duckdb::dbDisconnect(conn = con)
       } else {
-        cached_df <- dplyr::tbl(src = con, "generate") |>
-          dplyr::filter(.data[["hash"]] %in% prompt_df$hash) |>
-          dplyr::collect()
+        if (only_done) {
+          cached_df <- dplyr::tbl(src = con, "generate") |>
+            dplyr::filter(.data[["hash"]] %in% prompt_df$hash, done) |>
+            dplyr::collect()
+        } else {
+          cached_df <- dplyr::tbl(src = con, "generate") |>
+            dplyr::filter(.data[["hash"]] %in% prompt_df$hash) |>
+            dplyr::collect()
+        }
 
         duckdb::dbDisconnect(conn = con)
 
