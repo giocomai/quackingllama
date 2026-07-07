@@ -54,7 +54,7 @@ ql_prompt(prompt = "a haiku")
 #> # A tibble: 1 × 8
 #>   prompt  system                      think  seed temperature model format hash 
 #>   <chr>   <chr>                       <lgl> <dbl>       <dbl> <chr> <chr>  <chr>
-#> 1 a haiku You are a helpful assistan… NA        0           0 llam… ""     c57e…
+#> 1 a haiku You are a helpful assistan… NA        0           0 llam… ""     b850…
 
 ql_prompt(prompt = "a haiku") |>
   ql_request() |>
@@ -65,7 +65,7 @@ ql_prompt(prompt = "a haiku") |>
 #> content-length: 188
 #> content-type: application/json
 #> host: localhost:11434
-#> user-agent: httr2/1.2.2 r-curl/7.1.0 libcurl/8.5.0
+#> user-agent: httr2/1.2.3 r-curl/7.1.0 libcurl/8.5.0
 #> 
 #> {
 #>   "model": "llama3.2",

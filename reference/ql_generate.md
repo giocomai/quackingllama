@@ -8,6 +8,7 @@ Generate a response and return the result in a data frame
 ql_generate(
   prompt_df,
   only_cached = FALSE,
+  only_done = TRUE,
   host = NULL,
   messages = NULL,
   keep_alive = NULL,
@@ -26,6 +27,11 @@ ql_generate(
 - only_cached:
 
   Defaults to `FALSE`. If `TRUE`, only cached responses are returned.
+
+- only_done:
+
+  Defaults to `TRUE`. If `TRUE`, if a cached response was not "done"
+  (i.e. not completed), it ignores the cache and processes it again.
 
 - host:
 

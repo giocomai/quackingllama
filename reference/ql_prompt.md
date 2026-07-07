@@ -89,5 +89,5 @@ ql_prompt("a haiku")
 #> # A tibble: 1 × 8
 #>   prompt  system                      think  seed temperature model format hash 
 #>   <chr>   <chr>                       <lgl> <dbl>       <dbl> <chr> <chr>  <chr>
-#> 1 a haiku You are a helpful assistan… NA        0           0 llam… ""     c57e…
+#> 1 a haiku You are a helpful assistan… NA        0           0 llam… ""     b850…
 ```

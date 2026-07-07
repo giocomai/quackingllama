@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quackingllama</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ql_generate</span><span class="op">(</span></span>
 <span>  <span class="va">prompt_df</span>,</span>
 <span>  only_cached <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  only_done <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  host <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  messages <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  keep_alive <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -59,6 +60,11 @@ created with <code><a href="ql_prompt.html">ql_prompt()</a></code>.</p></dd>
 <dt id="arg-only-cached">only_cached<a class="anchor" aria-label="anchor" href="#arg-only-cached"></a></dt>
 <dd><p>Defaults to <code>FALSE</code>. If <code>TRUE</code>, only cached responses are
 returned.</p></dd>
+
+
+<dt id="arg-only-done">only_done<a class="anchor" aria-label="anchor" href="#arg-only-done"></a></dt>
+<dd><p>Defaults to <code>TRUE</code>. If <code>TRUE</code>, if a cached response was not
+"done" (i.e. not completed), it ignores the cache and processes it again.</p></dd>
 
 
 <dt id="arg-host">host<a class="anchor" aria-label="anchor" href="#arg-host"></a></dt>
