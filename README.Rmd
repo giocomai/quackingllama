@@ -11,6 +11,9 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+
+duckdb::duckdb(shared_home = TRUE)
 ```
 
 # quackingllama <img src="man/figures/logo.png" align="right" height="240" alt="quackingllama logo - A llama with a duck mask in a hexagon" />
@@ -189,7 +192,61 @@ pol3_schema_responses_df <- purrr::map(
 pol3_schema_responses_df
 ```
 
-This has obvious advantages for many data processing tasks, and, as will be seen, can effectively be used to enhance the consistency of text classification tasks. But first, let's discuss caching and some of the options that determine output. 
+
+`quackingllama` has convenience functions to create and process schemas to be used for generating structured outputs, when multiple answers should all give one of a set of replies. See this example:
+
+```{r ql_create_schema_enum}
+schema_l <- ql_create_schema_enum(
+  questions = c(
+    "Does this story include humans",
+    "Does this story include animals",
+    "Is this story about a woman",
+    "Does this story have a happy ending"
+  ),
+  answers = c("Yes", "No", "Maybe", "Cannot answer")
+)
+
+
+schema_l
+
+
+responses_df <- ql_prompt(
+  prompt = "this it the story of a duck that escapes",
+  format = schema_l,
+) |>
+  ql_generate() |>
+  dplyr::pull("response") |>
+  yyjsonr::read_json_str() |>
+  tibble::as_tibble()
+
+t(responses_df)
+
+responses_df <- ql_prompt(
+  prompt = "this it the story of a duck that escapes from a lady",
+  format = schema_l
+) |>
+  ql_generate() |>
+  dplyr::pull("response") |>
+  yyjsonr::read_json_str() |>
+  tibble::as_tibble()
+
+t(responses_df)
+
+
+responses_df <- ql_prompt(
+  prompt = "this is not a story and nothing happens",
+  format = schema_l
+) |>
+  ql_generate() |>
+  dplyr::pull("response") |>
+  yyjsonr::read_json_str() |>
+  tibble::as_tibble()
+
+t(responses_df)
+```
+
+
+This approach has obvious advantages for many data processing tasks, and, as will be seen, can effectively be used to enhance the consistency of text classification tasks. But first, let's discuss caching and some of the options that determine output. 
 
 ### Caching and options
 
@@ -336,7 +393,8 @@ parties_df <- purrr::map2(
       prompt = glue::glue("Describe an imaginary {x} political party, inventing their party name and a characteristic political statement."),
       format = schema,
       temperature = 1,
-      seed = y
+      seed = y,
+      model = "llama3.2:1b"
     ) |>
       ql_generate()
   }
@@ -355,9 +413,9 @@ parties_responses_df <- purrr::map(
 parties_responses_df
 ```
 
-Then we ask a different model to categorise results (in this example, text generation with `ministral-3:3b`, text categorisation with `gemma3:4b`). Trimming explanations in the following table for clarity.
+Then we ask a different model to categorise results (in this example, text generation with `llama3.2:1b`, text categorisation with `gemma4:e4b-it-qat`). Trimming explanations in the following table for clarity.
 
-```{r categories_df gemma3_4b}
+```{r categories_df gemmae4b}
 category_schema <- list(
   type = "object",
   properties = list(
@@ -381,7 +439,7 @@ categories_df <- purrr::map(
       system = "You identify the political leaning of political parties based on their statements.",
       format = category_schema,
       temperature = 0,
-      model = "gemma3:4b"
+      model = "gemma4:e4b-it-qat"
     ) |>
       ql_generate()
   }

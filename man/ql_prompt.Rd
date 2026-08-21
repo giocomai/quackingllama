@@ -23,7 +23,10 @@ ql_prompt(
 \item{system}{System message to pass to the model. See official documentation
 for details. For example: "You are a helpful assistant."}
 
-\item{format}{A json schema used to format the response. See README for examples.}
+\item{format}{A json schema used to format the response. See README for
+examples. For more context about structured outputs, see the
+\href{https://github.com/ollama/ollama/blob/main/docs/api.md#request-structured-outputs}{the
+dedicated section of the documentation}.}
 
 \item{model}{The name of the model, e.g. \code{llama3.2} or \verb{phi3.5:3.8b}. Run
 \verb{ollama list} from the command line to see a list of locally available

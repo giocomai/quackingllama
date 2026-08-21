@@ -6,7 +6,10 @@
 #' \url{https://github.com/ollama/ollama/blob/main/docs/api.md}.
 #'
 #' @param prompt A prompt for the LLM.
-#' @param format A json schema used to format the response. See README for examples.
+#' @param format A json schema used to format the response. See README for
+#'   examples. For more context about structured outputs, see the
+#'   \href{https://github.com/ollama/ollama/blob/main/docs/api.md#request-structured-outputs}{the
+#'   dedicated section of the documentation}.
 #' @param hash Defaults to `TRUE`. If `TRUE`, adds a column with the hash of all
 #'   other components of the prompt. Used internally for caching. Can be added
 #'   separately with [ql_hash()].
@@ -42,7 +45,7 @@ ql_prompt <- function(
   if (is.null(format)) {
     format_string <- ""
   } else {
-    format_string <- yyjsonr::write_json_str(format)
+    format_string <- yyjsonr::write_json_str(format, auto_unbox = TRUE)
   }
 
   if (as.numeric(options_l[["temperature"]]) == 0) {

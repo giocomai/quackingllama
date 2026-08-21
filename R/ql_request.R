@@ -82,23 +82,32 @@ ql_request <- function(
           )
         )
     } else {
-      req_02 <- req_01 |>
-        httr2::req_body_json(
-          list(
-            model = prompt_df[["model"]],
-            prompt = prompt_df[["prompt"]],
-            think = prompt_df[["think"]],
-            images = prompt_df[["images"]],
-            format = yyjsonr::read_json_str(format_schema),
-            stream = FALSE,
-            raw = FALSE,
-            keep_alive = options_l[["keep_alive"]],
-            options = list(
-              seed = prompt_df[["seed"]],
-              temperature = prompt_df[["temperature"]]
-            )
+      body_l <- list(
+        model = prompt_df[["model"]],
+        prompt = prompt_df[["prompt"]],
+        think = prompt_df[["think"]],
+        images = prompt_df[["images"]],
+        format = yyjsonr::read_json_str(
+          format_schema,
+          opts = yyjsonr::opts_read_json(
+            obj_of_arrs_to_df = FALSE,
+            arr_of_objs_to_df = FALSE,
+            arr_of_arrs_to_matrix = FALSE
           )
+        ),
+        stream = FALSE,
+        raw = FALSE,
+        keep_alive = options_l[["keep_alive"]],
+        options = list(
+          seed = prompt_df[["seed"]],
+          temperature = prompt_df[["temperature"]]
         )
+      )
+
+      body_json_text <- yyjsonr::write_json_str(body_l, auto_unbox = TRUE)
+
+      req_02 <- req_01 |>
+        httr2::req_body_raw(body_json_text, "application/json")
     }
   } else if (endpoint == "api/chat") {
     req_02 <- req_01 |>

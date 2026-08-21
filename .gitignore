@@ -12,3 +12,5 @@ quackingllama_ministral_3_3b.duckdb
 quackingllama_qwen3_5_2b.duckdb
 quackingllama_translategemma_12b.duckdb
 quackingllama_translategemma_4b.duckdb
+quackingllama_deepseek_r1_1_5b.duckdb
+quackingllama_gemma4_e4b_it_qat.duckdb
