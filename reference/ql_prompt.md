@@ -34,6 +34,9 @@ ql_prompt(
 - format:
 
   A json schema used to format the response. See README for examples.
+  For more context about structured outputs, see the [the dedicated
+  section of the
+  documentation](https://github.com/ollama/ollama/blob/main/docs/api.md#request-structured-outputs).
 
 - model:
 

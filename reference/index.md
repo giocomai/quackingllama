@@ -2,6 +2,10 @@
 
 ## All functions
 
+- [`ql_create_schema_enum()`](https://giocomai.github.io/quackingllama/reference/ql_create_schema_enum.md)
+  : Create a schema with one or more questions, and a single set of
+  answers
+
 - [`ql_disable_db()`](https://giocomai.github.io/quackingllama/reference/ql_disable_db.md)
   : Disable caching for the current session
 

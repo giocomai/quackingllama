@@ -95,18 +95,18 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">pol_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [1 × 21] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;  $ response            : chr "**Elias Voss** – *\"The Pragmatic Sage\"*\n\nA towering figure with silver-streaked hair and a perpetually thou"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ response            : chr "**Elias Voss** – A charismatic but enigmatic leader born in the shadow of a collapsing empire. His voice carrie"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ prompt              : chr "Describe an imaginary political leader in less than 100 words."</span></span>
 <span><span class="co">#&gt;  $ thinking            : chr NA</span></span>
-<span><span class="co">#&gt;  $ created_at          : chr "2026-03-14T19:27:32.721529251Z"</span></span>
+<span><span class="co">#&gt;  $ created_at          : chr "2026-08-21T16:33:43.644825292Z"</span></span>
 <span><span class="co">#&gt;  $ done                : logi TRUE</span></span>
 <span><span class="co">#&gt;  $ done_reason         : chr "stop"</span></span>
-<span><span class="co">#&gt;  $ total_duration      : num 1.46e+10</span></span>
-<span><span class="co">#&gt;  $ load_duration       : num 2.11e+09</span></span>
+<span><span class="co">#&gt;  $ total_duration      : num 1.2e+10</span></span>
+<span><span class="co">#&gt;  $ load_duration       : num 6.4e+09</span></span>
 <span><span class="co">#&gt;  $ prompt_eval_count   : num 27</span></span>
-<span><span class="co">#&gt;  $ prompt_eval_duration: num 6.43e+08</span></span>
-<span><span class="co">#&gt;  $ eval_count          : num 142</span></span>
-<span><span class="co">#&gt;  $ eval_duration       : num 1.15e+10</span></span>
+<span><span class="co">#&gt;  $ prompt_eval_duration: num 4.6e+08</span></span>
+<span><span class="co">#&gt;  $ eval_count          : num 115</span></span>
+<span><span class="co">#&gt;  $ eval_duration       : num 5.09e+09</span></span>
 <span><span class="co">#&gt;  $ timeout             : num 300</span></span>
 <span><span class="co">#&gt;  $ keep_alive          : chr "5m"</span></span>
 <span><span class="co">#&gt;  $ think               : logi FALSE</span></span>
@@ -115,13 +115,13 @@
 <span><span class="co">#&gt;  $ format              : chr ""</span></span>
 <span><span class="co">#&gt;  $ seed                : num 0</span></span>
 <span><span class="co">#&gt;  $ temperature         : num 0</span></span>
-<span><span class="co">#&gt;  $ hash                : chr "984f9fdaf2a9f3519375fc8faab345ee"</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ hash                : chr "0fcdfdf421d62c451ae915967f75904b"</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html" class="external-link">str_split</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">pol_df</span><span class="op">$</span><span class="va">response</span>,</span>
 <span>                            pattern <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>                            simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p><strong>Elias Voss</strong> – <em>“The Pragmatic Sage”</em> A towering figure with silver-streaked hair and a perpetually thoughtful gaze, Elias Voss rose from a humble scholar’s cottage to unite a fractured nation through quiet diplomacy. His speeches were woven from ancient wisdom and modern pragmatism, blending idealism with ruthless efficiency. He dismantled corrupt systems with a smile, rebuilt economies with a whisper, and won hearts by listening more than he spoke. His greatest legacy? A nation that dared to dream—while ensuring no one starved. <em>“Leadership isn’t power,”</em> he’d say, <em>“it’s the art of making people believe they could do it themselves.”</em></p>
+<p><strong>Elias Voss</strong> – A charismatic but enigmatic leader born in the shadow of a collapsing empire. His voice carries both wisdom and menace, blending ancient wisdom with modern ruthlessness. A former scholar, he now rules through a mix of cunning diplomacy and brutal pragmatism, dismantling old systems while building new ones under his iron grip. His people whisper of a godlike vision, though his methods are often bloodstained. Voss demands loyalty without mercy, offering only the faintest glimmer of hope—if you dare to follow.</p>
 </blockquote>
 <p>If we are interested in variations of this text, we can easily create them:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -137,9 +137,9 @@
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pol3_df</span><span class="op">$</span><span class="va">response</span></span>
-<span><span class="co">#&gt; [1] "**Dr. Eleanor Voss** is a progressive visionary blending idealism with pragmatism. A former community organizer, she champions universal healthcare, green energy, and worker cooperatives while advocating for restorative justice. Her policies prioritize equity—like free college and rent control—while addressing systemic change through grassroots movements. A fierce advocate for climate justice, she pushes for carbon taxes with direct democracy funds. Humble yet bold, she rejects dogma, calling for \"radical collaboration\" over ideological battles. Her speeches blend hope with hard truths, making her both inspiring and uncompromising—a leader who refuses to let progress stall."                                                                                                              </span></span>
-<span><span class="co">#&gt; [2] "**Senator Marcus Holloway** is a staunch conservative firebrand, a man of unshakable faith and unyielding tradition. With a voice like gravel and a demeanor of stern resolve, he champions \"law and order\" while demonizing \"woke\" progress. His policies prioritize \"family values\" and \"American exceptionalism,\" often framing them as divine mandates. Holloway opposes \"socialist\" policies, mocks \"elite\" media, and preaches \"tough love\" for the \"forgotten.\" His rallies are packed with patriotic fervor, where he scorns \"globalists\" and \"cultural Marxists.\" Though often divisive, his unwavering conviction keeps him a beloved (and feared) figure in the GOP."                                                                                                                       </span></span>
-<span><span class="co">#&gt; [3] "**Name:** Dr. Eleanor Voss\n**Party:** *Centrist Unity Coalition (CUC)*\n**Motto:** *\"Progress without extremes—balancing ambition with wisdom.\"*\n\nA pragmatic reformer with a PhD in public policy, Voss blends progressive ideals with fiscal responsibility. She champions universal healthcare but insists on \"smart\" subsidies, opposing both single-payer chaos and private-sector exploitation. On climate, she pushes green tech but argues for \"transition, not revolution.\" Economically, she supports worker protections but opposes overregulation, favoring \"market-friendly\" policies. A master of compromise, she’s beloved by moderates but mocked by zealots—yet her centrist pragmatism keeps her in power. *\"I don’t want to fix everything—just make sure we don’t break anything first.\"*"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "**Dr. Eleanor Voss** is a progressive visionary blending idealism with pragmatism. A former community organizer, she champions climate justice, affordable healthcare, and universal education while advocating for economic equity. Her policies prioritize worker cooperatives, green infrastructure, and participatory democracy, using data-driven advocacy to dismantle systemic inequalities. A fierce ally of marginalized voices, she balances bold reforms with compassionate governance, ensuring policies uplift—not just the privileged few. Her leadership is rooted in empathy, fairness, and the belief that progress must be inclusive."                                                                                                                                                         </span></span>
+<span><span class="co">#&gt; [2] "**Senator Marcus Holloway** is a staunch conservative firebrand, a man of unyielding principles and unshakable faith. With a voice like gravel and a demeanor of stern resolve, he champions traditional values, fiscal discipline, and limited government. A self-made man who rose from modest beginnings, Holloway speaks of \"American exceptionalism\" with a fervor that borders on zealotry. He opposes progressive policies with a relentless, almost biblical zeal, often framing his opposition as a defense of \"God, Guns, and Godfather.\" His rallies are packed with fervent supporters, and his debates are marked by heated rhetoric and a refusal to compromise. Though polarizing, Holloway’s unwavering commitment to his beliefs makes him a formidable voice in the conservative movement."</span></span>
+<span><span class="co">#&gt; [3] "**Name:** Dr. Eleanor Whitmore\n**Party:** *Unity Forward* (a pragmatic, non-partisan coalition)\n**Ideal:** *\"Government should serve the people—not the extremes.\"*\n\nWhitmore is a former economist turned diplomat, known for her **balanced rhetoric**—rejecting both populist chaos and bureaucratic inertia. She champions **middle-ground policies**: tax reform to ease burdens, infrastructure without debt, and climate action with market incentives. A master of compromise, she avoids polarizing stances, instead framing issues as *\"how do we make this work for everyone?\"* Her charm and calm demeanor make her a bridge between factions, though critics call her *\"too soft\"* or *\"too smart.\"*"</span></span></code></pre></div>
 <p>These are, as it is the customary default behaviour of LLMs, free form texts. Depending on the task at hand, we may want to have text in a more structured format. To do so, we must provide the LLM with a <a href="https://json-schema.org/" class="external-link">schema</a> of how we want it to to return data.</p>
 <p>Schema can be very simple, e.g., if we want our response to feature only a “name” and “description” field, and both should be character strings, we’d use the following schema:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -166,7 +166,7 @@
 <span><span class="co">#&gt; [1] "Dr. Elias Voss"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $description</span></span>
-<span><span class="co">#&gt; [1] "A visionary yet enigmatic political leader born in 1968 in the small, mountainous town of Schwarzwald, Germany. Raised in a family of miners and scholars, Elias developed an early fascination for both the struggles of the working class and the intellectual pursuits of his ancestors."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "A visionary yet pragmatic political leader born in 1968 in the small industrial town of Bad Homburg, Germany. Raised in a working-class family, Elias grew up witnessing the economic struggles and social inequalities of his region, which deeply influenced his political philosophy."</span></span></code></pre></div>
 <p>or slightly more complex, for example making clear that we expect a field to be numeric, and another one to pick between one of a set of options:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -212,7 +212,7 @@
 <span><span class="co">#&gt; [1] "Unity Through Vision"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $description</span></span>
-<span><span class="co">#&gt; [1] "Dr. Elias Voss is a charismatic and visionary political leader born in the heart of a once-thriving industrial city in Europe. Raised in modest circumstances, he developed a deep appreciation for both the struggles of the working class and the complexities of global politics. His journey to leadership began in the 1980s when he became a prominent figure in labor unions, advocating for workers' rights and economic justice. His speeches were known for their eloquence and his ability to connect with ordinary people, making him a beloved figure among the masses."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Dr. Elias Voss is a charismatic and visionary political leader born in the heart of a once-thriving industrial city in Europe. Raised in modest circumstances, he developed a deep empathy for the struggles of ordinary people while his intellect and passion for social justice fueled his ambition. His political career began in the early 2000s, marked by a relentless commitment to reforming the political system to address inequality and environmental degradation."</span></span></code></pre></div>
 <p>Having the response in a structured format allows for easily storing results in a data frame and processing them further.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pol3_schema_df</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
@@ -240,10 +240,114 @@
 <span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
 <span><span class="co">#&gt;   name                    age gender motto                           description</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                 &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                           &lt;chr&gt;      </span></span>
-<span><span class="co">#&gt; 1 Dr. Elena Vasquez        58 female Progress through dialogue, equ… Dr. Elena …</span></span>
-<span><span class="co">#&gt; 2 Alexandre Dubois         65 male   Order, Tradition, and Responsi… Alexandre …</span></span>
-<span><span class="co">#&gt; 3 Étienne Laurent-Duval    52 male   Balance, Pragmatism, and Commo… Étienne La…</span></span></code></pre></div>
-<p>This has obvious advantages for many data processing tasks, and, as will be seen, can effectively be used to enhance the consistency of text classification tasks. But first, let’s discuss caching and some of the options that determine output.</p>
+<span><span class="co">#&gt; 1 Étienne Laurent-Duval    52 male   Progressive governance through… Étienne La…</span></span>
+<span><span class="co">#&gt; 2 Alexander Voss           58 male   Order, Tradition, and Responsi… Alexander …</span></span>
+<span><span class="co">#&gt; 3 Étienne Laurent-Duval    52 male   Balance, pragmatism, and a tou… Étienne La…</span></span></code></pre></div>
+<p><code>quackingllama</code> has convenience functions to create and process schemas to be used for generating structured outputs, when multiple answers should all give one of a set of replies. See this example:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schema_l</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_create_schema_enum.html">ql_create_schema_enum</a></span><span class="op">(</span></span>
+<span>  questions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Does this story include humans"</span>,</span>
+<span>    <span class="st">"Does this story include animals"</span>,</span>
+<span>    <span class="st">"Is this story about a woman"</span>,</span>
+<span>    <span class="st">"Does this story have a happy ending"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  answers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Yes"</span>, <span class="st">"No"</span>, <span class="st">"Maybe"</span>, <span class="st">"Cannot answer"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">schema_l</span></span>
+<span><span class="co">#&gt; $type</span></span>
+<span><span class="co">#&gt; [1] "object"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties</span></span>
+<span><span class="co">#&gt; $properties$`Does this story include humans`</span></span>
+<span><span class="co">#&gt; $properties$`Does this story include humans`$type</span></span>
+<span><span class="co">#&gt; [1] "string"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties$`Does this story include humans`$enum</span></span>
+<span><span class="co">#&gt; [1] "Yes"           "No"            "Maybe"         "Cannot answer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties$`Does this story include animals`</span></span>
+<span><span class="co">#&gt; $properties$`Does this story include animals`$type</span></span>
+<span><span class="co">#&gt; [1] "string"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties$`Does this story include animals`$enum</span></span>
+<span><span class="co">#&gt; [1] "Yes"           "No"            "Maybe"         "Cannot answer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties$`Is this story about a woman`</span></span>
+<span><span class="co">#&gt; $properties$`Is this story about a woman`$type</span></span>
+<span><span class="co">#&gt; [1] "string"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties$`Is this story about a woman`$enum</span></span>
+<span><span class="co">#&gt; [1] "Yes"           "No"            "Maybe"         "Cannot answer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties$`Does this story have a happy ending`</span></span>
+<span><span class="co">#&gt; $properties$`Does this story have a happy ending`$type</span></span>
+<span><span class="co">#&gt; [1] "string"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $properties$`Does this story have a happy ending`$enum</span></span>
+<span><span class="co">#&gt; [1] "Yes"           "No"            "Maybe"         "Cannot answer"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $required</span></span>
+<span><span class="co">#&gt; [1] "Does this story include humans"      "Does this story include animals"    </span></span>
+<span><span class="co">#&gt; [3] "Is this story about a woman"         "Does this story have a happy ending"</span></span>
+<span></span>
+<span></span>
+<span><span class="va">responses_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
+<span>  prompt <span class="op">=</span> <span class="st">"this it the story of a duck that escapes"</span>,</span>
+<span>  format <span class="op">=</span> <span class="va">schema_l</span>,</span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"response"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">yyjsonr</span><span class="fu">::</span><span class="fu"><a href="https://coolbutuseless.github.io/package/yyjsonr/reference/read_json_str.html" class="external-link">read_json_str</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">responses_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                     [,1] </span></span>
+<span><span class="co">#&gt; Does this story include humans      "No" </span></span>
+<span><span class="co">#&gt; Does this story include animals     "Yes"</span></span>
+<span><span class="co">#&gt; Is this story about a woman         "No" </span></span>
+<span><span class="co">#&gt; Does this story have a happy ending "No"</span></span>
+<span></span>
+<span><span class="va">responses_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
+<span>  prompt <span class="op">=</span> <span class="st">"this it the story of a duck that escapes from a lady"</span>,</span>
+<span>  format <span class="op">=</span> <span class="va">schema_l</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"response"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">yyjsonr</span><span class="fu">::</span><span class="fu"><a href="https://coolbutuseless.github.io/package/yyjsonr/reference/read_json_str.html" class="external-link">read_json_str</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">responses_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                     [,1] </span></span>
+<span><span class="co">#&gt; Does this story include humans      "Yes"</span></span>
+<span><span class="co">#&gt; Does this story include animals     "Yes"</span></span>
+<span><span class="co">#&gt; Is this story about a woman         "Yes"</span></span>
+<span><span class="co">#&gt; Does this story have a happy ending "No"</span></span>
+<span></span>
+<span></span>
+<span><span class="va">responses_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
+<span>  prompt <span class="op">=</span> <span class="st">"this is not a story and nothing happens"</span>,</span>
+<span>  format <span class="op">=</span> <span class="va">schema_l</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="st">"response"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">yyjsonr</span><span class="fu">::</span><span class="fu"><a href="https://coolbutuseless.github.io/package/yyjsonr/reference/read_json_str.html" class="external-link">read_json_str</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">responses_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                                     [,1]</span></span>
+<span><span class="co">#&gt; Does this story include humans      "No"</span></span>
+<span><span class="co">#&gt; Does this story include animals     "No"</span></span>
+<span><span class="co">#&gt; Is this story about a woman         "No"</span></span>
+<span><span class="co">#&gt; Does this story have a happy ending "No"</span></span></code></pre></div>
+<p>This approach has obvious advantages for many data processing tasks, and, as will be seen, can effectively be used to enhance the consistency of text classification tasks. But first, let’s discuss caching and some of the options that determine output.</p>
 </div>
 <div class="section level3">
 <h3 id="caching-and-options">Caching and options<a class="anchor" aria-label="anchor" href="#caching-and-options"></a>
@@ -253,50 +357,50 @@
 <p>Two parameters are particularly relevant for understanding this, <code>temperature</code> and <code>seed</code>.</p>
 <p>What is “temperature”? <a href="https://github.com/ollama/ollama/blob/main/docs/modelfile.md#valid-parameters-and-values" class="external-link">Ollama’s documentation</a> concisely clarifies the effect of this parameter by suggesting that “Increasing the temperature will make the model answer more creatively.” LLMs often have the default temperature set to 0.7 or 0.8. In brief, when temperature is set to its maximum value of 1, the LLMs will provide more varied responses. When temperature is set to 0, the LLMs are at their more consistent: they always provide the same response to the same prompt.</p>
 <p>What does it mean in practices? For example, that if I set the temperature to 0 and ask the same LLM to generate a haiku, I will always get the very same haiku, no matter how many times I run this command.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my toes."</span></span>
+<span><span class="co">#&gt; [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my lap."</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my toes."</span></span>
+<span><span class="co">#&gt; [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my lap."</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my toes."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Moonlight glows—\na cat steals my sandwich,\nthen naps on my lap."</span></span></code></pre></div>
 <p>If I set the temperature to 1, I get every time a different haiku (ok, not very different, really, but still different).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Moonlight’s shadow,\njogger’s shoes crunch leaves—\nghost’s silent tap. 🌙✨"</span></span>
+<span><span class="co">#&gt; [1] "Dogs bark at ghost—they're not alone,\nReflection in their wagging tails twists,\nTrickster moon has fun.\n\n*(Keeps the mystery and playfulness rolling!)*"</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Muddy paw prints—\ndog wins the debate,\nmeatball wins dinner"</span></span>
+<span><span class="co">#&gt; [1] "Watching snowflakes dance—\none slips right past my tongue,\nnature’s *starter* bite."</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Dessert's first bite—oh joy!\nOreo falls, cake’s betrayal…\nCaramel’s revenge. 😈"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Soft rain dances—\npuddle glows like a neon star,\nlaughs in the mirror."</span></span></code></pre></div>
 <p>But then, replicability of results is possible even when the temperature is set to a value higher than 0. We just need to set the same seed, and we’ll consistently get the same result.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "**Paws, tail, then—**\n**Barking’s just a habit...**\n**Dog’s the boss.** 🐶"</span></span>
+<span><span class="co">#&gt; [1] "Soft rain on rooftops sings—\n\"Pizza delivery, *ding*—\nworld’s a happy clown! 🍕🎭"</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "**Paws, tail, then—**\n**Barking’s just a habit...**\n**Dog’s the boss.** 🐶"</span></span>
+<span><span class="co">#&gt; [1] "Soft rain on rooftops sings—\n\"Pizza delivery, *ding*—\nworld’s a happy clown! 🍕🎭"</span></span>
 <span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>, temperature <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="fl">2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "**Paws, tail, then—**\n**Barking’s just a habit...**\n**Dog’s the boss.** 🐶"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Soft rain on rooftops sings—\n\"Pizza delivery, *ding*—\nworld’s a happy clown! 🍕🎭"</span></span></code></pre></div>
 <p>Two additional components determine if the response is exactly the same in different instances: <code>system</code> and <code>format</code>. The <code>system</code> parameter is passed along with the prompt to the LLM, and by default is set to the generic “You are a helpful assistant.”. This is a reasonable generic option, but there may be good reasons to be more specific depending on the task at hand.</p>
 <p>For example, if we set as the system message “You are a 19th century romantic poet.”, the style of the response will change (somewhat) accordingly.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
 <span>  prompt <span class="op">=</span> <span class="st">"A reasonably funny haiku"</span>,</span>
 <span>  temperature <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -304,9 +408,9 @@
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "*\"Whispers drift on breezes soft—*\n*Moonlit garden hums a tune,*\n*Love’s ghost dances, light as dust.\"*\n\n*(A touch of whimsy, dear reader—let the stars weave their magic!)* 🌙✨"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "*\"Whispers drift on breezes soft—*\n*Moonlit garden hums a tune,*\n*Love’s ghost dances—what a sight!\"*\n\n*(A touch of whimsy, dear reader—let the stars weave their magic!)* 🌙✨"</span></span></code></pre></div>
 <p>As discussed above, <code>format</code> is relevant only for instances when a structured output is requested to the LLM by providing a schema. For example, if we provided a different schema, the output would also have been different.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  type <span class="op">=</span> <span class="st">"object"</span>,</span>
 <span>  properties <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -331,7 +435,7 @@
 <span><span class="co">#&gt; [1] "Pizza crust burns—oh no!\nCrumbles fly like tiny tornadoes,\nDinner’s a crime scene."</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $why_funny</span></span>
-<span><span class="co">#&gt; [1] "This haiku plays on the absurdity of a pizza disaster! The first line sets up a dramatic, almost comedic panic—burning pizza crust—while the second line escalates the chaos with the chaotic, chaotic crumbles. The third line ties it all together with a cheeky twist: 'Dinner’s a crime scene.' It’s funny because it’s a relatable, exaggerated moment of kitchen mishap, framed in a way that feels both silly and slightly surreal."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "This haiku plays on the absurdity of a common kitchen mishap—overcooked pizza crust exploding like a bomb! The 'tiny tornadoes' of crumbs add a whimsical, almost comedic chaos, while 'dinner’s a crime scene' leans into the exaggerated, over-the-top humor. It’s funny because it turns a mundane (but relatable) moment into a ridiculous, almost slapstick scenario."</span></span></code></pre></div>
 <p>In brief, when should we expect to receive exactly the same response from the LLM, hence, making it possible to retrieve it from cache if already parsed? The following conditions must apply:</p>
 <ul>
 <li>same model</li>
@@ -347,7 +451,7 @@
 </ul>
 <p>If the above conditions are met, and caching is enabled, the response will be retrieved from the local cache, rather than from the LLM.</p>
 <p>It’s easy to enable caching for the current session with <code><a href="reference/ql_enable_db.html">ql_enable_db()</a></code>. By default, the database is stored in the current working directory, but this can be changed with <code><a href="reference/ql_set_db_options.html">ql_set_db_options()</a></code>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ql_enable_db.html">ql_enable_db</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/ql_set_db_options.html">ql_set_db_options</a></span><span class="op">(</span>db_folder <span class="op">=</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path_expand.html" class="external-link">path_home_r</a></span><span class="op">(</span><span class="st">"R"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now even prompts that would take the LLM many seconds to process can be returned efficiently from cache:</p>
@@ -356,7 +460,7 @@
 <h3 id="text-classification">Text classification<a class="anchor" aria-label="anchor" href="#text-classification"></a>
 </h3>
 <p>First, let’s create some texts that we will then try to classify:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  type <span class="op">=</span> <span class="st">"object"</span>,</span>
 <span>  properties <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -382,7 +486,8 @@
 <span>      prompt <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"Describe an imaginary {x} political party, inventing their party name and a characteristic political statement."</span><span class="op">)</span>,</span>
 <span>      format <span class="op">=</span> <span class="va">schema</span>,</span>
 <span>      temperature <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>      seed <span class="op">=</span> <span class="va">y</span></span>
+<span>      seed <span class="op">=</span> <span class="va">y</span>,</span>
+<span>      model <span class="op">=</span> <span class="st">"llama3.2:1b"</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
@@ -402,18 +507,18 @@
 <span><span class="co">#&gt; # A tibble: 10 × 3</span></span>
 <span><span class="co">#&gt;    `party name`                        `political leaning` `political statement`</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;                               &lt;chr&gt;               &lt;chr&gt;                </span></span>
-<span><span class="co">#&gt;  1 EcoHarmony Collective               progressive         "The future of our p…</span></span>
-<span><span class="co">#&gt;  2 Protectora et Conservatrix America… conservative        "We stand for preser…</span></span>
-<span><span class="co">#&gt;  3 Vanguard Horizon (VH)               progressive         "Rejection of the st…</span></span>
-<span><span class="co">#&gt;  4 The Union of American Sovereignty … conservative        "**A New Era of Amer…</span></span>
-<span><span class="co">#&gt;  5 Équilibre Démocrate Progressiste (… progressive         "The future of socie…</span></span>
-<span><span class="co">#&gt;  6 United Front for National Sovereig… conservative        "In an era defined b…</span></span>
-<span><span class="co">#&gt;  7 **Unio Progressiva Ecológica (UPE)  progressive         "**A Justicia Sosten…</span></span>
-<span><span class="co">#&gt;  8 Conservatio Libertas (CL)           conservative        "Respect for traditi…</span></span>
-<span><span class="co">#&gt;  9 **EcoHorizons**                     progressive         "A democratic social…</span></span>
-<span><span class="co">#&gt; 10 Proprietas America – Guardians of … conservative        "PALIRE stands for '…</span></span></code></pre></div>
-<p>Then we ask a different model to categorise results (in this example, text generation with <code>ministral-3:3b</code>, text categorisation with <code>gemma3:4b</code>). Trimming explanations in the following table for clarity.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;  1 Eunoia Greens                       progressive         Empowering the Peopl…</span></span>
+<span><span class="co">#&gt;  2 New Heritage Alliance (NHA)         conservative        Unity in Tradition, …</span></span>
+<span><span class="co">#&gt;  3 The Luminari Coalition              progressive         Embracing the Light:…</span></span>
+<span><span class="co">#&gt;  4 The Heritage Conservators           conservative        Empowering the Next …</span></span>
+<span><span class="co">#&gt;  5 Eunoia Alliance for Progressive Eq… progressive         Embracing the princi…</span></span>
+<span><span class="co">#&gt;  6 The Liberty Keepers                 conservative        The Liberty Keepers …</span></span>
+<span><span class="co">#&gt;  7 EchoPlexia                          progressive         The EchoPlexia party…</span></span>
+<span><span class="co">#&gt;  8 Libertas Permanens                  conservative        Libertas Permanens s…</span></span>
+<span><span class="co">#&gt;  9 The Unity Assembly                  progressive         In the spirit of uni…</span></span>
+<span><span class="co">#&gt; 10 Veritas Republicanorum              conservative        Our founding fathers…</span></span></code></pre></div>
+<p>Then we ask a different model to categorise results (in this example, text generation with <code>llama3.2:1b</code>, text categorisation with <code>gemma4:e4b-it-qat</code>). Trimming explanations in the following table for clarity.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">category_schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  type <span class="op">=</span> <span class="st">"object"</span>,</span>
 <span>  properties <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -437,7 +542,7 @@
 <span>      system <span class="op">=</span> <span class="st">"You identify the political leaning of political parties based on their statements."</span>,</span>
 <span>      format <span class="op">=</span> <span class="va">category_schema</span>,</span>
 <span>      temperature <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>      model <span class="op">=</span> <span class="st">"gemma3:4b"</span></span>
+<span>      model <span class="op">=</span> <span class="st">"gemma4:e4b-it-qat"</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>      <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
@@ -482,64 +587,64 @@
 </tr></thead>
 <tbody>
 <tr>
-<td align="left">The future of our planet and society must be built on sustainability, equity, and solidarity. Our vision is a world where resources are managed fairly, ecosystems are protected, and every human being has access to a thriving life, free from systemic exploitation and environmental degradation. Progress is achieved through grassroots innovation, international cooperation, and policies that prioritize human well-being over profit.</td>
+<td align="left">Empowering the People, Building a Sustainable Future</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">The statement strongly advocates for sustainability, equity, and solidarity, which are core tenets of progressive political thought. It explicitly critiques prioritizing profit over human well-bein…</td>
+<td align="left">The phrase ‘Empowering the People, Building a Sustainable Future’ is a classic example of progressive political rhetoric. It emphasizes the importance of individual agency and collective action (’E…</td>
 </tr>
 <tr>
-<td align="left">We stand for preserving American liberties, safeguarding traditional values, and defending strong national sovereignty. PCA advocates for fiscal responsibility, limited government, and a robust defense policy to protect the homeland. We believe in empowering individual freedom within a framework that upholds religious, familial, and cultural traditions while addressing modern challenges like immigration reform and economic opportunity for all. PCA’s vision is built on a commitment to patriotism and a principled opposition to excessive global influence, aiming to reassert American leadership through wise governance and mutual respect for democratic ideals.</td>
+<td align="left">Unity in Tradition, Freedom in Progress</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">This statement clearly aligns with conservative principles. Let’s break down why:* <strong>Preserving American Liberties, Safeguarding Traditional Values:</strong> This is a cornerstone of conservative ideolo…</td>
+<td align="left">The phrase ‘Unity in Tradition, Freedom in Progress’ is a classic example of a conservative political slogan. It suggests that a strong foundation in established values, customs, and institutions (…</td>
 </tr>
 <tr>
-<td align="left">Rejection of the status quo in favor of a holistic, equitable, and future-oriented society; VH believes in climate justice, economic solidarity, and democratic self-determination. The party emphasizes participatory governance, cultural preservation, and ecological stewardship, advocating for a world where marginalized voices lead societal transformation. Their manifesto: ‘Build bridges, not barriers—where everyone can thrive.’</td>
+<td align="left">Embracing the Light: Empowering a Brighter Future for All</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">VH’s core values – rejection of the status quo, holistic and equitable society, future-oriented thinking – firmly place them within the progressive political spectrum. Their specific commitments to…</td>
+<td align="left">The phrase ‘Embracing the Light: Empowering a Brighter Future for All’ is inherently optimistic, aspirational, and inclusive. It suggests a movement toward positive change, enlightenment, and unive…</td>
 </tr>
 <tr>
-<td align="left"><strong>A New Era of American Strength—Protecting Tradition, Defending Liberty, and Strengthening Our Nation</strong></td>
+<td align="left">Empowering the Next Generation, One Heritage at a Time.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">The phrase “A New Era of American Strength” immediately suggests a desire for national revival and power, often associated with conservative movements. The emphasis on “Protecting Tradition,” “Defe…</td>
+<td align="left">The phrase ‘Empowering the Next Generation, One Heritage at a Time’ strongly suggests a focus on preserving and celebrating cultural traditions, history, and values. This aligns with conservative i…</td>
 </tr>
 <tr>
-<td align="left">The future of society is built upon three essential pillars: <strong>justice equitable for all citizens</strong>, <strong>protection of the Earth for current and future generations</strong>, and <strong>social, cultural, and economic cohesion through collective empowerment and democratic participation</strong>. The EDP advocates for a society that ensures the well-being of people—across all socio-economic and cultural divides—while safeguarding biodiversity, sustainability, and human rights. It champions policies that address systemic inequalities, combat climate change, and foster collaboration between governments, citizens, and international organizations to create a fair, equitable, and resilient global order. Our vision includes democratic governance, fair wages, strong worker rights, education and healthcare for all, and a sustainable economy that prioritizes people over profits.</td>
+<td align="left">Embracing the principles of equality, justice, and compassion, the Eunoia Alliance for Progressive Equality and Justice seeks to create a society where every individual has the opportunity to thrive, regardless of their background, identity, or socio-economic status. We believe in the power of collective action, community-driven solutions, and the empowerment of marginalized voices. We stand in solidarity with the rights and dignity of all people, and we will fight tirelessly for a world where love, kindness, and respect prevail.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">The text presents a clearly progressive vision for society, advocating for key tenets of the left-leaning political spectrum. Here’s a breakdown of why it leans progressive:* **Justice Equitable …</td>
+<td align="left">The Eunoia Alliance for Progressive Equality and Justice explicitly advocates for principles of equality, justice, and compassion. Its mission is to create a society where everyone has the opportun…</td>
 </tr>
 <tr>
-<td align="left">In an era defined by chaos, we stand firm for the principles of order, family, and the unchanging bedrock of American ideals. We believe that progress must be measured against its capacity to uplift the working class, preserve the sanctity of life, and defend the values that bind us together. No nation prospers when its borders are crumbling, its traditions forgotten, or its sovereignty undermined by foreign influence. Our agenda is rooted in restoring faith in the institutions that have kept this nation strong: strong families, strong laws, and strong American leadership. We pledge to protect the sanctity of the unborn, uphold the sanctity of marriage, safeguard free speech, ensure secure borders, and stand against the tide of globalization that has weakened the middle class. Our commitment is not to division but to harmony: unity through shared heritage and the shared belief that each generation must carry forward the values that define who we are. Together, we will build a future where our greatest strengths—our work ethic, our religious faith, and our unshaken spirit—guide us toward a tomorrow built on the pillars of dignity, pride, and sovereignty.</td>
+<td align="left">The Liberty Keepers believe that the rights and freedoms of the American people should be protected and preserved through the principles of limited government, free market economics, and strong national defense. We are committed to promoting economic growth, reducing government overreach, and preserving our nation’s heritage and traditions. We believe that the values of hard work, family, and community are essential to the success of our country and that they should be the foundation upon which our nation is built.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">This statement strongly aligns with conservative political ideology. Here’s a breakdown of why:* <strong>Emphasis on Order &amp; Tradition:</strong> Phrases like</td>
+<td align="left">The Liberty Keepers’ platform strongly aligns with conservative political ideologies. Key indicators include the emphasis on ‘limited government,’ ‘free market economics,’ and ’reducing government …</td>
 </tr>
 <tr>
-<td align="left"><strong>A Justicia Sostenible para el Futuro</strong></td>
+<td align="left">The EchoPlexia party is committed to creating a more inclusive, just, and equitable society for all citizens. Our guiding principle is that every individual has the right to thrive, regardless of their background, identity, or socio-economic status. We believe in the power of collective action and the importance of listening to and amplifying the voices of marginalized and underrepresented communities. Our party’s slogan is ‘Empowering Every Voice, Amplifying Our Collective Future.’</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">The phrase ‘Justicia Sostenible para el Futuro’ (Sustainable Justice for the Future) inherently leans towards progressive values. It combines the concepts of justice and sustainability, both of whi…</td>
+<td align="left">The EchoPlexia party’s platform is rooted in principles of social justice, inclusivity, and equity. Key indicators include the commitment to creating a ’more inclusive, just, and equitable society,…</td>
 </tr>
 <tr>
-<td align="left">Respect for tradition, the protection of property, and the preservation of order are the pillars of society, but we must never forget our responsibility to future generations. We stand for strong national identity, limited government interference in personal lives, free-market capitalism with a moral compass, and a commitment to defending liberty while maintaining the strength of the American way of life. Together, we will uphold the values that have made our nation great.</td>
+<td align="left">Libertas Permanens seeks to defend and preserve the timeless principles of traditional values, individual freedom, and limited government. We believe in the sanctity of marriage, the importance of family, and the need for a strong, national defense. Our platform is built on the conviction that the welfare of our nation is best ensured by a steadfast commitment to these values, and that the rule of law, rather than the whims of special interests, should guide our governance.</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">This statement aligns strongly with conservative values and ideology. Let’s break down why:* <strong>Respect for Tradition, Protection of Property, Preservation of Order:</strong> These are core tenets of con…</td>
+<td align="left">The provided text outlines a platform that strongly aligns with traditional conservative principles. Key indicators include the emphasis on ‘traditional values,’ ‘individual freedom,’ and ’limited …</td>
 </tr>
 <tr>
-<td align="left">A democratic socialism of the future—building equitable societies while preserving biodiversity and fostering grassroots innovation. Together, we envision a world where public goods, climate justice, and cultural autonomy shape our collective destiny.</td>
+<td align="left">In the spirit of unity and a shared future, we call for a fundamental shift in the way our country approaches its challenges. We believe that the greatest threat to our nation is not the other party, but rather our own internal divisions and biases. Therefore, we propose the creation of a non-partisan cabinet system, where leaders from diverse backgrounds and regions come together to make decisions that benefit the people, not just special interests. We also pledge to invest in education, healthcare, and infrastructure, because we believe that these fundamental human rights are essential to our collective well-being. By working together and putting the people first, we can build a more just, equitable, and prosperous society for all.</td>
 <td align="left">progressive</td>
 <td align="left">progressive</td>
-<td align="left">The statement advocates for ‘democratic socialism,’ a political and economic system rooted in progressive values. Here’s a breakdown of why it aligns with that leaning:* <strong>Democratic Socialism:</strong>…</td>
+<td align="left">The text advocates for a fundamental shift in governance, emphasizing unity over partisan conflict. Key proposals include a non-partisan cabinet system, which aims to transcend traditional politica…</td>
 </tr>
 <tr>
-<td align="left">PALIRE stands for ‘Proprietas America – Guardians of Liberty &amp; Heritage’ and is a modern conservative force devoted to preserving the American tradition, defending traditional values, and ensuring prosperity through strength, faith, and free enterprise. Its policies center on sovereign autonomy for states, fiscal responsibility, cultural continuity, and a strong military.</td>
+<td align="left">Our founding fathers knew best - the Constitution is a rock-solid foundation upon which our great nation was built. We must stand strong against the forces of socialism, liberalism, and the erosion of traditional values. Our party’s guiding principle is: ‘One Nation, Under God, with Liberty and Justice for All - and for the sake of our children’s future.’</td>
 <td align="left">conservative</td>
 <td align="left">conservative</td>
-<td align="left">PALIRE (Proprietas America – Guardians of Liberty &amp; Heritage) identifies as a modern conservative movement. This is supported by their stated focus on traditional values, a strong military, fiscal …</td>
+<td align="left">The provided text strongly aligns with conservative political ideologies. Key indicators include: * <strong>Emphasis on Founding Principles:</strong> The reverence for the Constitution as a ’rock-solid foun…</td>
 </tr>
 </tbody>
 </table>
@@ -560,7 +665,7 @@
 <h2 id="pass-images-to-the-model">Pass images to the model<a class="anchor" aria-label="anchor" href="#pass-images-to-the-model"></a>
 </h2>
 <p>You can pass images and have multimodal models such as e.g. “llama3.2-vision” or (the considerably smaller) “llava-phi3” or “qwen3.5:2b” consider them in their response. Just pass the path of the relevant image to <code><a href="reference/ql_prompt.html">ql_prompt()</a></code>. For example, if we ask to describe the logo of this package, we get the following reponse:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://giocomai.github.io/quackingllama/">"quackingllama"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">img_path</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span></span>
@@ -582,9 +687,9 @@
 <span>                            pattern <span class="op">=</span> <span class="st">"\n"</span>,</span>
 <span>                            simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p>This image features a stylized, cartoonish llama wearing a yellow beak and a silver mask. The design is framed within a bright pink hexagon with a black background inside the frame. It appears to be a digital illustration or icon, possibly from a game, app, or social media profile picture. The llama’s expression is somewhat serious or concerned due to the mask, which adds a humorous or dramatic tone to the image. The overall aesthetic is playful and modern, likely intended for branding, gaming avatars, or creative projects. If you’re seeing this in a specific context (like a game lobby, app icon, or meme), it might have a particular meaning — but without more context, it’s best described as a whimsical, masked llama avatar. Let me know if you’d like help identifying where this image came from!</p>
+<p>This is a stylized, cartoonish illustration of a <strong>llama</strong> wearing a yellow beak mask and a white respirator or face shield. The image has been framed within a bright pink hexagon with a black background. It appears to be: - A digital art piece or graphic design - Possibly related to animal-themed content, humor, or even a meme (the llama’s exaggerated expression adds comedic effect) - Could represent something like “animal protection,” “respiratory health awareness,” or just playful creativity — though the mask might also imply concern for animals’ well-being The overall vibe is whimsical and modern, likely intended for social media, branding, or entertainment purposes. Let me know if you’d like help identifying it further or understanding its context!</p>
 </blockquote>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
 <span>  prompt <span class="op">=</span> <span class="st">"what is this?"</span>,</span>
 <span>  images <span class="op">=</span> <span class="va">img_path</span>,</span>
@@ -595,7 +700,7 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">resp_df</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p>The image features a close-up of an alpaca’s face, which is set against a black background. The alpaca has a yellow and gray mask on its face, with the eyes closed in what appears to be sleep or rest. The mask covers the alpaca’s mouth and nose, giving it a unique appearance. The image is framed by a pink border, adding a pop of color to the overall composition. The alpaca seems calm and at ease despite the unusual accessory.</p>
+<p>The image features a close-up of a llama’s face, which is the central focus of the image. The llama’s face is white, and it has a yellow and gray mask covering its eyes and mouth. The mask is attached to the llama’s face with a gray strap. The background of the image is black, providing a stark contrast to the llama’s face and the mask. The image is framed by a pink border, adding a pop of color to the overall composition. The llama appears to be looking straight ahead, its gaze directed towards the viewer. The mask obscures its eyes and mouth, adding an element of mystery to the image. The image does not contain any text. The relative position of the objects is such that the llama’s face is centrally located, with the mask covering its eyes and mouth, and the pink border framing the image. The black background surrounds the entire image, further emphasizing the llama and the mask.</p>
 </blockquote>
 </div>
 <div class="section level2">
@@ -604,56 +709,42 @@
 <p>In May 2025, Ollama started supporting “thinking” models (<a href="https://ollama.com/blog/thinking" class="external-link">more details in the post announcing the feature</a>). Pay attention to the fact that not all reasoning models available via Ollama actually support thinking mode; as of July 2025, only three models were effectively supported (<code>deepseek-r1</code>, <code>qwen3</code>, and <code>magistral</code>). An <a href="https://ollama.com/search?c=thinking" class="external-link">up-to-date list should be available on Ollama’s website</a>.</p>
 <p>When thinking mode is enabled, the LLM goes through an iterative “thinking” process before providing its answer. The “thinking” process is expressed in plain English and can be seen along with the response. When <code>thinking</code> is enabled, response time grows considerably, so you may want to extend the timeout options.</p>
 <p>See the following example:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">strawberry_t_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span></span>
 <span>  prompt <span class="op">=</span> <span class="st">"How many r are there in strawberry? Provide a concise answer."</span>,</span>
 <span>  model <span class="op">=</span> <span class="st">"deepseek-r1:1.5b"</span>,</span>
 <span>  think <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span>keep_alive <span class="op">=</span> <span class="st">"10m"</span>, timeout <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
 <p>Here’s the thinking:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">strawberry_t_df</span><span class="op">$</span><span class="va">thinking</span> <span class="op">|&gt;</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html" class="external-link">fixed</a></span><span class="op">(</span><span class="st">"\n"</span><span class="op">)</span>, replacement <span class="op">=</span> <span class="st">"\n &gt; "</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <blockquote>
-<p>Okay, so I need to figure out how many ’r’s are in the word “strawberry.” Hmm, let me start by writing down the word: S T R A W B E R R Y.</p>
-<p>Wait, that doesn’t seem right. Let me check again. The spelling is S-T-R-A-W-B-E-R-R-Y. So I think I missed an ‘r’ somewhere. Let me go through each letter one by one to make sure I don’t miss any.</p>
-<ol style="list-style-type: decimal">
-<li>S – nope.</li>
-<li>T – nope.</li>
-<li>R – yes, that’s the first ‘r’.</li>
-<li>A – nope.</li>
-<li>W – nope.</li>
-<li>B – nope.</li>
-<li>E – nope.</li>
-<li>R – second ‘r’.</li>
-<li>R – third ‘r’.</li>
-<li>Y – nope.</li>
-</ol>
-<p>Wait a minute, I think I might have missed an ‘R’ at the end of “berry.” Let me count again: S T R A W B E R R Y. So after B comes E, then R (that’s one), then another R (two), and finally Y. So that makes three ’r’s in total.</p>
-<p>But wait, I’m not sure if the word is spelled correctly. Maybe it’s “strawberry” without an extra ‘R’ at the end? Let me check a dictionary or something to confirm. Oh, no, it does have two more ’R’s after E and before Y. So that makes three ’r’s in total.</p>
-<p>I think I was overcomplicating it by thinking about the word “strawberry” as if it were spelled without those extra letters. But actually, it is spelled with two more ’R’s. So the answer should be three ’r’s.</p>
+<p>Okay, so I need to figure out how many ‘r’s are in the word “strawberry.” Hmm, let me start by writing out the word to make it easier. S, t, r, a, w, b, e, r, u, r, y. Wait, that’s 12 letters. Now, I need to count how many times the letter ’r’ appears in there.</p>
+<p>Let me go through each letter one by one. The first letter is S, which isn’t an ‘r.’ The second is T, also not an ‘r.’ The third is R, which is an ‘r.’ So that’s one. Then A, W, B, E—none of those are ‘r’s. Next is U, which is U, not an ’r.’ Then R again, so that’s two. Finally, Y, which isn’t an ‘r.’</p>
+<p>Wait, did I miss any? Let me check again. S, T, R, A, W, B, E, R, U, R, Y. Yeah, only two ’r’s. So the answer should be two ’r’s in “strawberry.”</p>
 </blockquote>
 <p>And here is the response:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">strawberry_t_df</span><span class="op">$</span><span class="va">response</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p>There are three ’r’s in the word “strawberry.”</p>
+<p>There are two ’r’s in the word “strawberry.”</p>
 </blockquote>
 </div>
 <div class="section level2">
 <h2 id="translate-text">Translate text<a class="anchor" aria-label="anchor" href="#translate-text"></a>
 </h2>
 <p>Google made public a model specifically tuned for translating text, <code>translategemma</code>, providing <a href="https://ollama.com/library/translategemma" class="external-link">clear instructions</a> on how the prompts should be structured. The function <code><a href="reference/ql_translate.html">ql_translate()</a></code> streamlines the process: it is enough to provide an input text, and the target language, and all the rest is managed internally. Input language can be provided; if not provided, it is auto-detected.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dracula_en_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_prompt.html">ql_prompt</a></span><span class="op">(</span>prompt <span class="op">=</span> <span class="st">"Describe Dracula in one sentence"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/ql_generate.html">ql_generate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">dracula_en_text</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p>Dracula, the iconic vampire count, is a brooding, aristocratic figure from Bram Stoker’s <em>Dracula</em> (1897), embodying eerie charm, ancient power, and a relentless pursuit of immortality through conquest and bloodsucking.</p>
+<p>Dracula, the iconic vampire lord, is a brooding, aristocratic figure from Bram Stoker’s <em>Dracula</em> (1897), embodying eerie charm, ancient power, and a relentless pursuit of immortality through conquest and seduction.</p>
 </blockquote>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="va">dracula_it_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ql_translate.html">ql_translate</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">dracula_en_text</span>,</span>
@@ -662,7 +753,7 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">dracula_it_text</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p>Dracula, il celebre conte vampiro, è una figura malinconica e aristocratica tratta da <em>Dracula</em> di Bram Stoker (1897), che incarna un fascino inquietante, un potere antico e una ricerca implacabile dell’immortalità attraverso la conquista e l’assunzione di sangue.</p>
+<p>Dracula, il celebre signore vampiro, è una figura malinconica e aristocratica tratta da <em>Dracula</em> di Bram Stoker (1897), che incarna un fascino inquietante, un potere antico e una ricerca implacabile dell’immortalità attraverso la conquista e la seduzione.</p>
 </blockquote>
 </div>
 <div class="section level2">
@@ -674,12 +765,12 @@
 </h3>
 <p>If you look at the model page of one of the models available from Ollama’s website, you may well notice that some of these come with very large context windows. For example, <a href="https://ollama.com/library/gemma3" class="external-link"><code>gemma3</code></a> boasts a “128K context window”, big enough to include book-length inputs. You may well expect that, by default, this context window is fully available to you. You would, however, be mistaken: no matter the model’s capabilities, Ollama truncates the input at 2048 tokens: as a user, you would notice it only if you looked at the <code>ollama serve</code> logs, or because you notice unsatisfying results, as truncation happens in a way that is mostly invisible to the client. This is a known issue with Ollama, and until this is approached more sensibly by Ollama, the user should take core of this limitation themselves (<code>quackingllama</code> will likely include a dedicated warning in future versions). The easiest workaround is to re-create a new model with a larger context window: it’s a matter of a few seconds, following the <a href="https://github.com/ollama/ollama/issues/8099#issuecomment-2543316682" class="external-link">instructions reported in the relevant issue on Ollama</a>.</p>
 <p>Basically, from the command line you do something like this:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="sc">$</span> ollama run gemma3</span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>set parameter num_ctx <span class="dv">65536</span></span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>Set parameter <span class="st">'num_ctx'</span> to <span class="st">'65536'</span></span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>save gemma3<span class="dv">-64</span>k</span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>Created new model <span class="st">'gemma3-64k'</span></span>
-<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>bye</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="sc">$</span> ollama run gemma3</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>set parameter num_ctx <span class="dv">65536</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>Set parameter <span class="st">'num_ctx'</span> to <span class="st">'65536'</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>save gemma3<span class="dv">-64</span>k</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>Created new model <span class="st">'gemma3-64k'</span></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;&gt;</span> <span class="er">/</span>bye</span></code></pre></div>
 <p>And in a matter of seconds you will get a <code>gemma3</code> model with a 64k context window, which you’ll be able to use by choosing <code>gemma3-64k</code> as model.</p>
 </div>
 <div class="section level3">
@@ -741,7 +832,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
