@@ -2,7 +2,7 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-08-21T16:48Z
+last_built: 2026-09-20T20:45Z
 urls:
   reference: https://giocomai.github.io/quackingllama/reference
   article: https://giocomai.github.io/quackingllama/articles

@@ -38,7 +38,7 @@ schema_l <- ql_create_schema_enum(
     "Is this story about a woman",
     "Does this story have a happy ending"
   ),
-  answers = c("Yes", "No", "Maybe", "Cannot answer")
+  answers = c("Yes", "No", "Unclear")
 )
 
 
@@ -52,7 +52,7 @@ schema_l
 #> [1] "string"
 #> 
 #> $properties$`Does this story include humans`$enum
-#> [1] "Yes"           "No"            "Maybe"         "Cannot answer"
+#> [1] "Yes"     "No"      "Unclear"
 #> 
 #> 
 #> $properties$`Does this story include animals`
@@ -60,7 +60,7 @@ schema_l
 #> [1] "string"
 #> 
 #> $properties$`Does this story include animals`$enum
-#> [1] "Yes"           "No"            "Maybe"         "Cannot answer"
+#> [1] "Yes"     "No"      "Unclear"
 #> 
 #> 
 #> $properties$`Is this story about a woman`
@@ -68,7 +68,7 @@ schema_l
 #> [1] "string"
 #> 
 #> $properties$`Is this story about a woman`$enum
-#> [1] "Yes"           "No"            "Maybe"         "Cannot answer"
+#> [1] "Yes"     "No"      "Unclear"
 #> 
 #> 
 #> $properties$`Does this story have a happy ending`
@@ -76,7 +76,7 @@ schema_l
 #> [1] "string"
 #> 
 #> $properties$`Does this story have a happy ending`$enum
-#> [1] "Yes"           "No"            "Maybe"         "Cannot answer"
+#> [1] "Yes"     "No"      "Unclear"
 #> 
 #> 
 #> 
