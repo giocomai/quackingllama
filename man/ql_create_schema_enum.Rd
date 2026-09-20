@@ -7,9 +7,11 @@
 ql_create_schema_enum(questions, answers)
 }
 \arguments{
-\item{questions}{A character vector, of length 1 or more, with questions to be asked, usually about a text given as prompt.}
+\item{questions}{A character vector, of length 1 or more, with questions to
+be asked, usually about a text given as prompt.}
 
-\item{answers}{A character vector: the response to each question should be one selected among the given options.}
+\item{answers}{A character vector: the response to each question should be
+one selected among the given options.}
 }
 \value{
 A list object, that can be passed to the \code{format} argument of \link{ql_prompt}
@@ -28,7 +30,7 @@ schema_l <- ql_create_schema_enum(
     "Is this story about a woman",
     "Does this story have a happy ending"
   ),
-  answers = c("Yes", "No", "Maybe", "Cannot answer")
+  answers = c("Yes", "No", "Unclear")
 )
 
 

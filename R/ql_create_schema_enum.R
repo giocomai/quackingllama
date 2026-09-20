@@ -1,7 +1,9 @@
 #' Create a schema with one or more questions, and a single set of answers
 #'
-#' @param questions A character vector, of length 1 or more, with questions to be asked, usually about a text given as prompt.
-#' @param answers A character vector: the response to each question should be one selected among the given options.
+#' @param questions A character vector, of length 1 or more, with questions to
+#'   be asked, usually about a text given as prompt.
+#' @param answers A character vector: the response to each question should be
+#'   one selected among the given options.
 #'
 #' @returns A list object, that can be passed to the `format` argument of [ql_prompt]
 #' @export
@@ -17,7 +19,7 @@
 #'     "Is this story about a woman",
 #'     "Does this story have a happy ending"
 #'   ),
-#'   answers = c("Yes", "No", "Maybe", "Cannot answer")
+#'   answers = c("Yes", "No", "Unclear")
 #' )
 #'
 #'
