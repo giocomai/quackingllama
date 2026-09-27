@@ -249,6 +249,37 @@ ql_generate <- function(
 
       if (db_options_l[["db"]]) {
         if (table_exists) {
+          ## Check if new column names have appeared, e.g. due to Ollama update
+          ## and add a column of the proper type in the table
+          # previous_colnames_v <- DBI::dbListFields(
+          #   conn = con,
+          #   name = "generate"
+          # )
+          previous_colnames_v <- colnames(cached_df)
+          new_colnames_v <- colnames(output_df)
+
+          missing_colnames_v <- new_colnames_v[
+            new_colnames_v %notin% previous_colnames_v
+          ]
+
+          if (length(missing_colnames_v) > 0) {
+            purrr::walk(
+              .x = missing_colnames_v,
+              .f = \(current_missing_colname) {
+                sql_data_type <- DBI::dbDataType(
+                  con,
+                  output_df[[current_missing_colname]]
+                )
+                query <- glue::glue_sql(
+                  "ALTER TABLE generate ADD COLUMN {`current_missing_colname`} {DBI::SQL(sql_data_type)};",
+                  .con = con
+                )
+
+                DBI::dbExecute(con, query)
+              }
+            )
+          }
+
           duckdb::dbAppendTable(
             conn = con,
             name = "generate",
