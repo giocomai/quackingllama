@@ -251,11 +251,12 @@ ql_generate <- function(
         if (table_exists) {
           ## Check if new column names have appeared, e.g. due to Ollama update
           ## and add a column of the proper type in the table
-          # previous_colnames_v <- DBI::dbListFields(
-          #   conn = con,
-          #   name = "generate"
-          # )
-          previous_colnames_v <- colnames(cached_df)
+          previous_colnames_v <- DBI::dbListFields(
+            conn = con,
+            name = "generate"
+          )
+
+          #previous_colnames_v <- colnames(cached_df)
           new_colnames_v <- colnames(output_df)
 
           missing_colnames_v <- new_colnames_v[
